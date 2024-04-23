@@ -2,6 +2,7 @@ name: Node.js Package
  
 # 触发工作流程的事件
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
