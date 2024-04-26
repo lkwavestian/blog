@@ -5,7 +5,7 @@ layoutClass: 'm-home-layout'
 hero:
   name: 千浔物语
   text: Qian Xun 的成长之路
-  tagline: Keep Reading, Keep Writing, Keep Coding
+  tagline: Keep Learning, Keep Writing, Keep Going
   image:
     src: /logo.png
     alt: 千浔物语
