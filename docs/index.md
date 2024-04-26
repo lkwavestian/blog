@@ -15,8 +15,6 @@ hero:
     - text: 前端导航
       link: /nav/
       theme: alt
-    - text: mmPlayer
-      link: https://netease-music.fe-mm.com
 features:
   - icon: 📖
     title: 前端物语

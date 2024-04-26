@@ -87,12 +87,6 @@ export const NAV_DATA: NavData[] = [
         desc: '为键盘工作者设计的单词记忆与英语肌肉记忆锻炼软件',
         link: 'https://qwerty.fe-mm.com',
       },
-      {
-        icon: '/logo.png',
-        title: 'mmPlayer',
-        desc: 'mmPlayer 在线音乐播放器',
-        link: 'https://netease-music.fe-mm.com',
-      },
     ],
   },
   {
