@@ -17,15 +17,16 @@
     max-width: 224px;
   }
 
-  /* custom-block */
-  .custom-block {
+  .content .copyright {
+    display: none;
+  }
+
+  /* tip */
+  .tip {
     .custom-block-title {
-      font-size: var(--vp-custom-block-font-size);
+      display: none;
     }
-    ul {
-      margin: 8px 0;
-    }
-    li {
+    p {
       margin: 0;
     }
   }

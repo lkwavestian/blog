@@ -1,9 +1,4 @@
-import type { NavLink } from '../.vitepress/theme/types'
-
-type NavData = {
-  title: string
-  items: NavLink[]
-}
+import type { NavData } from '../.vitepress/theme/types'
 
 export const NAV_DATA: NavData[] = [
   {
@@ -67,7 +62,7 @@ export const NAV_DATA: NavData[] = [
     ],
   },
   {
-    title: '千浔的站点导航',
+    title: '茂茂的站点导航',
     items: [
       {
         icon: '/logo.png',
@@ -86,6 +81,12 @@ export const NAV_DATA: NavData[] = [
         title: 'Qwerty Learner',
         desc: '为键盘工作者设计的单词记忆与英语肌肉记忆锻炼软件',
         link: 'https://qwerty.fe-mm.com',
+      },
+      {
+        icon: '/logo.png',
+        title: 'mmPlayer',
+        desc: 'mmPlayer 在线音乐播放器',
+        link: 'https://netease-music.fe-mm.com',
       },
     ],
   },
