@@ -38,7 +38,7 @@ export default defineConfig({
       label: '目录',
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/maomao1996/vitepress-nav-template' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/lkwavestian/blog' }],
 
     footer: {
       message: '如有转载或 CV 的请标注本站原文地址',
@@ -66,11 +66,11 @@ export default defineConfig({
 
     /*** 自定义配置 ***/
     visitor: {
-      badgeId: 'maomao1996.vitepress-nav-template',
+      badgeId: 'lkwavestian.blog',
     },
 
     comment: {
-      repo: 'maomao1996/vitepress-nav-template',
+      repo: 'lkwavestian/blog',
       repoId: 'R_kgDOJC09Jg',
       category: 'Announcements',
       categoryId: 'DIC_kwDOJC09Js4Cekn0',
