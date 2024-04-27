@@ -4,6 +4,7 @@ import DefaultTheme from 'vitepress/theme'
 
 import { createMediumZoomProvider } from './composables/useMediumZoom'
 
+import MLayout from './components/MLayout.vue'
 import MNavVisitor from './components/MNavVisitor.vue'
 import MDocFooter from './components/MDocFooter.vue'
 import MAsideSponsors from './components/MAsideSponsors.vue'
@@ -47,7 +48,7 @@ export default {
       props.class = frontmatter.value.layoutClass
     }
 
-    return h(DefaultTheme.Layout, props, {
+    return h(MLayout, props, {
       /**
        * 相关插槽
        * https://vitepress.dev/guide/extending-default-theme#layout-slots
