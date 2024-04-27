@@ -20,7 +20,9 @@
     "build": "vitepress build docs",
     "build:github": "cross-env APP_BASE_PATH=/mm-notes/ npm run build",
     "lint": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "gh-pages -d dist",
+    "publish": "npm run build && npm run deploy"
   },
   "devDependencies": {
     "@femm/prettier": "^1.0.1",
@@ -42,5 +44,8 @@
       "prettier --write"
     ]
   },
-  "prettier": "@femm/prettier"
+  "prettier": "@femm/prettier",
+  "dependencies": {
+    "gh-pages": "^6.1.1"
+  }
 }

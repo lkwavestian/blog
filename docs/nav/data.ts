@@ -76,18 +76,18 @@ export const NAV_DATA: NavData[] = [
         desc: '用思维导图的方式总结个人所学知识',
         link: 'https://mindmap.fe-mm.com',
       },
-      {
-        icon: 'https://qwerty.fe-mm.com/apple-touch-icon.png',
-        title: 'Qwerty Learner',
-        desc: '为键盘工作者设计的单词记忆与英语肌肉记忆锻炼软件',
-        link: 'https://qwerty.fe-mm.com',
-      },
-      {
-        icon: '/logo.png',
-        title: 'mmPlayer',
-        desc: 'mmPlayer 在线音乐播放器',
-        link: 'https://netease-music.fe-mm.com',
-      },
+      //   {
+      //     icon: 'https://qwerty.fe-mm.com/apple-touch-icon.png',
+      //     title: 'Qwerty Learner',
+      //     desc: '为键盘工作者设计的单词记忆与英语肌肉记忆锻炼软件',
+      //     link: 'https://qwerty.fe-mm.com',
+      //   },
+      //   {
+      //     icon: '/logo.png',
+      //     title: 'mmPlayer',
+      //     desc: 'mmPlayer 在线音乐播放器',
+      //     link: 'https://netease-music.fe-mm.com',
+      //   },
     ],
   },
   {
