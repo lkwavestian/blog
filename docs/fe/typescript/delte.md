@@ -147,6 +147,7 @@ enum Color {
   Green = 2,
   Blue = 4,
 }
+
 const c: Color = Color.Green
 ```
 

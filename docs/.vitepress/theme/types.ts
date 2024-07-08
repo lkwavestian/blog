@@ -12,7 +12,7 @@ export interface NavLink {
   /** 站点名称 */
   desc?: string
   /** 站点链接 */
-  link: string
+  link?: string
 }
 
 export interface NavData {

@@ -71,7 +71,7 @@ export const nav: DefaultTheme.Config['nav'] = [
     activeMatch: '^/efficiency',
   },
   {
-    text: '茂茂',
+    text: '千浔',
     items: [
       { text: '个人主页', link: 'https://fe-mm.com' },
       {
