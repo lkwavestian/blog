@@ -59,6 +59,11 @@ export const NAV_DATA: NavData[] = [
         title: 'Beautiful.ai（PPT）',
         link: 'https://www.beautiful.ai',
       },
+      {
+        icon: 'https://www.deepseek.com/favicon.ico',
+        title: 'Deep Seek AI （深度思考）',
+        link: 'https://chat.deepseek.com/',
+      },
     ],
   },
   {
@@ -294,6 +299,24 @@ export const NAV_DATA: NavData[] = [
         desc: '增强型跨端小程序框架',
         link: 'https://mpxjs.cn',
       },
+      {
+        icon: 'https://v1.uviewui.com/common/logo.png',
+        title: 'uView',
+        desc: '多平台快速开发的UI框架',
+        link: 'https://v1.uviewui.com/',
+      },
+      {
+        icon: 'https://www.uvui.cn/common/logo.png',
+        title: 'uv-ui',
+        desc: '多平台快速开发的UI框架',
+        link: 'https://www.uvui.cn',
+      },
+      {
+        icon: 'https://doc.firstui.cn/img/img_logo.png',
+        title: 'FirstUI',
+        desc: '基于uni-app开发的一款轻量、全面可靠的跨平台移动端组件库',
+        link: 'https://doc.firstui.cn/docs/introduce.html',
+      },
     ],
   },
   {
@@ -492,6 +515,12 @@ export const NAV_DATA: NavData[] = [
         title: 'ES6 入门教程',
         desc: '阮一峰的网络日志',
         link: 'http://es6.ruanyifeng.com',
+      },
+      {
+        icon: 'https://chengpeiquan.com/favicon.ico',
+        title: 'Vue3 入门指南',
+        desc: 'Vue3 入门指南与实践案例',
+        link: 'https://vue3.chengpeiquan.com/',
       },
     ],
   },
