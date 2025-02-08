@@ -37,7 +37,7 @@ export const NAV_DATA: NavData[] = [
     ],
   },
   {
-    title: 'AI 导航',
+    title: 'AI 导航2',
     items: [
       {
         icon: '/icons/chatgpt.png',
