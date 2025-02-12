@@ -74,4 +74,14 @@ export default defineConfig({
     sitemap.end()
     await new Promise((r) => writeStream.on('finish', r))
   },
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler', // or 'modern'
+        },
+      },
+    },
+  },
 })
