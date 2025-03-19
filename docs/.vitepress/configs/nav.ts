@@ -8,6 +8,12 @@ export const nav: DefaultTheme.Config['nav'] = [
       { text: 'JavaScript 基础知识', link: '/fe/javascript/types' },
       { text: 'ES6 常用知识', link: '/fe/es6/' },
       { text: 'TypeScript 基础知识', link: '/fe/typescript/base' },
+      { text: 'Vue 相关知识', link: '/fe/vue/base' },
+      { text: 'React 相关知识', link: '/fe/react/base' },
+      {
+        text: 'Uniapp 相关知识',
+        link: '/fe/uniapp/base',
+      },
       { text: '浏览器相关知识', link: '/fe/browser/' },
     ],
     activeMatch: '^/fe',
