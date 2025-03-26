@@ -12,7 +12,7 @@ export const nav: DefaultTheme.Config['nav'] = [
       { text: 'React 相关知识', link: '/fe/react/base' },
       {
         text: 'Uniapp 相关知识',
-        link: '/fe/uniapp/base',
+        link: '/fe/uniapp/',
       },
       { text: '浏览器相关知识', link: '/fe/browser/' },
     ],

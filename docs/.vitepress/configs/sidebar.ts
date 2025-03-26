@@ -3,6 +3,14 @@ import type { DefaultTheme } from 'vitepress'
 export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/fe/': [
     {
+      text: 'HTML / CSS',
+      collapsed: false,
+      items: [
+        { text: 'HTML 理论知识点', link: '/fe/html/' },
+        { text: 'CSS 理论知识点', link: '/fe/css/' },
+      ],
+    },
+    {
       text: 'JavaScript 基础知识',
       collapsed: false,
       items: [
@@ -29,14 +37,12 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
         { text: '类型体操', link: '/fe/typescript/challenges' },
       ],
     },
+
     {
-      text: 'HTML / CSS',
-      collapsed: false,
-      items: [
-        { text: 'HTML 理论知识点', link: '/fe/html/' },
-        { text: 'CSS 理论知识点', link: '/fe/css/' },
-      ],
+      text: 'Uniapp 相关知识',
+      link: '/fe/uniapp/',
     },
+
     {
       text: '浏览器与网络',
       collapsed: false,
