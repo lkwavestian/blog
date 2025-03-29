@@ -38,4 +38,17 @@
 }
 ```
 
-[MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-scrollbar)
+[关于::-webkit-scrollbar](https://developer.mozilla.org/zh-CN/docs/Web/CSS/::-webkit-scrollbar)
+
+## 超宽文本替换为省略号
+
+```css
+.text {
+  /* 超出部分隐藏 */
+  overflow: hidden;
+  /* 文本超出一行时，显示省略号 */
+  text-overflow: ellipsis;
+  /* 禁止换行 */
+  white-space: nowrap;
+}
+```
