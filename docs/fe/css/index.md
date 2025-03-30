@@ -438,6 +438,200 @@
 }
 ```
 
+## 弹性布局：`Flex`
+
+### `Flex`基本概念
+
+![import](./images/flex-basic.png)
+
+在 `flex` 容器中默认存在两条轴，水平主轴(`main axis`) 和垂直的交叉轴(`cross axis`)。水平方向是默认的主轴，当然也可以通过修改使垂直方向变为主轴，水平方向变为交叉轴。<br/>
+在容器中的每个单元块被称之为 `flex item`，每个项目占据的主轴空间为 (`main size`), 占据的交叉轴的空间为 (`cross size`)。
+
+### `Flex`容器
+
+首先，实现 `flex` 布局需要先指定一个容器，任何一个容器都可以被指定为 `flex` 布局，这样容器内部的元素就可以使用 `flex`来进行布局。
+
+```css
+.container {
+  display: flex | inline-flex; //可以有两种取值
+}
+```
+
+上面的代码分别生成一个块状或行内的 `flex` 容器盒子。简单说来，如果你使用块元素如 `div`，你就可以使用 `flex`，而如果你使用行内元素如`span`，你可以使用 `inline-flex`。<br/>
+需要注意的是：当时设置 `flex` 布局之后，子元素的 `float`、`clear`、`vertical-align` 的属性将会失效。
+只有下面六种属性可以设置在容器上，它们分别是：
+
+1. `flex-direction`：决定主轴的方向(即项目的排列方向)
+
+```html
+<style>
+  .container {
+    flex-direction: row | row-reverse | column | column-reverse;
+  }
+</style>
+<body>
+  <div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+  </div>
+</body>
+```
+
+`row`：默认值，主轴为水平方向，起点在左端。
+
+![import](./images/row.png)
+
+`row-reverse`：主轴为水平方向，起点在右端
+
+![import](./images/row-reverse.png)
+
+`column`：主轴为垂直方向，起点在上
+
+![import](./images/column.png)
+
+`column-reverse`：主轴为垂直方向，起点在下
+
+![import](./images/column-reverse.png)
+
+2. `flex-wrap`：决定容器内项目是否可换行
+
+```html
+<style>
+  .container {
+    flex-wrap: nowrap | wrap | wrap-reverse;
+  }
+</style>
+<body>
+  <div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+  </div>
+</body>
+```
+
+`nowrap`：默认值，表示不换行，即当主轴尺寸固定时，空间不足时，项目尺寸会随之调整,所有的项目会在同一行并不会挤到下一行
+
+![import](./images/noWrap.png)
+
+`wrap`：换行，项目主轴总尺寸超出容器时会换行，第一行在上方
+
+![import](./images/wrap.png)
+
+`wrap-reverse`：换行，第一行在下方
+
+![import](./images/wrap-reverse.png)
+
+`column-reverse`：主轴为垂直方向，起点在下
+
+![import](./images/column-reverse.png)
+
+::: tip `flex-direction` 和 `flex-wrap` 的简写属性：`flex-flow`
+
+```css
+.container {
+  flex-flow: <flex-direction> || <flex-wrap>;
+}
+```
+
+默认值为: `row` `nowrap`，感觉没什么卵用，老老实实分开写就好了。~~这样就不用记住这个属性了~~。
+
+:::
+
+3. `justify-content`：决定主轴的方向(即项目的排列方向)
+
+```html
+<style>
+  .container {
+    justify-content: flex-start | flex-end | center | space-between | space-around;
+  }
+</style>
+<body>
+  <div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+  </div>
+</body>
+```
+
+`flex-start`：默认值，左对齐。
+
+![import](./images/flex-start.png)
+
+`flex-end`：右对齐。
+
+![import](./images/flex-end.png)
+
+`center`：居中
+
+![import](./images/center.png)
+
+`space-between`：两端对齐，项目之间的间隔相等，即剩余空间等分成间隙
+
+![import](./images/space-between.png)
+
+`space-around`：每个项目两侧的间隔相等，所以项目之间的间隔比项目与边缘的间隔大一倍
+
+![import](./images/space-around.png)
+
+4. `align-items`：定义了项目在交叉轴上的对齐方式
+
+```html
+<style>
+  .container {
+    flex-direction: row;
+    align-items: flex-start | flex-end | center | baseline | stretch;
+  }
+</style>
+<body>
+  <div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+  </div>
+</body>
+```
+
+> 注意：以下测试是在水平方向为主轴的前提下测试的，即 flex-direction: row
+
+`stretch`：默认值，即如果项目未设置高度或者设为 auto，将占满整个容器的高度。
+
+![import](./images/stretch.png)
+
+假设容器高度设置为 `100px`，在所有项目都没有设置高度的情况下，项目的高度也为 `100px`。
+
+`flex-start`：交叉轴的起点对齐。
+
+假设容器高度设置为 100px，而项目分别为 20px, 40px, 60px, 80px, 100px, 则如下图显示。
+
+![import](./images/items-start.png)
+
+`flex-end`：交叉轴的终点对齐
+
+![import](./images/items-end.png)
+
+`center`：交叉轴的中点对齐
+
+![import](./images/items-center.png)
+
+`baseline`：项目的第一行文字的基线对齐,以文字的底部为主，仔细看图可以理解
+
+![import](./images/items-baseLine.png)
+
+1. flex-wrap
+2. flex-flow
+3. justify-content
+4. align-items
+5. align-content
+
 ## `flex: 1` 代表什么？
 
 [`flex`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex) 是一个 `CSS` 简写属性，用于设置 `Flex` 项目如何增大或缩小以适应其 `Flex` 容器中可用的空间
