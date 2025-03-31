@@ -145,6 +145,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
         { text: 'npm 踩坑记录', link: '/pit/npm' },
         { text: 'PC 踩坑记录', link: '/pit/pc' },
         { text: 'H5 踩坑记录', link: '/pit/h5' },
+        { text: 'Javascript 踩坑记录', link: '/pit/javascript' },
         { text: 'Uniapp 踩坑记录', link: '/pit/uniapp' },
       ],
     },
