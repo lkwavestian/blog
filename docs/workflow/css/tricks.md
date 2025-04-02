@@ -76,3 +76,21 @@ html {
 
 [一段 css 让全站变灰](https://juejin.cn/post/6844904114053185544)
 [filter - CSS —— MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)
+
+## Margin-left:auto 快速实现右对齐
+
+当元素本身宽度固定时，设置 `margin-left:auto` 就可以实现右对齐。
+
+![alt text](./images/understandMargin.png)
+
+如果在`Flex`项目上使用了`auto margin`，那么它的优先级会高于其他地方的对齐属性设置，相当于在其他地方的设置无效了
+
+![alt text](./images/autoMarginVsFlexbox.png)
+
+原因是：如果剩余空间分配给了 `auto margin`，那么对齐属性在那个维度上的设置就会无效， 因为在`flex`项目分配空间位置之前， `margin` 已经用完了所有的剩余空间
+
+[[译]Flexbox：使用 Auto Margin 对齐](https://juejin.cn/post/6844904017357717517)
+
+[探秘 flex 上下文中神奇的自动 margin](https://github.com/chokcoco/iCSS/issues/64)
+
+[深入探讨 JavaScript 实现标签右对齐的多种技巧与实践](https://my.oschina.net/emacs_8659500/blog/16907852)
