@@ -36,6 +36,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
     "medium-zoom": "^1.0.8",
+    "pnpm": "^8.0.0",
     "postcss": "^8.4.33",
     "prettier": "^2.8.8",
     "sass": "^1.69.4",
@@ -52,7 +53,6 @@
   },
   "prettier": "@femm/prettier",
   "dependencies": {
-    "gh-pages": "^6.1.1",
-    "pnpm": "^8.0.0"
+    "gh-pages": "^6.1.1"
   }
 }
