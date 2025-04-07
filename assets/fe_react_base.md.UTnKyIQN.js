@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./chunks/framework.DpOJKwZ2.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"fe/react/base.md","filePath":"fe/react/base.md","lastUpdated":1742354050000}'),r={name:"fe/react/base.md"};function s(c,o,n,d,p,f){return a(),t("div")}const m=e(r,[["render",s]]);export{i as __pageData,m as default};
