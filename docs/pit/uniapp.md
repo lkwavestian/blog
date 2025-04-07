@@ -56,4 +56,3 @@ url: `${envConfig.APP_SERVER_URL}/${backend.baseService}/api/ocrResource/s/ocrRe
 2. 不要过度相信报错信息，要确保自己代码的逻辑、变量的正确性。
 
 测试
-22
