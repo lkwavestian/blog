@@ -54,3 +54,5 @@ url: `${envConfig.APP_SERVER_URL}/${backend.baseService}/api/ocrResource/s/ocrRe
 
 1. 如果有`fail`函数相关的错误处理函数，一定要处理，不要忽略，不然报错了也无法知道问题所在。
 2. 不要过度相信报错信息，要确保自己代码的逻辑、变量的正确性。
+
+测试
