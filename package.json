@@ -1,5 +1,5 @@
 {
-  "name": "mm-notes",
+  "name": "blog",
   "type": "module",
   "private": true,
   "version": "1.0.0",
@@ -20,7 +20,7 @@
     "build": "vitepress build docs",
     "build:github": "cross-env APP_BASE_PATH=/blog/ npm run build",
     "lint": "prettier --write .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "deploy": "gh-pages -d dist",
     "publish": "npm run build && npm run deploy"
   },
