@@ -20,6 +20,17 @@
 - **`symbol`** 独一无二的值 ([ES6 引入](https://es6.ruanyifeng.com/#docs/symbol))
 - **`bigint`** 大整数 ([ES2020 引入](https://es6.ruanyifeng.com/#docs/number#BigInt-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B))
 
+**基本类型的赋值操作：**
+
+```js
+let a = 10
+let b = a // 赋值操作
+b = 20
+console.log(a) // 10值
+```
+
+`a` 的值是一个基本类型，是存储在栈中，将 `a` 的值赋给 `b`，虽然两个变量的值相等，但其实在复制的过程中，新开辟了一个内存空间，两个变量分别保存了两个不同的内存地址，所以赋值操作不会影响原变量的值
+
 ::: tip 基本类型总结
 
 - 基本类型仅保存原始值，不存在属性和方法
@@ -29,13 +40,14 @@
 
 :::
 
-::: tip 为什么原始值不存在属性和方法，但 'hello world'.toString() 可以正确执行
-为了方便操作原始值 `ECMAScript` 提供了 3 种特殊的引用类型：`Boolean` `Number` `String`，每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，在执行完后再销毁这个包装对象
+::: tip 为什么原始值不存在属性和方法，但 `hello world.toString()` 可以正确执行？
+在 `JavaScript` 中，原始值（如字符串、数字、布尔值）本身确实没有属性和方法，但通过**临时包装对象**机制可以调用方法。
+具体的原理：每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，在执行完后再销毁这个包装对象
 :::
 
 ```js
 // 举个 🌰
-const str = 'hello world'
+let str = 'hello world'
 str.toString()
 str.length
 
@@ -45,10 +57,17 @@ str.length
  * 2. 调用实例上的特定方法或属性
  * 3. 销毁刚刚创建的实例
  */
-const str = 'hello world'
-new String(str).toString()
-new String(str).length
+// 原始值 'hello world' 被临时转换为 String 对象
+const temp = new String('hello world')
+temp.toString() // 调用方法
+temp.length // 属性
+temp = null // 立即销毁
 ```
+
+::: tip 为什么`hello world'.toString()`会有效？
+通过`new String()`方法创造出来的实例查找方法时，会先去寻找本身的属性和方法，如果找不到就去原型对象中找，如果还找不到就去原型对象的原型对象中找，依次类推，直到找到为止。
+在此例中，相当于`temp._proto_ === String.prototype`，具体可以看[原型与原型链相关](https://github.com/chenqf/frontEndBlog/issues/10)
+:::
 
 ## 引用类型
 
@@ -64,9 +83,22 @@ new String(str).length
 - **`Map`** 类似于对象也是键值对的集合 ([ES6 引入](https://es6.ruanyifeng.com/#docs/set-map#Map))
 - **`WeakMap`** ([ES6 引入](https://es6.ruanyifeng.com/#docs/set-map#WeakMap))
 
+**引用类型的赋值操作：**
+
+```js
+var obj1 = {}
+var obj2 = obj1
+obj2.name = 'Xxx'
+console.log(obj1.name) // xxx
+```
+
+引用类型数据存放在堆中，每个堆内存对象都有对应的引用地址指向它，引用地址存放在栈中。
+
+`obj1` 是一个引用类型，在赋值操作过程中，实际是将堆内存对象在栈内存的引用地址复制了一份给了 `obj2`，实际上他们共同指向了同一个堆内存对象，所以更改 `obj2` 会对 `obj1` 产生影响
+
 ::: tip 引用类型总结
 
-- 因为 `JavaScript` 不允许直接访问内存位置(不能直接操作对象所在的内存空间)，所以引用类型在 **栈内存** 中存储的是地址(内存指针)，而引用类型中的数据(方法或属性)是存储在 **堆内存** 中
+- 因为 `JavaScript` 不允许直接访问内存位置(不能直接操作对象所在的内存空间)，所以引用类型在 **栈内存** 中存储的是地址(内存指针)，而引用类型中的数据(方法或属性)则是存储在 **堆内存** 中
 - 保存引用类型的变量是 **按引用 (by reference) 访问** ，实际上操作的是对该对象的引用而非实际的对象本身
 - 复制引用类型时只会复制内存指针
 
@@ -112,7 +144,7 @@ new String(str).length
 
 [`instanceof`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof) 用于检测构造函数的 `prototype` 属性是否存在于实例对象的原型链上
 
-<<< @/fe/javascript/code/instanceof.js
+<<< @/fe/javascript/code/instanceof.js#type
 
 ::: tip instanceof 总结
 
@@ -123,6 +155,14 @@ new String(str).length
     - 借助于非标准的 `__proto__` 伪属性
 
 :::
+
+**`instanceof`**的实现原理
+
+关于`instanceof`的实现原理，可以参考下面的代码
+
+<<< @/fe/javascript/code/instanceof.js#implement
+
+原理还是挺简单的：照着原型链去找，直到找到相同的原型对象，返回`true`，否则返回`false`
 
 ### constructor
 
@@ -146,7 +186,7 @@ new String(str).length
 ### Object.prototype.toString
 
 - 每个对象都有一个 [`toString()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString) 方法，当该对象被表示为一个文本值时，或者一个对象以预期的字符串方式引用时自动调用，默认情况下 `toString()` 方法被每个 `Object` 对象继承。如果此方法在自定义对象中未被覆盖 `toString()` 返回 `"[object type]"` 其中 `type` 是对象的类型
-- 为了每个对象都能通过 `Object.prototype.toString()` 来检测，需要以 `Function.prototype.call()` 或者 `Function.prototype.apply()` 的形式来调用
+- 为了使每个对象都能通过 `Object.prototype.toString()` 来检测，需要以 `Function.prototype.call()` 或者 `Function.prototype.apply()` 的形式来调用
 
 <<< @/fe/javascript/code/toString.js
 

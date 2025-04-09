@@ -3,7 +3,7 @@ const toString = Object.prototype.toString
 toString.call(undefined) // '[object Undefined]'
 toString.call(null) // '[object Null]'
 toString.call(true) // '[object Boolean]'
-toString.call('maomao') // '[object String]'
+toString.call('qianxun') // '[object String]'
 toString.call(2021) // '[object Number]'
 toString.call(Symbol()) // '[object Symbol]'
 toString.call(BigInt(2021)) // '[object BigInt]'

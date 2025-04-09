@@ -1,6 +1,6 @@
 /** 基本类型 */
 true.constructor === Boolean // true
-;('maomao'.constructor ===
+;('qianxun'.constructor ===
   String(
     // true
     2021,
@@ -25,6 +25,6 @@ function Person(name) {
 }
 Person.prototype.constructor === Person // true
 
-// 修改原型造成 constructor 丢失
+// 修改原型会造成 constructor 丢失
 Person.prototype = {}
 Person.prototype.constructor === Object // true
