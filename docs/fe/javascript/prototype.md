@@ -13,8 +13,8 @@ function Person(name) {
 }
 
 // 对象实例
-const person1 = new Person('maomao')
-console.log(person1) // Person {name: 'maomao'}
+const person1 = new Person('qianxun')
+console.log(person1) // Person {name: 'qianxun'}
 ```
 
 ::: tip 构造函数的特征
@@ -29,7 +29,7 @@ console.log(person1) // Person {name: 'maomao'}
 
 ## `prototype`
 
-在 `JavaScript` 中，每个函数都有一个原型属性 `prototype`，其指向**调用该构造函数而创建的实例的原型**（原型可以是 `null` 或其他对象）
+在 `JavaScript` 中，每个构造函数都有一个原型属性 `prototype`，其指向**调用该构造函数而创建的实例的原型**（原型可以是 `null` 或其他对象）
 
 ![prototype](./images/prototype/prototype.png)
 
@@ -38,14 +38,14 @@ console.log(person1) // Person {name: 'maomao'}
 ```js
 function Person() {}
 
-Person.prototype.name = 'maomao'
+Person.prototype.name = 'qianxun'
 
 // 对象实例 person1
 const person1 = new Person()
 // 对象实例 person2
 const person2 = new Person()
 
-console.log(person1.name, person2.name) // 'maomao' 'maomao'
+console.log(person1.name, person2.name) // 'qianxun' 'qianxun'
 ```
 
 ## `constructor`
@@ -67,7 +67,7 @@ Person.prototype.constructor === Person // true
 
 ::: warning `__proto__` 注意点
 
-`__proto__` 用来读取或设置当前对象的原型对象，其本质上是一个内部属性，不是一个正式的对外的 `API`，只是由于浏览器广泛支持，才被加入了 `ES6` 以确保 `Web` 浏览器的兼容性，同时该属性已不推荐使用，在实际开发中更推荐使用 ES6 提供的 `JavaScript`
+`__proto__` 用来读取或设置当前对象的原型对象，其本质上是一个内部属性，不是一个正式的对外的 `API`，只是由于浏览器广泛支持，才被加入了 `ES6` 以确保 `Web` 浏览器的兼容性，同时该属性已不推荐使用，在实际开发中更推荐使用 ES6 提供的下列`API`
 
 - 读取当前对象的原型对象
   - [Object.getPrototypeOf](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)
@@ -85,7 +85,7 @@ function Person(name) {
 }
 
 // 对象实例
-const person = new Person('maomao')
+const person = new Person('qianxun')
 
 person.__proto__ === Person.prototype // true
 Object.getPrototypeOf(person) === Person.prototype // true
