@@ -28,14 +28,14 @@
 ::: tip ToPrimitive 转换规则
 
 - 检查是否存在 `Symbol.toPrimitive()`
-  - 基本类型直接返回
-  - 引用类型抛出 `TypeError` 错误
+  - 返回值为基本类型直接返回该值
+  - 返回值为引用类型抛出 `TypeError` 错误
 - 检查是否存在 `valueOf()`
-  - 基本类型直接返回
-  - 引用类型则继续调用 `toString()`
+  - 返回值为基本类型直接返回该值
+  - 返回值为引用类型继续调用 `toString()`
 - 调用 `toString()`
-  - 基本类型直接返回
-  - 引用类型抛出 `TypeError` 错误
+  - 返回值为基本类型直接返回该值
+  - 返回值为引用类型抛出 `TypeError` 错误
 
 :::
 
@@ -44,7 +44,7 @@
 - 使用 `Object.create(null)` 创建的对象没有原型，即不存在 `valueOf()` 和 `toString()`，当对其进行类型转换时会抛出 `TypeError` 错误
 - 在做显式类型转换时 `valueOf()` 和 `toString()` 的调用顺序会根据转换目标不同去做相应调整
   - 默认情况下都是先调用 `valueOf()` 再调用 `toString()`
-  - 当需要转换的目标为字符串时，会先调用 `toString()` 再调用 `valueOf()`
+  - 当使用`String`做显示类型转换时，会先调用 `toString()` 再调用 `valueOf()`
 
 :::
 
@@ -103,7 +103,7 @@
   - `string`
     - 空字符串(`''`) => `0`
     - 非数字字符串 => `NaN`
-- 引用类型会先调用 `ToPrimitive` 逻辑将其转换成基本类型，如果返回的基本类型不是数值，再遵循以上规则进行转换
+- 引用类型会先调用 `ToPrimitive` 逻辑将其转换成基本类型，如果返回的基本类型不是数字，再遵循以上规则进行转换
 
 :::
 
@@ -122,8 +122,20 @@
 
 ::: warning 注意点
 
-- `Number()` 转换的是整个值
-- `parseInt()` 和 `parseFloat()` 转换的是部分值，是对字符串逐个进行解析和转换，如果传入的参数不是字符串，会先对其进行字符串的转换
+- `Number()` 转换的是整个参数值，如果包含非数字字符就会返回`NaN`
+- `parseInt()` 和 `parseFloat()` 转换的是部分值，是对字符串逐个进行解析和转换，他们会逐字符解析，直到遇到无效字符如(果传入的参数不是字符串，会先对其进行字符串的转换)
+
+  ```js
+  Number('123abc') // NaN
+  Number('0x10') // 16 (自动识别十六进制)
+  Number('  123  ') // 123 (忽略前后空格)
+
+  parseInt('123abc') // 123
+  parseInt('12.34') // 12 (仅取整数部分)
+
+  parseFloat('3.14abc') // 3.14
+  parseFloat('1e5') // 100000
+  ```
 
 :::
 
@@ -149,7 +161,9 @@
 0 == null // false
 ```
 
-[ECMA-262 规范 7.2.12 小节对相等运算符的描述](https://www.ecma-international.org/ecma-262/6.0/#sec-abstract-equality-comparison)
+[ECMA-262 规范 7.2.12 小节对相等运算符规则的解释](https://www.ecma-international.org/ecma-262/6.0/#sec-abstract-equality-comparison)
+
+**比较`x == y`，其中`x`和和 `y` 分别是两个值，返回一个布尔值**
 
 1. 如果 `x` 不是正常值（比如抛出一个错误），中断执行；
 2. 如果 `y` 不是正常值，中断执行；
@@ -167,7 +181,7 @@
 > [Type(x)](https://262.ecma-international.org/6.0/#sec-ecmascript-data-types-and-values) 是 `the type of x` 的简写，其中的 `type` 是 ECMA-262 规范中定义的 ECMAScript 语言和规范类型
 
 所以在计算 `0 == null` 时，由于 `0` 的类型是数值，`null` 的类型是 `Null`（这是规格 [4.3.13 小节](https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-null-type)的规定，是内部 `Type` 运算的结果，跟 `typeof` 运算符无关）；<br />
-因此上面的前 11 步都得不到结果，要到第 12 步才能得到 `false`。
+因此上面的前 11 步都得不到结果，要到第 12 步才能得到 `false`
 
 [相等运算符 —— ECMAScript 6 入门](https://es6.ruanyifeng.com/#docs/spec#%E7%9B%B8%E7%AD%89%E8%BF%90%E7%AE%97%E7%AC%A6)
 
@@ -196,6 +210,16 @@
 
 :::
 
+```js
+// 一元运算符
+;+'1' // 1
+
+// 二元运算符
+'1' + 1 // '11'
+1 + true // 1
+1 + { a: 1 } // '1[object Object]'
+```
+
 ### 关系、逻辑、条件运算符运算规则
 
 ::: tip 关系运算符运算规则
@@ -206,6 +230,28 @@
 
 :::
 
+```js
+let obj = { a: 1 }
+let obj2 = { a: 2 }
+obj > obj2 //到第二步
+'a' < 'b' //到第二步
+undefined > 'a' //到第三步 false
+true > obj //到第三步 false
+true < false //到第三步 false
+```
+
 ::: tip 逻辑操作符与条件判断语句
 在**逻辑操作符**与**条件判断语句**中都是做 `ToBoolean` 处理
+
 :::
+
+```js
+// 逻辑操作符
+false && console.log('不会执行') // 直接返回 false
+process.env.PORT || 3000 // 环境变量未定义时用3000
+'text' && 0 // 0（非布尔结果）
+null || 'ok' // "ok"
+
+// 条件判断语句
+const access = age >= 18 ? '允许' : '拒绝'
+```
