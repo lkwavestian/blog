@@ -18,7 +18,9 @@
 
 > 图片来源于[如何写出一个惊艳面试官的深拷贝?](https://juejin.cn/post/6844903929705136141)
 
-浅拷贝是创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝：基本类型拷贝的是值，引用类型拷贝的就是内存地址；所以当我们**操作新对象中的引用类型时会影响源对象**
+浅拷贝的含义是创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝：基本类型拷贝的是值，引用类型拷贝的就是内存地址；所以当我们**操作新对象中的引用类型时会影响源对象**
+
+浅拷贝通常以以下几种形式出现
 
 ### Object.assign()
 
@@ -95,6 +97,8 @@ arr2 // ['arr2', 2, 3, ['arr2', 5]];
 
 深拷贝是将一个对象从内存中完整的拷贝一份出来，即从堆内存中开辟一个新的区域存放新对象，所以**修改新对象不会影响原对象**
 
+深拷贝通常以以下几种形式出现
+
 ### `JSON.parse(JSON.stringify())`
 
 ```js
@@ -170,7 +174,7 @@ const obj2 = JSON.parse(JSON.stringify(obj1))
 
 ### `structuredClone`
 
-> `HTML` 规范标准的 [Web API](https://developer.mozilla.org/zh-CN/docs/Web/API/structuredClone)
+> `HTML` 规范标准的 [Web API](https://developer.mozilla.org/zh-CN/docs/Web/API/structuredClone)，使用结构化克隆算法将给定的值进行深拷贝，可以用来深拷贝`javascript`变量，支持循环引用。还可以使用 `structuredClone(value, { transfer })` 调用方式使可转移对象仅被传递，不被克隆（直接移动源数据）
 
 ```js
 const original = { name: 'MDN' }
@@ -178,12 +182,10 @@ original.itself = original
 
 const clone = structuredClone(original)
 
-console.assert(clone !== original) // the objects are not the same (not same identity)
-console.assert(clone.name === 'MDN') // they do have the same values
-console.assert(clone.itself === clone) // and the circular reference is preserved
+console.assert(clone !== original) // 对象并不相同（指针）
+console.assert(clone.name === 'MDN') // 值相同
+console.assert(clone.itself === clone) // 循环引用也被保存
 ```
-
-`HTML` 规范的标准提案，使用结构化克隆算法将给定的值进行深拷贝，支持循环引用。还可以使用 `structuredClone(value, { transfer })` 调用方式使可转移对象仅被传递，不被克隆（直接移动源数据）
 
 :::warning 注意点
 
