@@ -94,8 +94,8 @@ fn()
 ### const 常量定义
 
 ```js
-const NAME = 'maomao'
-NAME = 'maomao1996' // 报错
+const NAME = 'qianxun'
+NAME = 'qianxun1996' // 报错
 ```
 
 ## 模板字符串
@@ -103,7 +103,7 @@ NAME = 'maomao1996' // 报错
 模板字符串 (template string) 是增强版的字符串，用反引号(**`**)标识。它可以当作普通字符串、定义多行字符串或者在字符串中嵌入变量、函数调用以及表达式
 
 ```js
-let name = 'maomao'
+let name = 'qianxun'
 let age = 18
 
 /* ES5 拼接字符串 */
@@ -119,7 +119,7 @@ let es6Str = `我叫: ${name}，我的年龄是: ${age + 1} 岁`
 
 ```js
 const obj = {
-  name: 'maomao',
+  name: 'qianxun',
   age: 18,
 }
 
@@ -141,7 +141,7 @@ console.log(y) // null
 ### 解构数组
 
 ```js
-const arr = ['maomao', 18]
+const arr = ['qianxun', 18]
 
 /* ES5 写法 */
 const name = arr[0]
@@ -166,13 +166,13 @@ console.log(z) // null
 字符串也可以解构赋值，因为字符串被转换成了一个类似数组的对象
 
 ```js
-const [a, b, c] = 'maomao'
+const [a, b, c] = 'qianxun'
 console.log(a) // m
 console.log(b) // a
 console.log(c) // o
 
 /* 解构 length 属性 */
-const { length } = 'maomao'
+const { length } = 'qianxun'
 console.log(length) // 6
 ```
 
@@ -240,8 +240,8 @@ function log(name, ...params) {
   console.log(name, params)
 }
 
-log('maomao', 1, 2) // maomao [1, 2]
-log('maomao', 1, 2, 3) // maomao [1, 2, 3]
+log('qianxun', 1, 2) // qianxun [1, 2]
+log('qianxun', 1, 2, 3) // qianxun [1, 2, 3]
 ```
 
 ::: tip 剩余参数(rest 参数)
@@ -295,10 +295,9 @@ const fn = function (value) {
 
 :::
 
-[利用 `babel` 编译箭头函数代码查看 `this` 的指向](https://www.babeljs.cn/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=MYewdgzgLgBANiA5jAvDAFASlQPhgbwCgYZRIQ4BTAOgUXQHI6YoALASwgC4GAaFjhEyEAvoUIAzAK5hgUduBgSwWAsRgRKUACrsAtpRBSo6VSjxESJMhAo06jZQM49-bTsJIj-ARgAMfsIiQA&debug=false&forceAllTransforms=true&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=script&lineWrap=true&presets=env%2Creact&prettier=false&targets=&version=7.17.11&externalPlugins=&assumptions=%7B%7D)
+::: code-group
 
-```js
-/* ES6 */
+```js [编译前]
 const log = () => {
   console.log('log this:', this)
 }
@@ -308,8 +307,9 @@ function fn() {
     console.log('fn this:', this)
   }, 100)
 }
+```
 
-/* babel 编译后的 ES5 代码 */
+```js [babel 编译后的 ES5 代码]
 var _this = this
 
 var log = function log() {
@@ -324,6 +324,8 @@ function fn() {
   }, 100)
 }
 ```
+
+:::
 
 ## 扩展运算符
 
@@ -355,7 +357,7 @@ const arr2 = [...arr1]
 const [...arr2] = arr1
 
 /* 拷贝对象 */
-const obj1 = { name: 'maomao' }
+const obj1 = { name: 'qianxun' }
 // 写法一
 const obj2 = { ...obj1 }
 // 写法二
@@ -371,7 +373,7 @@ const arr2 = ['a', 'b', 'c']
 const arr = [...arr1, ...arr2]
 
 /* 合并对象 */
-const obj1 = { name: 'maomao' }
+const obj1 = { name: 'qianxun' }
 const obj2 = { age: 18 }
 const obj = { ...obj1, ...obj2 }
 ```
@@ -529,9 +531,9 @@ arr.findIndex((item) => item === 9) // -1
 `at()` 方法接受一个整数(支持负数)作为参数返回对应位置的成员，如果**参数位置超出了数组范围则返回 `undefined`**
 
 ```js
-const arr = ['maomao', 18]
+const arr = ['qianxun', 18]
 
-arr.at(0) // 'maomao'
+arr.at(0) // 'qianxun'
 arr.at(-1) // 18
 arr.at(99) // undefined
 ```
@@ -575,23 +577,23 @@ arr.flatMap((x) => [[x * 2]]) // [[2], [4], [6], [8]]
 ```js
 /* 属性简写 */
 // ES5 写法
-const key = 'maomao'
+const key = 'qianxun'
 const obj = { key: key }
 
 // ES6 写法
-const key = 'maomao'
+const key = 'qianxun'
 const obj = { key }
 
 /* 方法简写 */
 // ES5 写法
 const obj = {
   log: function () {
-    console.log('maomao')
+    console.log('qianxun')
   },
 }
 
 // ES6 写法
-const key = 'maomao'
+const key = 'qianxun'
 const obj = {
   log() {},
 }
@@ -604,7 +606,7 @@ const obj = {
 ```js
 const obj = {
   f() {
-    this.name = 'maomao'
+    this.name = 'qianxun'
   },
 }
 
@@ -619,14 +621,14 @@ new obj.f() // 报错
 // 定义属性名
 const key = 'age'
 const obj = {
-  ['name' + 1]: 'maomao',
+  ['name' + 1]: 'qianxun',
   [key]: 18,
 }
 
 // 定义方法名
 const obj = {
   ['log' + 'name']() {
-    console.log('maomao')
+    console.log('qianxun')
   },
 }
 ```
@@ -642,7 +644,7 @@ const obj = { [key] }
 
 // 正确
 const key = 'name';
-const obj = { [key]: 'maomao'};
+const obj = { [key]: 'qianxun'};
 ```
 
 属性名表达式如果是一个对象会自动将其转为字符串 `[object Object]`
@@ -730,7 +732,7 @@ Object.assign(obj, null) === obj // true
 const obj = {}
 Object.assign(obj, 1, true) === obj // true
 // 字符串会以字符数组的形式做合并
-Object.assign({}, 'maomao') // {0: 'm', 1: 'a', 2: 'o', 3: 'm', 4: 'a', 5: 'o'}
+Object.assign({}, 'qianxun') // {0: 'm', 1: 'a', 2: 'o', 3: 'm', 4: 'a', 5: 'o'}
 
 /* 数组 */
 // 当参数都为数组时
@@ -742,7 +744,7 @@ Object.assign({ a: 1 }, [1, 2]) // {0: 1, 1: 2, a: 1}
 ##### 传入数组时会把数组当对象处理
 
 ```js
-Object.assign([1, 2, 3], [4, 5]) // [4, 5, 3]
+Object.assign([1, 2, 3], [4, 5]) // [4, 5, 3] 原理是 key 值取代
 ```
 
 ::: tip Object.assign() 总结和应用场景
@@ -798,10 +800,12 @@ toast({ content: '提示' }) // {duration: 2000, content: '提示'}
 `Object.entries()` 方法返回一个数组（二维数组），其成员为参数对象自身的（不含继承的）所有可遍历属性的键值对数组(`ES2017` 引入)
 
 ```js
-const obj = { name: 'maomao', age: 18 }
+const obj = { name: 'qianxun', age: 18 }
+const prototype = { height: 180 }
+Object.setPrototypeOf(obj, prototype)
 Object.keys(obj) // ['name', 'age']
-Object.values(obj) //  ['maomao', 18]
-Object.entries(obj) // [['name', 'maomao'], ['age', 18]]
+Object.values(obj) //  ['qianxun', 18]
+Object.entries(obj) // [['name', 'qianxun'], ['age', 18]]
 ```
 
 ### Object.fromEntries()
@@ -809,15 +813,15 @@ Object.entries(obj) // [['name', 'maomao'], ['age', 18]]
 `Object.fromEntries()` 方法是 `Object.entries()` 的逆操作，用于将键值对的数据结构还原为对象
 
 ```js
-Object.fromEntries([['name', 'maomao']]) // {name: 'maomao'}
+Object.fromEntries([['name', 'qianxun']]) // {name: 'qianxun'}
 
 /* Map 转对象 */
-const map = new Map([['name', 'maomao']])
-Object.fromEntries(map) // {name: 'maomao'}
+const map = new Map([['name', 'qianxun']])
+Object.fromEntries(map) // {name: 'qianxun'}
 
 /* 将查询字符串转为对象 */
-const params = 'name=maomao&age=18'
-Object.fromEntries(new URLSearchParams(params)) // {name: 'maomao', age: '18'}
+const params = 'name=qianxun&age=18'
+Object.fromEntries(new URLSearchParams(params)) // {name: 'qianxun', age: '18'}
 ```
 
 ### 对象遍历方法对比
@@ -869,6 +873,7 @@ obj?.prop
 obj?.[expr]
 // 等同于
 obj == null ? undefined : obj.prop
+obj == null ? undefined : obj[expr]
 
 /* 函数或对象方法是否存在 */
 func?.(...args)
@@ -913,28 +918,21 @@ a?.b = c
 - **`??` 运算符**只有左侧是 `null` 或 `undefined`才会返回右侧的值
 - **`||` 运算符**只要左侧是 [假值](/fe/javascript/conversions#toboolean) 就会返回右侧的值
 
-:::
-
-### 逻辑赋值运算符
-
-`ES2021` 引了入三个新的逻辑赋值运算符，用于将逻辑运算符与赋值运算符进行结合
-
 ```js
-/* 或赋值运算符 */
-x ||= y
-// 等同于
-x || (x = y)
+// ?? 运算符
+null ?? 2 // 2
+undefined ?? 2 // 2
+false ?? 2 // false
+'' ?? 2 // ''
 
-/* 与赋值运算符 */
-x &&= y
-// 等同于
-x && (x = y)
-
-/* Null 赋值运算符 */
-x ??= y
-// 等同于
-x ?? (x = y)
+// || 运算符
+null || 2 // 2
+undefined || 2 // 2
+false || 2 // 2
+'' || 2 // 2
 ```
+
+:::
 
 ## ESModule
 
@@ -957,20 +955,20 @@ x ?? (x = y)
 ```js
 // util.js
 /* 单个输出 */
-export const name = 'maomao'
+export const name = 'qianxun'
 export function log() {
   console.log(name)
 }
 
 /* 统一输出 */
-const name = 'maomao'
+const name = 'qianxun'
 function log() {
   console.log(name)
 }
 export { name, log }
 
 /* 使用 as 关键字重命名 */
-const name = 'maomao'
+const name = 'qianxun'
 export { name as nickname }
 ```
 
@@ -994,8 +992,8 @@ import { name as nickname, log as logName } from './util'
 
 /* 模块的整体加载 */
 import * as util from './util'
-util.name // maomao
-util.log() // maomao
+util.name // qianxun
+util.log() // qianxun
 ```
 
 ### export default 命令
@@ -1005,19 +1003,19 @@ util.log() // maomao
 ```js
 /* 输出匿名函数 */
 export default function () {
-  console.log('maomao')
+  console.log('qianxun')
 }
 
 import log from './export-default'
-log() // 'maomao'
+log() // 'qianxun'
 
 /* 输出非匿名函数 */
 export default fn function () {
-  console.log('maomao')
+  console.log('qianxun')
 }
 
 import log from './export-default'
-log() // 'maomao'
+log() // 'qianxun'
 ```
 
 ::: tip export default 命令注意点
@@ -1035,7 +1033,7 @@ const a = 1;
 export default a;
 
 // 直接输出
-export default 'maomao'
+export default 'qianxun'
 export default 1 + 2
 ```
 
@@ -1248,4 +1246,4 @@ Promise.prototype.finally = function (callback) {
 - `Promise.any()` (ES2021)
   - 将多个 `Promise` 实例，包装成一个新的 `Promise` 实例，只要参数实例有一个变成 `fulfilled` 状态，包装实例就会变成 `fulfilled` 状态；如果所有参数实例都变成 `rejected` 状态，包装实例才会变成 `rejected` 状态
 
-[Promise 实现](https://github.com/maomao1996/Promise) 简易实现、A+ 规范实现、原型方法、静态方法实现
+[Promise 实现](https://github.com/qianxun1996/Promise) 简易实现、A+ 规范实现、原型方法、静态方法实现

@@ -90,6 +90,16 @@ const person = new Person('qianxun')
 person.__proto__ === Person.prototype // true
 Object.getPrototypeOf(person) === Person.prototype // true
 Reflect.getPrototypeOf(person) === Person.prototype // true
+
+const agePrototype = { age: 18 }
+Object.setPrototypeOf(person, agePrototype)
+Object.getPrototypeOf(person) === agePrototype // true
+Reflect.getPrototypeOf(person) === agePrototype // true
+
+const heightPrototype = { age: 18 }
+Reflect.setPrototypeOf(person, heightPrototype)
+Object.getPrototypeOf(person) === heightPrototype // true
+Reflect.getPrototypeOf(person) === heightPrototype // true
 ```
 
 ![__proto__](./images/prototype/__proto__.png)
