@@ -12,11 +12,11 @@
 
 在 `ES2020` 标准下的 `JavaScript` 一共有以下 7 种基本类型
 
+- **`number`** 数值
+- **`string`** 字符串
+- **`boolean`** 布尔值
 - **`undefined`** 未定义
 - **`null`** 空指针
-- **`boolean`** 布尔值
-- **`string`** 字符串
-- **`number`** 数值
 - **`symbol`** 独一无二的值 ([ES6 引入](https://es6.ruanyifeng.com/#docs/symbol))
 - **`bigint`** 大整数 ([ES2020 引入](https://es6.ruanyifeng.com/#docs/number#BigInt-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B))
 
@@ -205,3 +205,48 @@ console.log(obj1.name) // xxx
 [Object.prototype.toString 方法的原理](https://juejin.cn/post/6972878737582850062#heading-27)
 
 :::
+
+## `undefined`和`null`的区别
+
+相同点:
+
+- 在 `if` 判断语句中,值都默认为 `false`
+
+差异:
+
+- `null` 转为数字类型值为 `0`,而 `undefined` 转为数字类型为 `NaN(Not a Number)`
+- `undefined` 是代表调用一个值而该值却没有赋值,这时候默认则为 `undefined`
+- `null` 则表示“什么都没有”，即“空值”
+- `typeof undefined === "undefined"` 但是 `typeof null === "object"`
+- 设置为 `null` 的变量或者对象会被内存收集器回收
+
+## 变量的声明
+
+`var` 声明
+
+- 变量被定义在函数作用域
+- 如果定义变量时省略 `var` 操作符，可以创建一个全局变量
+- 如果需要定义多个变量，可以在一条语句中用逗号分隔每个变量
+- 存在变量提升
+- 可以反复声明变量
+- 其声明的变量会被当作 window 的属性
+
+`let` 声明
+
+- 变量被定义在块级作用域
+- 不允许冗余声明
+- 不存在变量提升
+- 暂时性死区
+
+`const` 声明
+
+- `const`声明一个只读的常量。一旦声明，常量的值就不能改变。
+- `const`的作用域与`let`命令相同：只在声明所在的块级作用域内有效
+- `const`命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。
+- `const`声明的常量，也与`let`一样不可重复声明。
+-
+- 变量被定义在块级作用域
+- 变量只读，一旦声明，不能修改
+- 不可重复声明
+- 不存在变量提升
+- 暂时性死区
