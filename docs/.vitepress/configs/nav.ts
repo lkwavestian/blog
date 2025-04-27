@@ -56,7 +56,13 @@ export const nav: DefaultTheme.Config['nav'] = [
     ],
     activeMatch: '^/workflow',
   },
-  { text: '踩坑记录', link: '/pit/npm', activeMatch: '^/pit' },
+  {
+    text: '笔记',
+    items: [
+      { text: '日常笔记', items: [{ text: 'Vue ', link: '/notes/vue/' }] },
+      { text: '踩坑记录', link: '/pit/npm', activeMatch: '^/pit' },
+    ],
+  },
   {
     text: '提效工具',
     items: [
