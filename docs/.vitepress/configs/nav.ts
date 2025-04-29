@@ -64,7 +64,7 @@ export const nav: DefaultTheme.Config['nav'] = [
         items: [
           { text: 'CSS ', link: '/notes/css/flex' },
           { text: 'Vue ', link: '/notes/vue/compositionAPI' },
-          { text: 'Uniapp ', link: '/notes/uniapp/lifeCycle' },
+          { text: 'Uniapp ', link: '/notes/uniapp/lifecycle' },
         ],
       },
       { text: '踩坑记录', link: '/pit/npm', activeMatch: '^/pit' },
