@@ -153,6 +153,11 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
   ],
   '/notes/': [
     {
+      text: 'Css日常笔记',
+      // collapsed: false,
+      items: [{ text: 'Flex相关概念与理解', link: '/notes/css/flex' }],
+    },
+    {
       text: 'Vue日常笔记',
       // collapsed: false,
       items: [{ text: 'Composition API的深入理解和实践', link: '/notes/vue/compositionAPI' }],

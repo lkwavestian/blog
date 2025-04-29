@@ -59,7 +59,13 @@ export const nav: DefaultTheme.Config['nav'] = [
   {
     text: '笔记',
     items: [
-      { text: '日常笔记', items: [{ text: 'Vue ', link: '/notes/vue/compositionAPI' }] },
+      {
+        text: '日常笔记',
+        items: [
+          { text: 'CSS ', link: '/notes/css/flex' },
+          { text: 'Vue ', link: '/notes/vue/compositionAPI' },
+        ],
+      },
       { text: '踩坑记录', link: '/pit/npm', activeMatch: '^/pit' },
     ],
   },
