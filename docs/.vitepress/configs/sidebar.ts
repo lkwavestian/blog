@@ -151,4 +151,11 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       ],
     },
   ],
+  '/notes/': [
+    {
+      text: 'Vue日常笔记',
+      // collapsed: false,
+      items: [{ text: 'Composition API的深入理解和实践', link: '/notes/vue/compositionAPI' }],
+    },
+  ],
 }
