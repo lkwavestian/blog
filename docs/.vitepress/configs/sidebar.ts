@@ -153,14 +153,19 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
   ],
   '/notes/': [
     {
-      text: 'Css日常笔记',
-      // collapsed: false,
+      text: 'Css 日常笔记',
       items: [{ text: 'Flex相关概念与理解', link: '/notes/css/flex' }],
     },
     {
-      text: 'Vue日常笔记',
-      // collapsed: false,
+      text: 'Vue 日常笔记',
       items: [{ text: 'Composition API的深入理解和实践', link: '/notes/vue/compositionAPI' }],
+    },
+    {
+      text: 'Uniapp 日常笔记',
+      items: [
+        { text: '生命周期相关', link: '/notes/uniapp/lifecycle' },
+        { text: '返回上页并刷新', link: '/notes/uniapp/returnAndRefresh' },
+      ],
     },
   ],
 }
