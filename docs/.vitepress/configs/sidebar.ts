@@ -168,4 +168,16 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       ],
     },
   ],
+  '/translate/': [
+    {
+      text: '翻译文章合集',
+      // collapsed: false,
+      items: [
+        {
+          text: 'Debouncing and Throttling Explained Through Examples',
+          link: '/translate/debounceAndThrotting',
+        },
+      ],
+    },
+  ],
 }
