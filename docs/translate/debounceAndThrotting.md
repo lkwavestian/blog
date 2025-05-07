@@ -147,6 +147,40 @@ requestAnimationFrame 是限制函数执行频率的另一种方法
 
 它的效果与 \_\_.throttle(dosomething,16)一致。但它有着更高的准确度，因为它是浏览器专门用来提高准确度的一个原生 API。
 
-我们可以把它当作 throttle 函数的一个替代品，他有着以下优缺点
+我们可以把它当作 throttle 函数的一个替代品，他有着以下优缺点：
 
-**优点：** -
+**优点：**
+
+- 动画将保持 60fps（每一帧 16 ms），但是浏览器内部会决定渲染的最佳时机
+- 简洁标准的 API，后期维护成本低
+
+**缺点：**
+
+- 当使用`rAFs`时，开始和结束需要我们自己去定义，.debounce 和.throttle 内部的函数会自己处理
+- 浏览器标签没有激活时，不会执行
+- 兼容性问题：当前流行的大多数浏览器都支持，但是 [仍有部分浏览器不支持](https://caniuse.com/?search=requestAnimationFrame)
+- `rAF`不支持 node 端，无法在服务器端支持文件系统事件。
+
+根据我的经验，我会在 js 函数需要绘制或者改变元素属性时使用它，在任何包含重新计算元素位置的函数中都可以使用
+
+在发送 ajax 请求，或者动态的添加/删除类名（这将会导致重新渲染）这两个场景时，我会考虑使用 debounce 或者 throttle 函数，因为他们可以设置更低的执行频率（比如使用 200ms 替换 16ms）。
+
+假如你认为 rAF 会在 underscore 或者 lodash 中实现，恰恰想法，他们都没有实现，因为这个 API 是一个专门的用例（指在 16ms 内执行动画），并且它很容易被直接调用。
+
+## rAF 实例
+
+我将仅用下面这一个例子来展示如何使用 rAF 处理滚动事件，灵感来自 Paul Lewis 的文章[如何创建高性能 CSS 动画](https://web.dev/articles/animations-guide?hl=zh-cn)，在这篇文章中，他一步步的解释了这个实例的原理。
+
+<!-- <div class="cp_embed_wrapper"><iframe allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="cp_embed_iframe " frameborder="0" height="268" width="100%" name="cp_embed_8" scrolling="no" src="https://codepen.io/dcorb/embed/pgOKKw?height=268&amp;theme-id=0&amp;slug-hash=pgOKKw&amp;default-tab=result&amp;user=dcorb&amp;name=cp_embed_8" style="width: 100%; overflow:hidden; display:block;" title="CodePen Embed" loading="lazy" id="cp_embed_pgOKKw"></iframe></div> -->
+
+我在 headroom.js 库中见过一个更高级的[实例](https://github.com/WickyNilliams/headroom.js/blob/3282c23bc69b14f21bfbaf66704fa37b58e3241d/src/Debouncer.js)，在这个实例中，逻辑被解耦并被包裹在对象中。
+
+## 结论
+
+我们可以使用 debounce、throttle 和 requestAnimationFrame 去优化我们的事件处理函数。三者各不相同，又相辅相成。
+
+总结下目前我们所学到的知识：
+
+- debounce（防抖）:把频繁触发的事件合并到一次执行。
+- throttle（节流）:保证事件在某一段时间内恒定的执行次数，比如每 200ms 检查一次滚动位置并触发 css 动画。
+- requestAnimationFrame：一个 throttle 的替代物。当你的函数在重新计算渲染屏幕上的元素时，并且你想要保证你的动画的流畅性时，你就可以用它。注意：IE9 不支持。
