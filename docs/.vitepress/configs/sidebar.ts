@@ -158,7 +158,10 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
     },
     {
       text: 'Vue 日常笔记',
-      items: [{ text: 'Composition API的深入理解和实践', link: '/notes/vue/compositionAPI' }],
+      items: [
+        { text: 'Composition API的深入理解和实践', link: '/notes/vue/compositionAPI' },
+        { text: 'Vue 3 中的 ref 和 reactive：区别与应用场景', link: '/notes/vue/refAndReactive' },
+      ],
     },
     {
       text: 'Uniapp 日常笔记',
