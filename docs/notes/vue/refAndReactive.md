@@ -39,7 +39,6 @@ ref 函数的参数既可以传递原始数据类型也可以传递引用类型�
 我们不妨打印一下 count 和 product 这两个响应式数据，看看有什么不一样的地方：
 
 ![alt text](image.png)
-![alt text](image-1.png)
 
 上图中，我们可以看到：不管给 ref 函数传递原始数据类型的值还是引用数据类型的值，返回的都是由 RefImpl 类构造出来的对象，但不同的是对象里面的 value：
 
@@ -127,6 +126,8 @@ const count = ref(0)
 const state = reactive({
   count,
 })
+
+console.log(state.count === count.value) // true
 
 console.log(state.count) // 0
 
@@ -463,7 +464,7 @@ count++
 callSomeFunction(state.count)
 ```
 
-解决办法是使用 refs 将 reactive 中的变量转化为响应式，然后就可以结构了
+解决办法是使用 toRefs 将 reactive 中的变量转化为响应式，然后就可以结构了
 
 ````js
 import { toRefs } from 'vue'
@@ -472,19 +473,32 @@ let { count } = toRefs(state)
 count++ // count 现在是 1 ```
 ````
 
-4. **重新赋值时，会丢失响应式**
+3. **重新赋值时，会丢失响应式**
+
+无论是赋值给 reactive 一个对象或是一个 reactive 对象，都会导致其丢失响应式。
 
 ```js
 import { reactive } from 'vue'
 const state = reactive({ count: 0 })
+state = { count: 2 } // 失去响应性
 state = reactive({ count: 1 }) // 失去响应性
 ```
 
-解决办法是使用 Object.assign()
+解决办法是有两种
+
+- 不要将整个对象替换，一个个属性去赋值
+
+  ```js
+  let state = reactive({ count: 0 })
+  state.count = 1
+  ```
+
+  但是这种方法属性多了或者是需要批量去赋值的时候就不好办了，可以用下面这个方法
+
+- 使用 Object.assign()
 
 ```js
 let state = reactive({ count: 0 })
-// state = { count: 1 }，state 不会失去响应
 state = Object.assign(state, { count: 1 })
 ```
 
@@ -494,13 +508,15 @@ reactive 重新赋值丢失响应是因为引用地址变了，被 proxy 代理�
 Object.assign(state, { count: 1 }) 时，所以只要 proxy 代理的引用地址没变，就会一直存在响应性.
 :::
 
-1. **当我们将将响应式对象的属性赋值给变量时，会丢失响应式**
+4. **当我们将将响应式对象的属性赋值给变量时，会丢失响应式**
 
 ```js
 const state = reactive({ count: 0 })
 let count = state.count
 count++ // 响应式会丢失
 ```
+
+这种操作会丢失响应性是因为：当把 state.count 赋值给 count 时，其实相当于深拷贝，只是字面量之间的赋值，count 与 state.count 不再共享同一内存地址
 
 ## ref 和 reactive 的区别
 
@@ -856,8 +872,15 @@ reactive 的局限性主要集中在两点：
 
 ## 究竟是使用 ref 好 还是 reactive
 
-使用 ref 时，响应性很稳定，但是到处.vue 很是麻烦，使用 reactive 时，在我们试图将一个组件从`Options API`迁移到成`Composition API`时很方便（它与 data 类似），但是重构或者重新赋值时又非常容易丢失响应性（）。鉴于以上，我还是建议使用 `ref`一把梭，省的哪些乱七八糟的。毕竟有尤大大也是这样推荐的。
-至于 ref 的.value, 有人是非常中意的，毕竟只要看到.value，我们就知道它是一个响应式对象。但有些人（比如我），就觉得.value 很麻烦，所以就使用 配置 来解决。
+使用 ref 时，响应性很稳定，但是到处.vue 很是麻烦，在我们试图将一个组件从`Options API`迁移到成`Composition API`时很方便，使用 reactive 更方便 （因为它与 data 类似），但是重构或者重新赋值时又非常容易丢失响应性（）。
+
+其实单单只是 容易丢失响应性这一条，就代表 reactive 还是不太好把握的。日常的开发中我还是建议使用 `ref`一把梭，省的哪些乱七八糟的。~~[毕竟尤大大也是这样推荐的](https://cloud.tencent.com/developer/article/2384389)~~。
+
+我可能只会在一种情况下才会使用 reactive————vue 2 语言项目改到 vue3 时，为了快速的重构 data 里的数据。
+
+至于 ref 的.value, 有人是非常中意的，他们认为只要看到.value，我们就知道它是一个响应式变量，从而能够显著的把响应式对象和普通变量分开。但有些人（比如我），就觉得.value 很麻烦，有两种办法可以解决这个问题。
+
+Volar 插件能自动补全 .value
 
 ## 延伸
 
