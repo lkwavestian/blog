@@ -46,19 +46,18 @@ const changeProductPrice = () => {
 - 如果 `ref` 函数参数传递的是原始数据类型的值，那么 `value` 是一个原始值
 - 如果 `ref` 函数参数传递的是引用数据类型的值，那么 `value` 是一个 `Proxy` 对象
 
-### ref 的解构
+### ref 的解包
 
-**在模板中解构**
+**在模板中解包**
 
 ::: info
-解构指的是 `ref` 在模板上下文即 `template` 中会被自动解析出来，使用时不需要加`.value`
+解包指的是 `ref` 在模板上下文即 `template` 中会被自动解析出来，使用时不需要加`.value`
 :::
 
-解构的规则是：
-
-- 在模板渲染上下文中，只有最顶级的 `ref` 属性才会被解构。
+解包的规则是：只有最顶级的 `ref` 属性才会被解包。
 
 **最顶级**主要是区分 ref 作为直接定义的变量和 对象的属性。
+
 比如在下面的例子中，count 是最顶级变量，但是 `person.age` 不是
 
 ```vue
@@ -72,7 +71,7 @@ const person = {
 </script>
 ```
 
-所以下面例子中，`count` 会被自动解构，而 `person.age` 不会自动解构
+所以下面例子中，`count` 会被自动解包，而 `person.age` 不会自动解包
 
 ```vue
 <template>
@@ -83,9 +82,9 @@ const person = {
 </template>
 ```
 
-页面渲染的结果是：`[object Object]1`，因为在计算表达式时 `person.age` 没有被解构，仍然是一个 `ref` 对象。
+页面渲染的结果是：`[object Object]1`，因为在计算表达式时 `person.age` 没有被解包，仍然是一个 `ref` 对象。
 
-为了解决这个问题，我们可以将 `age` 解构成为一个顶级属性：
+为了解决这个问题，我们可以将 `age` 解包成为一个顶级属性：
 
 ```vue
 <script setup>
@@ -106,7 +105,7 @@ const { age } = person
 
 **在 reactive 中的解构**
 
-`ref` 作为 `reactive` 的属性被访问或者修改时会自动解构
+`ref` 作为 `reactive` 的属性被访问或者修改时会自动解包
 
 也就是说：它的行为其实就是一个普通的属性
 
@@ -149,7 +148,7 @@ str.value += ' World'
 obj.value.count++
 ```
 
-2. 深层响应性
+2. **深层响应性**
 
 `ref` 支持深层响应性，这意味着它可以追踪和更新嵌套对象和数组中的变化。这种特性使得 `ref` 非常适合处理复杂的数据结构，如对象和数组。
 
@@ -172,11 +171,9 @@ obj.value.user.details.age++
 当然，为了减少大型不可变数据的响应式开销，也可以通过使用 [shallowRef](https://cn.vuejs.org/api/reactivity-advanced#shallowref) 来放弃深层响应性。
 
 ```js
-const shallowObj = shallowRef({
-  details: { age: 18 },
-})
+import { shallowRef } from 'vue'
 
-const obj = ref({
+const obj = shallowRef({
   user: {
     name: 'xiaoming',
     details: {
@@ -184,9 +181,22 @@ const obj = ref({
     },
   },
 })
+
+obj.value.user.details.age++
+// 修改嵌套对象，模版中的 age 不会自动更新
+
+obj.value = {
+  user: {
+    name: 'xiaoming',
+    details: {
+      age: 20,
+    },
+  },
+}
+// 只有整个替换掉.value 对象时，才会触发模板更新
 ```
 
-**灵活性**
+3. 灵活性
 
 `ref` 提供了高度的灵活性，尤其在处理普通赋值和解构赋值方面。这种灵活性使得 `ref` 在开发中的使用更加方便，特别是在进行复杂的数据操作时。
 
@@ -212,15 +222,21 @@ state.value = {
 }
 ```
 
-**不易丢失响应性**
+4. 不易丢失响应
 
-`ref` 响应式还是比较稳定的，无论是直接结构还是传递给函数结构赋值
+`ref` 响应式还是比较稳定的，无论是直接结构还是传递给函数结构赋值。参考上面例子，这里就不再举例了。
 
 ### 缺点
 
 1. 到处.value 属实很麻烦
 
-vue3 设置 ref 取值.value
+vue3 写 ref 时要加 .value, 有点麻烦，有时确实会忘掉... 不过我们可以通过更改 vscode 的配置项去让编辑器自动的为我们补全 ref。
+
+点击 vscode 中左下角齿轮 -> 设置 -> 搜索 Dot Value
+
+找到下面的选项，打勾
+
+![alt text](image-11.png)
 
 ## reactive
 
@@ -289,6 +305,17 @@ console.log(obj.count) // 2
 官方给出的建议也是如此：只有代理对象是响应式的，更改原始对象不会触发更新。因此，使用 Vue 的响应式系统的最佳实践是 **仅使用你声明对象的代理版本**。
 
 ```vue
+<template>
+  <div class="main">
+    obj.count input 无代理：
+    <input type="text" v-model="obj.count" />
+    proxy.count input 有代理：
+    <input type="text" v-model="proxy.count" />
+    <p>obj.count 值：{{ obj.count }}</p>
+    <p>proxy.count 值：{{ proxy.count }}</p>
+  </div>
+</template>
+
 <script setup>
 import { reactive } from 'vue'
 
@@ -297,22 +324,11 @@ const obj = {
 }
 const proxy = reactive(obj)
 </script>
-
-<template>
-  <div class="main">
-    obj.count：
-    <input type="text" v-model="obj.count" />
-    proxy.count：
-    <input type="text" v-model="proxy.count" />
-    <p>obj.count：{{ obj.count }}</p>
-    <p>proxy.count：{{ proxy.count }}</p>
-  </div>
-</template>
 ```
 
 ![alt text](image-3.png)
 
-我们可以看到，当在第一个 `input`（无代理）更改数据时，`count` 没有获得响应式更新，但是当在第二个 `input`（有代理）更改数据时，`count` 获得了响应式更新，`obj.count` 和 `proxy.count` 都获得了更新。
+我们可以看到，当在第一个 `input`（无代理）更改数据时，`count` 没有获得响应式更新，obj.count 和 proxy.count 都没有改变数值，但是当在第二个 `input`（有代理）更改数据时，`count` 获得了响应式更新，`obj.count` 和 `proxy.count` 都改变了数值。
 
 为保证访问代理的一致性，对同一个原始对象调用 `reactive()` 会总是返回同样的代理对象，而对一个已存在的代理对象调用 `reactive()` 会返回其本身：
 
@@ -333,7 +349,7 @@ console.log(reactive(proxy1) === proxy1) // true
 
 ### 优点
 
-1. **使用 reactive 定义的响应式对象，会深度监听每一层的属性，它会影响到所有嵌套的属性。换句话说：一个响应式对象也将深层地解构任何 ref 属性，同时保持响应性**
+1. **使用 reactive 定义的响应式对象，会深度监听每一层的属性，它会影响到所有嵌套的属性，也就是说，对象的每一层都是具有响应性的**
 
 ```vue
 <script setup>
@@ -360,32 +376,7 @@ console.log('obj.a.b.c: ', obj.a.b.c)
 
 我们可以看到，返回的对象以及其中嵌套的对象都会通过 `Proxy` 包裹。
 
-若要避免深层响应式转换，只想保留对这个对象顶层次访问的响应性，我们可以使用 `shallowReactive()`。
-
-```vue
-<script setup>
-import { shallowReactive } from 'vue'
-
-let obj = shallowReactive({
-  name: 'Echo',
-  a: {
-    b: {
-      c: 1,
-    },
-  },
-})
-
-console.log('obj: ', obj)
-console.log('obj.name: ', obj.name)
-console.log('obj.a: ', obj.a)
-console.log('obj.a.b: ', obj.a.b)
-console.log('obj.a.b.c: ', obj.a.b.c)
-</script>
-```
-
-![alt text](image-5.png)
-
-我们可以看到，只有顶层对象会通过 `Proxy` 包裹，其余嵌套的对象都没有，因此，只有对象自身的属性是响应式的，下层嵌套的属性都不具有响应式。
+若要避免深层响应式转换，只想保留对这个对象顶层次访问的响应性，我们可以使用[shallowReactive](https://cn.vuejs.org/api/reactivity-advanced#shallowreactive)。
 
 ```vue
 <script setup>
@@ -416,6 +407,8 @@ let obj = shallowReactive({
 
 ![alt text](image-6.png)
 
+可以看到：只有更改对象自身属性，也就是 name 时，响应式才存在，更改内存属性 obj.a.b.c 时，响应式就不存在了。
+
 ### 缺点
 
 1. **reactive 的参数只能是对象或者数组或者像 Map、Set 这样的集合类型**
@@ -424,6 +417,7 @@ let obj = shallowReactive({
 <script setup>
 import { reactive } from 'vue'
 
+// 对于基本数据类型无效
 let count = reactive(0)
 </script>
 ```
@@ -435,18 +429,17 @@ let count = reactive(0)
 ```js
 const state = reactive({ count: 0 })
 
-// 当解构时，count 已经与 state.count 断开连接
 let { count } = state
 // 不会影响原始的 state
 count++
 
-// 该函数接收到的是一个普通的数字
-// 并且无法追踪 state.count 的变化
-// 我们必须传入整个对象以保持响应性
-callSomeFunction(state.count)
+// 当解构时，count 就已经与 state.count 断开连接，所以这里我们即使count++，模板中的count 值不会改变
+
+fn(count) // 函数直接使用结构出的count值，无响应性
+fn(state) // 函数使用state，使用state.count，有响应性
 ```
 
-解决办法是使用 `toRefs` 将 `reactive` 中的变量转化为响应式，然后就可以结构了
+为了保持 reactive 结构出的值也具有响应性，解决办法是使用 `toRefs` 将 `reactive` 中的变量转化为响应式
 
 ````js
 import { toRefs } from 'vue'
@@ -485,9 +478,8 @@ state = Object.assign(state, { count: 1 })
 ```
 
 ::: tip 为什么使用 Object.assign()就可以
-reactive 重新赋值丢失响应是因为引用地址变了，被 proxy 代理的对象已经不是原来的那个，所以丢失响应了。其实 ref 也是一样的，当把 .value 那一层替换成另外一个有着 .value 的对象也会丢失响应。ref 定义的属性等价于 reactive({ value: xxx })。
-而 Object.assign 解释是这样的：如果目标对象与源对象具有相同的键（属性名），则目标对象中的属性将被源对象中的属性覆盖，后面的源对象的属性将类似地覆盖前面的源对象的同名属性。
-Object.assign(state, { count: 1 }) 时，所以只要 proxy 代理的引用地址没变，就会一直存在响应性.
+reactive 重新赋值丢失响应是因为引用地址变了，被 proxy 代理的对象已经不是原来的那个，所以丢失响应了。
+而 Object.assign 解释是这样的：如果目标对象与源对象具有相同的键（属性名），则目标对象中的属性将被源对象中的属性覆盖。这个操作是不会改变原对象的引用地址的。所以当 Object.assign(state, { count: 1 }) 时，所以只要 proxy 代理的引用地址没变，就会一直存在响应性.
 :::
 
 4. **当我们将将响应式对象的属性赋值给变量时，会丢失响应式**
@@ -498,7 +490,7 @@ let count = state.count
 count++ // 响应式会丢失
 ```
 
-这种操作会丢失响应性是因为：当把 `state.count` 赋值给 `count` 时，其实相当于深拷贝，只是字面量之间的赋值，`count` 与 `state.count` 不再共享同一内存地址
+这种操作会丢失响应性是因为：Proxy 代理的范围是对象，不代理对象属性的值，当把 `state.count` 赋值给 `count` 时，其实相当于基本类型的值拷贝，只是字面量之间的赋值，这样会丢失 Proxy 的代理链接。
 
 ## ref 和 reactive 的区别
 
@@ -506,20 +498,14 @@ count++ // 响应式会丢失
 
 ### 基本区别
 
-- `ref` 主要用于创建单个的响应式数据。`reactive` 用于创建包含多个响应式属性的对象。
-- 对于基本类型（例如：数字，布尔值）的变量定义，推荐使用 `ref`，如果需要响应式包装对象或数组，推荐使用 `reactive`。
-- 在模板中使用响应式数据时，无需使用 `.value` 访问 `ref` 类型的数据，而是直接使用变量名，而使用 `reactive` 类型的数据，则直接使用对象属性名。
-- `ref` 返回一个由 RefImpl 类构造出来的对象，而 reactive 返回一个原始对象的响应式代理 Proxy。
-- reactive 会递归地将对象的所有属性转换为响应式数据。
-
-  |                   reactive                    |                                                                              ref |
-  | :-------------------------------------------: | -------------------------------------------------------------------------------: |
-  |      ❌ 只支持对象和数组（引用数据类型）      |                                               ✅ 支持基本数据类型 + 引用数据类型 |
-  | ✅ 在 `<script>` 和 `<template>` 中无差别使用 | ❌ 在 `<script>` 和 `<template>` 使用方式不同（在 `<script>` 中要使用 `.value`） |
-  |       ❌ 重新分配一个新对象会丢失响应性       |                                                ✅ 重新分配一个新对象不会失去响应 |
-  |               ✅ 能直接访问属性               |                                                      ❌ 需要使用 .value 访问属性 |
-  |         ❌ 将对象传入函数时，失去响应         |                                                      ✅ 传入函数时，不会失去响应 |
-  |     ❌ 解构时会丢失响应性，需使用 toRefs      |                                         ❌ 解构对象时会丢失响应性，需使用 toRefs |
+|                   reactive                    |                                                                              ref |
+| :-------------------------------------------: | -------------------------------------------------------------------------------: |
+|      ❌ 只支持对象和数组（引用数据类型）      |                                               ✅ 支持基本数据类型 + 引用数据类型 |
+| ✅ 在 `<script>` 和 `<template>` 中无差别使用 | ❌ 在 `<script>` 和 `<template>` 使用方式不同（在 `<script>` 中要使用 `.value`） |
+|       ❌ 重新分配一个新对象会丢失响应性       |                                                ✅ 重新分配一个新对象不会失去响应 |
+|               ✅ 能直接访问属性               |                                                      ❌ 需要使用 .value 访问属性 |
+|         ❌ 将对象传入函数时，失去响应         |                                                      ✅ 传入函数时，不会失去响应 |
+|     ❌ 解构时会丢失响应性，需使用 toRefs      |                                         ❌ 解构对象时会丢失响应性，需使用 toRefs |
 
 ### 在 watch 使用中的区别
 
@@ -528,6 +514,13 @@ count++ // 响应式会丢失
 1.  使用 watch 侦听 ref 定义的响应式数据（参数是原始数据类型）
 
 ```vue
+<template>
+  <div class="main">
+    <p>count: {{ count }}</p>
+    <button @click="changeCount">更新count</button>
+  </div>
+</template>
+
 <script setup>
 import { ref, watch } from 'vue'
 
@@ -539,21 +532,21 @@ const changeCount = () => {
   count.value += 10
 }
 </script>
+```
 
+当侦听的数据是用 `ref` 定义的原数类型的数据时，数据发生变化的时候，就会执行 `watch` 函数的回调。
+
+2. 使用 watch 侦听 ref 定义的响应式数据（参数是引用数据类型的情况）
+
+```vue
+<script setup>
 <template>
   <div class="main">
     <p>count: {{ count }}</p>
     <button @click="changeCount">更新count</button>
   </div>
 </template>
-```
 
-也就是说：当侦听的数据是用 `ref` 定义的原数类型的数据时，数据发生变化的时候，就会执行 `watch` 函数的回调。
-
-2. 使用 watch 侦听 ref 定义的响应式数据（参数是引用数据类型的情况）
-
-```vue
-<script setup>
 import { ref, watch } from 'vue'
 
 let count = ref({ num: 0 })
@@ -564,26 +557,17 @@ const changeCount = () => {
   count.value.num += 10
 }
 </script>
-
-<template>
-  <div class="main">
-    <p>count: {{ count }}</p>
-    <button @click="changeCount">更新count</button>
-  </div>
-</template>
 ```
 
 ![alt text](image-7.png)
 
-当我们点击按钮时，可以看到界面的 `count` 值更新了，但控制台并没有打印输出，说明 `watch` 没有监听到 `count` 的变化。
+可以看到，当我们点击按钮时，界面的 `count` 值更新了，但控制台并没有打印 watch 相关的 输出，说明 `watch` 没有监听到 `count` 的变化。
 
-界面 `count` 更新了，说明 `DOM` 能够更新，响应式是没问题的，但 `watch` 没有监听到数据变化，其实这是深度监听的问题。
+界面 `count` 更新了，说明 `DOM` 能够更新，响应式是没问题的。但 `watch` 没有监听到数据变化，其实这是深度监听的问题，我们开启下深度监听之后就可以成功监听数据变化了。
 
-我们开启下深度监听之后就可以成功监听数据变化了。
+我们还有另一种方法可以在不开启深度监听的情况下，触发 `watch` 的监听。
 
-有另一种方法可以在不开启深度监听的情况下，触发 `watch` 的监听。
-
-我们对上面的代码再进行改造下，直接侦听 `count.value`，但是不深度侦听：
+对上面的代码再进行改造下，直接侦听 `count.value`，但是不深度侦听：
 
 ```vue
 <script setup>
@@ -610,11 +594,18 @@ const changeCount = () => {
 
 ![alt text](image-8.png)
 
-我们打印一下 count.value 看看，发现打印出来的结果是一个 Proxy 代理对象。因为对象类型的数据经过 ref 函数加工会变成 RefImpl 包装的对象，而该对象的 value 是 Proxy 类型的。我们想成功监听 ref（参数是对象），就需要监听内部的 proxy 对象，而不是外部的 RefImpl 包装对象。
+发现打印出来的 count.value 是一个 Proxy 代理对象。因为对象类型的数据经过 ref 函数加工会变成 RefImpl 包装的对象，而该对象的 value 是 Proxy 类型的。我们想成功监听 ref（参数是对象），就需要监听内部的 proxy 对象，而不是外部的 RefImpl 包装对象。
 
-1. 使用 watch 侦听 reactive 定义的响应式数据
+3. 使用 watch 侦听 reactive 定义的响应式数据
 
 ```vue
+<template>
+  <div class="main">
+    <p>count: {{ count }}</p>
+    <button @click="changeCount">更新count</button>
+  </div>
+</template>
+
 <script setup>
 import { reactive, watch } from 'vue'
 
@@ -626,18 +617,11 @@ const changeCount = () => {
   count.num += 10
 }
 </script>
-
-<template>
-  <div class="main">
-    <p>count: {{ count }}</p>
-    <button @click="changeCount">更新count</button>
-  </div>
-</template>
 ```
 
 ![alt text](image-9.png)
 
-从上面代码中我们可以看到，用 watch 函数侦听 reactive 数据时，不需要添加 deep 属性，也能够对其深度侦听。
+可以看到，用 watch 函数侦听 reactive 数据时，不需要添加 deep 属性，也能够对其深度侦听。
 
 ## 源码解读
 
@@ -840,24 +824,22 @@ state.count++
 
 **reactive 的局限性**
 
-在 Vue3 中，reactive API 通过 Proxy 实现了一种响应式数据的方法，尽管这种方法在性能上比 Vue2 有所提升，但 Proxy 的局限性也导致了 reactive 的局限性，这些局限性可能会影响开发者的使用体验。
+在 Vue3 中，reactive API 通过 Proxy 实现了一种响应式数据的方法，尽管这种方法在性能上比 Vue2 有所提升，但 **Proxy 的局限性也导致了 reactive 的局限性**，这些局限性可能会影响开发者的使用体验。
 
 reactive 的局限性主要集中在两点：
 
 1. 仅对引用数据类型有效
-2. 使用不当会失去响应式（参考上面关于 reactive 的缺点）
+2. 使用不当会失去响应式（参考上面关于 [reactive 的缺点](https://docs.fe-qianxun.com/notes/vue/refAndReactive#%E7%BC%BA%E7%82%B9-1)）
 
-## 究竟是使用 ref 好 还是 reactive
+## 究竟是使用 ref 好 还是 reactive 好
 
-使用 ref 时，响应性很稳定，但是到处.vue 很是麻烦，在我们试图将一个组件从`Options API`迁移到成`Composition API`时很方便，使用 reactive 更方便 （因为它与 data 类似），但是重构或者重新赋值时又非常容易丢失响应性（）。
+究竟是使用 ref 好 还是 reactive 好，一直是个有争议的问题。使用 ref 时，响应性很稳定，但是到处.vue 很是麻烦。在我们试图将一个组件从`Options API`迁移到成`Composition API`时，使用 reactive 更方便 （因为它与 data 类似），但是重构或者重新赋值时又非常容易丢失响应性。
 
 其实单单只是 容易丢失响应性这一条，就代表 reactive 还是不太好把握的。日常的开发中我还是建议使用 `ref`一把梭，省的哪些乱七八糟的。~~[毕竟尤大大也是这样推荐的](https://cloud.tencent.com/developer/article/2384389)~~。
 
 我可能只会在一种情况下才会使用 reactive————vue 2 语言项目改到 vue3 时，为了快速的重构 data 里的数据。
 
-至于 ref 的.value, 有人是非常中意的，他们认为只要看到.value，我们就知道它是一个响应式变量，从而能够显著的把响应式对象和普通变量分开。但有些人（比如我），就觉得.value 很麻烦，有两种办法可以解决这个问题。
-
-Volar 插件能自动补全 .value
+至于 ref 的.value, 有人是非常中意的，他们认为只要看到.value，就知道它是一个响应式变量，从而能够显著的把响应式对象和普通变量分开。但有些人（比如我），就觉得.value 很麻烦，[可以通过配置 vscode 来解决这个问题](https://docs.fe-qianxun.com/notes/vue/refAndReactive#%E7%BC%BA%E7%82%B9)
 
 ## 延伸
 
