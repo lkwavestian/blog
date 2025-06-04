@@ -168,6 +168,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       items: [
         { text: '生命周期相关', link: '/notes/uniapp/lifecycle' },
         { text: '返回上页并刷新', link: '/notes/uniapp/returnAndRefresh' },
+        { text: '企业微信加水印的探索与踩坑', link: '/notes/uniapp/waterMarks' },
       ],
     },
   ],
