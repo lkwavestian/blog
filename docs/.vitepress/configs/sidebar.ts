@@ -80,6 +80,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       text: '常用工具/方法',
       collapsed: false,
       items: [
+        { text: '规范相关', link: '/workflow/specification/code-specification' },
         { text: '工具库整理', link: '/workflow/utils/library' },
         { text: '常用正则整理', link: '/workflow/utils/regexp' },
         { text: '常用方法整理', link: '/workflow/utils/function' },
