@@ -3,27 +3,27 @@
 原文地址：[Debouncing and Throttling Explained Through Examples](https://css-tricks.com/debouncing-throttling-explained-examples/)
 
 原文作者：[David Corbacho](https://twitter.com/dcorbacho)
+
+译者：[千浔](https://github.com/lkwavestian)
 :::
 
 # 通过实例深入了解防抖与节流
 
 防抖`（Debouncing）`与节流`（Throttling）`是两个相似但又截然不同的技术，他们都用于控制在一段时间内函数执行的次数。
 
-防抖和节流特别适用于`DOM`事件，因为我们会在 `DOM` 事件与执行函数之间多加一层。需要注意一点：我们无法控制 `DOM` 事件的的触发频率，我们只能控制 函数执行的频率。
+防抖和节流特别适用于`DOM`事件，因为我们会在 `DOM` 事件与执行函数之间多加一层。需要注意一点：我们无法控制 `DOM` 事件的的触发频率，我们只能控制函数执行的频率。
 
 看下面这个滚动事件的例子:
 
 <!-- <div class="cp_embed_wrapper"><iframe allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="cp_embed_iframe " frameborder="0" height="268" width="100%" name="cp_embed_1" scrolling="no" src="https://codepen.io/dcorb/embed/PZOZgB?height=268&amp;theme-id=0&amp;slug-hash=PZOZgB&amp;default-tab=result&amp;user=dcorb&amp;name=cp_embed_1" style="width: 100%; overflow:hidden; display:block;" title="CodePen Embed" loading="lazy" id="cp_embed_PZOZgB"></iframe></div> -->
 
-当我们使用触控板、滚轮或者仅通过拖动滚动条来滚动时，每秒可以轻松触发 `30` 次滚动事件。甚至在我的测试中，使用智能手机缓慢滚动时，每秒甚至可以触发多达 `100` 次滚动事件。
+当我们使用触控板、滚轮或者拖动滚动条来滚动时，每秒可以轻松触发 `30` 次滚动事件。甚至在我的测试中，使用智能手机缓慢滚动时，每秒甚至可以触发多达 `100` 次滚动事件。这么高的回调频率，你的执行函数压力真的不大吗？
 
-这么高的回调频率，你的执行函数压力真的不大吗？
-
-`2011` 年，在 `Twitter` 网站上出现了一个问题：当用户向下滑动他们的 `Twitter`摘要时，页面会卡顿甚至变得毫无反应。`John Resig` 发表了一篇[有关问题的博客文章](https://johnresig.com/blog/learning-from-twitter/)，其中解释了将耗时的函数直接绑定在滚动事件上的做法有多糟糕。
+`2011` 年， `Twitter` 网站曾出现一个`Bug`：当用户向下滑动他们的 `Twitter`摘要时，页面会卡顿甚至变得毫无反应。`John Resig` 发表了一篇[有关问题的博客文章](https://johnresig.com/blog/learning-from-twitter/)，其中解释了将内存消耗昂贵的函数直接绑定在滚动事件上的做法有多糟糕。
 
 `John` 在他的文章中提到了一个解决方案：将 `DOM` 事件与执行函数分开，在 `DOM` 事件之外，每 `250ms` 循环执行一次函数。通过这样一个简单的技术，我们可以避免破坏用户的使用体验。
 
-但是现在，我们有更好的方法去处理这个问题。下面我会介绍防抖`（Debounce）`、节流`（Throttle）`与 `requestAnimationFrame`这三种技术。我们还会写几个例子去实际应用这这些技术解决对应问题。
+但是现在，我们有更好的方法去处理这个问题。下面我会结合用例介绍防抖`（Debounce）`、节流`（Throttle）`与 `requestAnimationFrame`这三种技术。
 
 ## 防抖（Debounce）
 
@@ -33,16 +33,26 @@
 
 想象你在电梯里。电梯门刚开始关闭时，突然有一个人试图闯进来，由于电梯门还没有完全关闭，它就会重新打开。这时又有一个人试图进来，电梯门又重新打开了。电梯推迟了它的操作（指关闭电梯门并移动到指定楼层），但是最大化了它的承载能力。
 
-可以在下面这个例子上试验一下：在顶部那个按钮上面点击或者移动鼠标下
+可以在下面这个例子上试验一下：在 `Trigger area` 按钮内移动鼠标或者点击该按钮：
 
-<!-- <div class="cp_embed_wrapper"><iframe allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="cp_embed_iframe " frameborder="0" height="268" width="100%" name="cp_embed_2" scrolling="no" src="https://codepen.io/dcorb/embed/KVxGqN?height=268&amp;theme-id=0&amp;slug-hash=KVxGqN&amp;default-tab=result&amp;user=dcorb&amp;name=cp_embed_2" style="width: 100%; overflow:hidden; display:block;" title="CodePen Embed" loading="lazy" id="cp_embed_KVxGqN"></iframe></div> -->
+<!-- <div class="cp_embed_wrapper"><iframe allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="cp_embed_iframe " frameborder="0" height="380" width="100%" name="cp_embed_2" scrolling="no" src="https://codepen.io/dcorb/embed/KVxGqN?height=268&amp;theme-id=0&amp;slug-hash=KVxGqN&amp;default-tab=result&amp;user=dcorb&amp;name=cp_embed_2" style="width: 100%; overflow:hidden; display:block;" title="CodePen Embed" loading="lazy" id="cp_embed_KVxGqN"></iframe></div>
+ -->
 
-你可以直观感受到一系列连续且快速的事件是如何被一个防抖事件所取代的。但是如果这些事件的间隔时间过长，防抖就不会触发。
+::: tip 译者注：
+这里原作者做了一个可视化条形图巧妙的展示了防抖的功能。
 
-### 立即执行
+每个色块表示一次回调函数的执行，色块宽度其实代表 100ms 的时间间隔。
 
-你可能会发现一个令人苦恼的现象——防抖事件会在等待触发函数执行，事件停止后，防抖事件才会立即执行。为什么它不会立即执行？那样的话它就跟原本的非 `debounce` 处理无异了。
-而直到两次快速调用之间的停顿结束，事件才会再次触发。
+后文的几个例子与此例原理相似，只不过触发事件不同。在这个例子中，事件触发可以在`Trigger area`按钮内移动或者点击。以看到：原始事件每次触发都会显示当前颜色，而防抖事件只有停止触发后 400ms 才显示。
+
+:::
+
+你可以直观感受到一系列连续且快速的事件是如何被一个防抖事件所取代的。但是如果这些事件的间隔时间过长，防抖就不会生效。
+
+### 立即执行（lead/immediate）
+
+在上面的例子中，你可能会发现一个令人苦恼的现象：防抖事件会等待触发函数执行，一系列事件停止后，防抖事件才会立即执行。为什么它不会立即执行？那样的话它就跟原本的非 `debounce` 处理无异了。
+直到两次快速调用之间的停顿结束，事件才会再次触发。
 
 以下是个带`leading`标记的例子：
 
