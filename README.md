@@ -30,10 +30,10 @@
 - <https://notes.fe-mm.com>
 - <https://mm-notes.vercel.app>
 - <https://mm-notes.netlify.app>
-- <https://maomao1996.github.io/mm-notes>
+- <https://lkwavestian.github.io/mm-notes>
 
 ## 鼓励作者
 
 如果你觉得博客对你有帮助，可以帮忙点个 `star` 或者打赏犒劳一下
 
-![鼓励作者](https://cdn.jsdelivr.net/gh/maomao1996/picture/sponsor/sponsor.jpg)
+![鼓励作者](https://cdn.jsdelivr.net/gh/lkwavestian/picture/sponsor/sponsor.jpg)

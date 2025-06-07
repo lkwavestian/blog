@@ -38,11 +38,11 @@ export default defineConfig({
       label: '本页目录',
     },
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/maomao1996' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/lkwavestian' }],
 
     footer: {
       message: '如有转载或 CV 的请标注本站原文地址',
-      copyright: 'Copyright © 2019-present maomao',
+      copyright: 'Copyright © 2019-present lkwavestian',
     },
 
     darkModeSwitchLabel: '外观',

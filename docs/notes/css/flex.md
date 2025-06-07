@@ -419,5 +419,3 @@ flex: 2 30px; => 2 1 30px
 ```css
 flex: 2 2 10%;
 ```
-
-[`Flex` 语法和计算规则](https://github.com/maomao1996/daily-notes/issues/23)。

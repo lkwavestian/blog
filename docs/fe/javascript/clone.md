@@ -26,7 +26,7 @@
 
 ```js
 const obj1 = {
-  name: 'maomao',
+  name: 'qianxun',
   props: { a: 1 },
 }
 
@@ -34,7 +34,7 @@ const obj2 = Object.assign({}, obj1)
 obj2.name = '千浔'
 obj2.props.a++
 
-obj1 // { name: 'maomao', props: { a: 2 } }
+obj1 // { name: 'qianxun', props: { a: 2 } }
 obj2 // { name: '千浔', props: { a: 2 } }
 ```
 
@@ -69,7 +69,7 @@ arr2 // ['arr2', 2, 3, ['arr2', 5]];
 ```js
 /* 对象 */
 const obj1 = {
-  name: 'maomao',
+  name: 'qianxun',
   props: { a: 1 },
 }
 
@@ -77,7 +77,7 @@ const obj2 = { ...obj1 }
 obj2.name = '千浔'
 obj2.props.a++
 
-obj1 // { name: 'maomao', props: { a: 2 } }
+obj1 // { name: 'qianxun', props: { a: 2 } }
 obj2 // { name: '千浔', props: { a: 2 } }
 
 /* 数组 */
@@ -103,7 +103,7 @@ arr2 // ['arr2', 2, 3, ['arr2', 5]];
 
 ```js
 const obj1 = {
-  name: 'maomao',
+  name: 'qianxun',
   props: { a: 1 },
 }
 
@@ -111,7 +111,7 @@ const obj2 = JSON.parse(JSON.stringify(obj1))
 obj2.name = '千浔'
 obj2.props.a++
 
-obj1 // { name: 'maomao', props: { a: 1 } }
+obj1 // { name: 'qianxun', props: { a: 1 } }
 obj2 // { name: '千浔', props: { a: 2 } }
 ```
 

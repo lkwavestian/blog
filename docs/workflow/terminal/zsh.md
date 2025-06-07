@@ -214,7 +214,7 @@ if [[ -d .git ]]; then
   localName=$(git config user.name)
   localEmail=$(git config user.email)
   # 只判断 github 仓库，根据需要修改（判断字符建议写长点）
-  if [[ $url =~ "github.com/maomao1996" ]]; then
+  if [[ $url =~ "github.com/lkwavestian" ]]; then
     # 提示当前为 github 项目（不需要就注释）
     echo -e "\033[34m当前为 github 项目\033[0m"
     if [[ $githubName && $githubName != $localName ]]; then

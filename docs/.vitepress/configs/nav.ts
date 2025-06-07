@@ -94,15 +94,10 @@ export const nav: DefaultTheme.Config['nav'] = [
   {
     text: '千浔',
     items: [
-      { text: '个人主页', link: 'https://fe-mm.com' },
+      { text: '个人主页', link: 'https://fe-qianxun.com' },
       {
-        text: '日常笔记',
-        link: 'https://github.com/maomao1996/daily-notes',
-      },
-      { text: 'mmPlayer', link: 'https://netease-music.fe-mm.com' },
-      {
-        text: '油猴脚本',
-        link: 'https://github.com/maomao1996/tampermonkey-scripts',
+        text: '我的博客',
+        link: 'https://github.com/lkwavestian/blog',
       },
     ],
   },

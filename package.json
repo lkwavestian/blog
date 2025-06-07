@@ -7,14 +7,14 @@
   "description": "Development related notes",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maomao1996/mm-notes.git"
+    "url": "git+https://github.com/lkwavestian/blog.git"
   },
   "bugs": {
-    "url": "https://github.com/maomao1996/mm-notes/issues"
+    "url": "https://github.com/lkwavestian/blog/issues"
   },
   "license": "MIT",
-  "homepage": "https://github.com/maomao1996/mm-notes#readme",
-  "author": "maomao1996 <1714487678@qq.com>",
+  "homepage": "https://github.com/lkwavestian/blog#readme",
+  "author": "lkwavestian <lkwavestian@gmail.com>",
   "scripts": {
     "dev": "cross-env NODE_ENV=development vitepress dev docs --port=8732",
     "build": "vitepress build docs",
@@ -25,9 +25,9 @@
     "publish": "npm run build && npm run deploy"
   },
   "devDependencies": {
-    "@femm/prettier": "^1.1.0",
-    "@femm/tailwind-config": "^1.0.0",
-    "@femm/verify-commit": "^1.0.1",
+    "@fe-qianxun/prettier": "^1.0.1",
+    "@fe-qianxun/tailwind-config": "^1.0.3",
+    "@fe-qianxun/verify-commit": "^2.0.1",
     "@giscus/vue": "^3.0.0",
     "@mdit-vue/shared": "^0.12.1",
     "@types/node": "^18.13.0",
@@ -51,7 +51,7 @@
       "prettier --write"
     ]
   },
-  "prettier": "@femm/prettier",
+  "prettier": "@fe-qianxun/prettier",
   "dependencies": {
     "gh-pages": "^6.1.1"
   }

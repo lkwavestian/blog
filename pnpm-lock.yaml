@@ -6,15 +6,15 @@ dependencies:
     version: 6.1.1
 
 devDependencies:
-  '@femm/prettier':
-    specifier: ^1.1.0
-    version: 1.1.0
-  '@femm/tailwind-config':
-    specifier: ^1.0.0
-    version: 1.0.0(tailwindcss@3.4.1)
-  '@femm/verify-commit':
+  '@fe-qianxun/prettier':
     specifier: ^1.0.1
     version: 1.0.1
+  '@fe-qianxun/tailwind-config':
+    specifier: ^1.0.3
+    version: 1.0.3(tailwindcss@3.4.1)
+  '@fe-qianxun/verify-commit':
+    specifier: ^2.0.1
+    version: 2.0.1
   '@giscus/vue':
     specifier: ^3.0.0
     version: 3.0.0(vue@3.4.21)
@@ -485,23 +485,23 @@ packages:
     dev: true
     optional: true
 
-  /@femm/prettier@1.1.0:
-    resolution: {integrity: sha512-9QljKnVUl9DlDdPO4hF7PuY5bhoHsgOapClB3td7XaMltSR/b9osSC6R/OF/TUAkn+GMRAnoJgua+qFRESRXcg==}
+  /@fe-qianxun/prettier@1.0.1:
+    resolution: {integrity: sha512-Fv5490I4R0adug20R5uWIFxzGBJH7hKxbmpFK4bErYzPactq52eiAFWE9EPulLjO7cUsvh+AEnED2lLPZIWs5w==}
     dev: true
 
-  /@femm/tailwind-config@1.0.0(tailwindcss@3.4.1):
-    resolution: {integrity: sha512-T3semVlcu87zyQT+2dhOOek4UBQY0bQKyc8zP5mlFt8drw5jDBshHxYiqDSW5HV6Qnariry4SsZwtbAXCVsIKg==}
+  /@fe-qianxun/tailwind-config@1.0.3(tailwindcss@3.4.1):
+    resolution: {integrity: sha512-08PQtKjdtpKVh5w7SYHUvHCQIEfzObmU5IrGzkHQ6H7ForJkzGOy0uqGuOS8IChYsPSe6CC9MdG2jQmlenFf6g==}
     peerDependencies:
       tailwindcss: '>=3.0.0'
     dependencies:
       tailwindcss: 3.4.1
     dev: true
 
-  /@femm/verify-commit@1.0.1:
-    resolution: {integrity: sha512-fJTeJwCkQQfPJXs56Oj9VUIC40fvyeggnYk0bk9PutOg6nzCytQlhmDRGl+i58jIrpFhVaJnoPo2wCAjoJEhag==}
+  /@fe-qianxun/verify-commit@2.0.1:
+    resolution: {integrity: sha512-HAwix7DPxYzy+Y1MRYB7TLTpsq0FtXjnaDPzFYolvFdgJNEU8cQcjcfDUomL7XYtb5+fKb/bLdHpFaI0yXIFew==}
     hasBin: true
     dependencies:
-      picocolors: 1.0.0
+      picocolors: 1.1.1
       terminal-link: 3.0.0
     dev: true
 
@@ -2226,6 +2226,10 @@ packages:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
     dev: true
 
+  /picocolors@1.1.1:
+    resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+    dev: true
+
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
@@ -2346,7 +2350,7 @@ packages:
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.0.0
+      picocolors: 1.1.1
       source-map-js: 1.2.0
     dev: true
 
@@ -2738,7 +2742,7 @@ packages:
     dependencies:
       browserslist: 4.22.2
       escalade: 3.1.1
-      picocolors: 1.0.0
+      picocolors: 1.1.1
     dev: true
 
   /util-deprecate@1.0.2:

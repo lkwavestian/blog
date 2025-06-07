@@ -1,11 +1,11 @@
 /* ?? 运算符 */
-const a = 0 ?? 'maomao' // 0
-const b = '' ?? 'maomao' // ''
-const c = null ?? 'maomao' // 'maomao'
-const d = undefined ?? 'maomao' // 'maomao'
+const a = 0 ?? 'qianxun' // 0
+const b = '' ?? 'qianxun' // ''
+const c = null ?? 'qianxun' // 'qianxun'
+const d = undefined ?? 'qianxun' // 'qianxun'
 
 /* || 运算符 */
-const A = 0 || 'maomao' // 'maomao'
-const B = '' || 'maomao' // 'maomao'
-const C = null || 'maomao' // 'maomao'
-const D = undefined || 'maomao' // 'maomao'
+const A = 0 || 'qianxun' // 'qianxun'
+const B = '' || 'qianxun' // 'qianxun'
+const C = null || 'qianxun' // 'qianxun'
+const D = undefined || 'qianxun' // 'qianxun'

@@ -65,7 +65,7 @@ function error(message: string): never {
 - **类型推断**：由 `TypeScript` 根据上下文内容自动推断出变量类型
 
 ```ts
-let name: string = 'maomao'
+let name: string = 'qianxun'
 let age = 18 // TypeScript 自动推断为 job: number
 ```
 
@@ -88,7 +88,7 @@ const strArray: string[] = ['1', '2', '3']
 // 只允许存储 number 类型
 const numArray: number[] = [1, 2, 3]
 // 任意类型
-const anyArray: any[] = ['maomao', 18, {}]
+const anyArray: any[] = ['qianxun', 18, {}]
 ```
 
 通过**泛型**定义数组类型：
@@ -99,7 +99,7 @@ const strArray: Array<string> = ['1', '2', '3']
 // 只允许存储 number 类型
 const numArray: Array<number> = [1, 2, 3]
 // 任意类型
-const anyArray: Array<any> = ['maomao', 18, {}]
+const anyArray: Array<any> = ['qianxun', 18, {}]
 ```
 
 ### 元组 Tuple
@@ -109,7 +109,7 @@ const anyArray: Array<any> = ['maomao', 18, {}]
 当对元组类型的数据进行 **越界访问** 或 **分配错误的类型值** 时，`TypeScript` 将报错提示
 
 ```ts
-const tuple: [string, number] = ['maomao', 18]
+const tuple: [string, number] = ['qianxun', 18]
 
 console.log(tuple[2]) // Error
 tuple[0] = 666 // Error
@@ -190,7 +190,7 @@ interface Person {
 }
 
 const person: Person = {
-  name: 'maomao',
+  name: 'qianxun',
   age: 18,
 }
 ```
@@ -205,7 +205,7 @@ interface Person {
 
 // Error: 缺少属性 "age"
 const person1: Person = {
-  name: 'maomao'
+  name: 'qianxun'
 }
 // Error: "gender" 不在类型 "Person" 中
 const person2: Person = {
@@ -226,7 +226,7 @@ interface Person {
 }
 
 const person: Person = {
-  name: 'maomao',
+  name: 'qianxun',
 }
 ```
 
@@ -258,7 +258,7 @@ interface Person {
 }
 
 const person: Person = {
-  name: 'maomao',
+  name: 'qianxun',
   gender: 'male',
 }
 ```
@@ -362,7 +362,7 @@ type Person = {
 **字符串字面量类型**：
 
 ```ts
-type Name = 'maomao' | 'maomao1996' | 'Tom'
+type Name = 'qianxun' | 'lkwavestian' | 'Tom'
 ```
 
 **数字字面量类型**：

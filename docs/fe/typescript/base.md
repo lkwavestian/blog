@@ -37,7 +37,7 @@ let isFlag: boolean = true
 **string 字符串类型**
 
 ```ts
-let name: string = 'maomao'
+let name: string = 'qianxun'
 name = 'Tom'
 ```
 
@@ -65,7 +65,7 @@ let big: bigint = 19961996n
 `symbol` 类型表示独一无二的值，其必须通过 `Symbol` 函数生成，常用于创建对象属性的唯一标识符
 
 ```ts
-let sym: symbol = Symbol('maomao')
+let sym: symbol = Symbol('qianxun')
 sym = Symbol('Tom') // OK
 sym = 'Tom' // Error
 ```
