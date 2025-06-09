@@ -1,51 +1,53 @@
-import { h, watch } from 'vue'
-import { useData, EnhanceAppContext } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
+import { h, watch } from "vue";
+import { useData, useRoute, EnhanceAppContext } from "vitepress";
+import DefaultTheme from "vitepress/theme";
 
-import { createMediumZoomProvider } from './composables/useMediumZoom'
+import { createMediumZoomProvider } from "./composables/useMediumZoom";
 
-import MLayout from './components/MLayout.vue'
-import MNavVisitor from './components/MNavVisitor.vue'
-import MDocFooter from './components/MDocFooter.vue'
-import MAsideSponsors from './components/MAsideSponsors.vue'
-import MNavLinks from './components/MNavLinks.vue'
+import MLayout from "./components/MLayout.vue";
+import MNavVisitor from "./components/MNavVisitor.vue";
+import MDocFooter from "./components/MDocFooter.vue";
+import MAsideSponsors from "./components/MAsideSponsors.vue";
+import MNavLinks from "./components/MNavLinks.vue";
 
-import './styles/index.scss'
+import giscusTalk from "vitepress-plugin-comment-with-giscus";
 
-if (typeof window !== 'undefined') {
+import "./styles/index.scss";
+
+if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
   if (window.navigator && navigator.serviceWorker) {
     navigator.serviceWorker.getRegistrations().then(function (registrations) {
       for (let registration of registrations) {
-        registration.unregister()
+        registration.unregister();
       }
-    })
+    });
   }
 
   /* 删除浏览器中的缓存 */
-  if ('caches' in window) {
+  if ("caches" in window) {
     caches.keys().then(function (keyList) {
       return Promise.all(
         keyList.map(function (key) {
-          return caches.delete(key)
-        }),
-      )
-    })
+          return caches.delete(key);
+        })
+      );
+    });
   }
 }
 
-let homePageStyle: HTMLStyleElement | undefined
+let homePageStyle: HTMLStyleElement | undefined;
 
 export default {
   extends: DefaultTheme,
   Layout: () => {
-    const props: Record<string, any> = {}
+    const props: Record<string, any> = {};
     // 获取 frontmatter
-    const { frontmatter } = useData()
+    const { frontmatter } = useData();
 
     /* 添加自定义 class */
     if (frontmatter.value?.layoutClass) {
-      props.class = frontmatter.value.layoutClass
+      props.class = frontmatter.value.layoutClass;
     }
 
     return h(MLayout, props, {
@@ -54,55 +56,82 @@ export default {
        * https://vitepress.dev/guide/extending-default-theme#layout-slots
        * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/Layout.vue
        */
-      'nav-bar-title-after': () => h(MNavVisitor),
-      'doc-after': () => h(MDocFooter),
-      'aside-bottom': () => h(MAsideSponsors),
-    })
+      "nav-bar-title-after": () => h(MNavVisitor),
+      "doc-after": () => h(MDocFooter),
+      "aside-bottom": () => h(MAsideSponsors),
+    });
   },
   enhanceApp({ app, router }: EnhanceAppContext) {
-    createMediumZoomProvider(app, router)
+    createMediumZoomProvider(app, router);
 
-    app.component('MNavLinks', MNavLinks)
+    app.component("MNavLinks", MNavLinks);
 
-    app.provide('DEV', process.env.NODE_ENV === 'development')
+    app.provide("DEV", process.env.NODE_ENV === "development");
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       watch(
         () => router.route.data.relativePath,
-        () => updateHomePageStyle(location.pathname === '/'),
-        { immediate: true },
-      )
+        () => updateHomePageStyle(location.pathname === "/"),
+        { immediate: true }
+      );
     }
   },
-}
 
-if (typeof window !== 'undefined') {
+  setup() {
+    // Get frontmatter and route
+    const { frontmatter } = useData();
+    const route = useRoute();
+
+    // giscus配置
+    giscusTalk(
+      {
+        repo: "lkwavestian/blog", //仓库
+        repoId: "R_kgDOLyJOgA", //仓库ID
+        category: "General", // 讨论分类
+        categoryId: "DIC_kwDOLyJOgM4CrOyY", //讨论分类ID
+        mapping: "pathname",
+        inputPosition: "bottom",
+        lang: "zh-CN",
+      },
+      {
+        frontmatter,
+        route,
+      },
+      //默认值为true，表示已启用，此参数可以忽略；
+      //如果为false，则表示未启用
+      //您可以使用“comment:true”序言在页面上单独启用它
+      true
+    );
+  },
+};
+
+if (typeof window !== "undefined") {
   // detect browser, add to class for conditional styling
-  const browser = navigator.userAgent.toLowerCase()
-  if (browser.includes('chrome')) {
-    document.documentElement.classList.add('browser-chrome')
-  } else if (browser.includes('firefox')) {
-    document.documentElement.classList.add('browser-firefox')
-  } else if (browser.includes('safari')) {
-    document.documentElement.classList.add('browser-safari')
+  const browser = navigator.userAgent.toLowerCase();
+  if (browser.includes("chrome")) {
+    document.documentElement.classList.add("browser-chrome");
+  } else if (browser.includes("firefox")) {
+    document.documentElement.classList.add("browser-firefox");
+  } else if (browser.includes("safari")) {
+    document.documentElement.classList.add("browser-safari");
   }
 }
 
 // Speed up the rainbow animation on home page
 function updateHomePageStyle(value: boolean) {
   if (value) {
-    if (homePageStyle) return
+    if (homePageStyle) return;
 
-    homePageStyle = document.createElement('style')
+    homePageStyle = document.createElement("style");
     homePageStyle.innerHTML = `
     :root {
       animation: rainbow 12s linear infinite;
-    }`
-    document.body.appendChild(homePageStyle)
+    }`;
+    document.body.appendChild(homePageStyle);
   } else {
-    if (!homePageStyle) return
+    if (!homePageStyle) return;
 
-    homePageStyle.remove()
-    homePageStyle = undefined
+    homePageStyle.remove();
+    homePageStyle = undefined;
   }
 }
