@@ -10,8 +10,8 @@ on:
       - master
     # 只在下列路径变更时触发
     paths:
-      - 'docs/**'
-      - 'package.json'
+      - "docs/**"
+      - "package.json"
 
 # 设置权限
 permissions:
@@ -47,12 +47,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       # 打包静态文件
       - name: Build
         env:
-          APP_BASE_PATH: /${{ github.repository }}
+          APP_BASE_PATH: /lkwavestian/blog
         run: pnpm install && pnpm run build
 
       # 部署
