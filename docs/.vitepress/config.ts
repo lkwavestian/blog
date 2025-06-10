@@ -80,7 +80,7 @@ export default defineConfig({
 
   /* 生成站点地图 */
   sitemap: {
-    hostname: "https://docs.fe-qianxun.com/",
+    hostname: "https://docs.fe-qianxun.com",
   },
 
   vite: {
