@@ -68,6 +68,7 @@ export default {
 
     app.provide("DEV", process.env.NODE_ENV === "development");
 
+    // 如果路由变化，执行 updateHomePageStyle 函数
     if (typeof window !== "undefined") {
       watch(
         () => router.route.data.relativePath,
@@ -117,7 +118,7 @@ if (typeof window !== "undefined") {
   }
 }
 
-// Speed up the rainbow animation on home page
+// 彩虹背景动画样式
 function updateHomePageStyle(value: boolean) {
   if (value) {
     if (homePageStyle) return;

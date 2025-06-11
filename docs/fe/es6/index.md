@@ -1247,19 +1247,3 @@ Promise.prototype.finally = function (callback) {
   - 将多个 `Promise` 实例，包装成一个新的 `Promise` 实例，只要参数实例有一个变成 `fulfilled` 状态，包装实例就会变成 `fulfilled` 状态；如果所有参数实例都变成 `rejected` 状态，包装实例才会变成 `rejected` 状态
 
 [Promise 实现](https://github.com/qianxun1996/Promise) 简易实现、A+ 规范实现、原型方法、静态方法实现
-
-::: code-group
-
-```sh [pnpm]
-pnpm -v
-```
-
-```sh [yarn]
-yarn -v
-```
-
-```sh [bun]
-bun -v
-```
-
-:::
