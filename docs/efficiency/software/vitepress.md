@@ -29,3 +29,15 @@ export default defineConfig({
 ```
 
 配置缺少关键 Key，我们需要先[注册 Algolia 账号](https://dashboard.algolia.com/users/sign_in)。
+
+## 样式美化
+
+### 彩虹背景动画
+
+### 引用颜色更改
+
+### 容器颜色
+
+### 导航毛玻璃
+
+### 隐藏横条
