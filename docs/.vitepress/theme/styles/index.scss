@@ -3,8 +3,8 @@
 @import './overrides.scss';
 @import './medium-zoom.scss';
 @import './tailwind.scss';
-@import './blockquote.scss';
-@import './custom-block.css';
+@import './blockquote.scss';  // 块引用样式
+@import './custom-block.css'; // 容器颜色
 @import './blur.css';
 @import './hidden.css'; // 隐藏横条
 @import './marker.css'; // 记号笔

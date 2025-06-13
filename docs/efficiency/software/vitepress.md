@@ -144,7 +144,63 @@ function updateHomePageStyle(value: boolean) {
 
 ### 引用颜色更改
 
+在 Markdown 中，我们常用的引用符号是 `>`，关于引用的样式我们我们可以稍微改动一下
+
+在 `theme/style` 新建 `blockquote.css` 文件，并且复制下面代码，粘贴到 `blockquote.css` 中
+
+```css
+/* .vitepress/theme/style/blockquote.css */
+.vp-doc blockquote {
+  border-radius: 10px;
+  padding: 18px 20px 20px 15px;
+  position: relative;
+  background-color: var(--vp-c-gray-soft);
+  border-left: 6px solid var(--vp-c-green-2);
+}
+```
+
+然后在 `index.css` 中引入生效
+
+```css
+/* .vitepress/theme/style/index.css */
+@import "./blockquote.css";
+```
+
+输入：
+
+```md
+> 更新时间：2024 年
+```
+
+输出：
+
+> 更新时间：2024 年
+
+---
+
 ### 容器颜色
+
+`vitePress` 中 `tip`、`warning`、`danger` 等容器的样式不太好看，这里我们参考[Vuepress/hope 主题的容器颜色](https://theme-hope.vuejs.press/zh/guide/markdown/stylize/hint.html#%E6%BC%94%E7%A4%BA)去实现一套我们自己的方案
+
+在 `theme/style` 新建 `custom-block.css` 文件，复制下面代码，粘贴到 `custom-block.css` 中
+
+::: details 点我查看代码
+
+<<< @/.vitepress/theme/styles/custom-block.scss
+
+:::
+
+---
+
+更改之前效果：
+
+![customBlockBefore](./images/customBlockBefore.png)
+
+更改之后效果：
+
+![customBlockAfter](./images/customBlockAfter.png)
+
+更改之后加了左边框、图标，看着好看多了
 
 ### 导航毛玻璃
 

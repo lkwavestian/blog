@@ -39,11 +39,11 @@
     "pnpm": "^8.0.0",
     "postcss": "^8.4.33",
     "prettier": "^2.8.8",
-    "sass": "^1.69.4",
+    "sass": "^1.72.0",
     "sitemap": "^7.1.1",
     "tailwindcss": "^3.4.1",
     "vite-plugin-markdown-preview": "^1.1.1",
-    "vitepress": "^1.0.1",
+    "vitepress": "^1.6.3",
     "vitepress-plugin-51la": "^0.1.0",
     "vitepress-plugin-comment-with-giscus": "^1.1.15",
     "vitepress-plugin-group-icons": "^1.6.0",
@@ -57,5 +57,11 @@
   "prettier": "@fe-qianxun/prettier",
   "dependencies": {
     "gh-pages": "^6.1.1"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "vite-plugin-markdown-preview@1.1.1": "patches/vite-plugin-markdown-preview@1.1.1.patch",
+      "vitepress@1.6.3": "patches/vitepress@1.6.3.patch"
+    }
   }
 }
