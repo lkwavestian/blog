@@ -176,8 +176,6 @@ function updateHomePageStyle(value: boolean) {
 
 > 更新时间：2024 年
 
----
-
 ### 容器颜色
 
 `vitePress` 中 `tip`、`warning`、`danger` 等容器的样式不太好看，这里我们参考[Vuepress/hope 主题的容器颜色](https://theme-hope.vuejs.press/zh/guide/markdown/stylize/hint.html#%E6%BC%94%E7%A4%BA)去实现一套我们自己的方案
@@ -203,6 +201,71 @@ function updateHomePageStyle(value: boolean) {
 更改之后加了左边框、图标，看着好看多了
 
 ### 导航毛玻璃
+
+在 `theme/style` 文件夹，然后新建 `blur.css` 并填入如下代码
+
+```css
+/* .vitepress\theme\style\blur.css */
+:root {
+  /* 首页下滑后导航透明 */
+  .VPNavBar:not(.has-sidebar):not(.home.top) {
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+  }
+
+  /* 搜索框透明 */
+  .DocSearch-Button {
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Feature透明 */
+  .VPFeature {
+    border: none;
+    box-shadow: 0 10px 30px 0 rgb(0 0 0 / 15%);
+    background-color: transparent;
+  }
+
+  /* 文档页侧边栏顶部透明 */
+  .curtain {
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+  }
+
+  @media (min-width: 960px) {
+    /* 文档页导航中间透明 */
+    .VPNavBar:not(.home.top) .content-body {
+      background-color: rgba(255, 255, 255, 0);
+      backdrop-filter: blur(10px);
+    }
+  }
+
+  /* 移动端大纲栏透明 */
+  .VPLocalNav {
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+  }
+}
+```
+
+最后引入 `index.css` 中 即可看到效果
+
+```css
+/* style/index.css */
+@import "./blur.css";
+```
+
+---
+
+更改之前效果：
+
+![blurBefore](./images/blurBefore.gif)
+
+更改之后效果：
+
+![blurAfter](./images/blurAfter.gif)
+
+相比较更改之前导航栏纯白的背景，更改之后的导航栏有一个毛玻璃的效果，体验感会更好
 
 ### 隐藏横条
 
