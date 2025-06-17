@@ -267,8 +267,53 @@ function updateHomePageStyle(value: boolean) {
 
 相比较更改之前导航栏纯白的背景，更改之后的导航栏有一个毛玻璃的效果，体验感会更好
 
-### 隐藏横条
+### 记号笔
 
+在某些整段的文字中，我们可以用记号笔，划出重点。这里的记号笔效果参考了[尤大的个人主页](https://evanyou.me/)
+
+在 `theme/style` 新建 `marker.css` 文件，将下面代码，复制粘贴到 `marker.css` 中
+
+```css [marker.css]
+/* .vitepress/theme/style/marker.css */
+
+/* 尤雨溪主页记号笔效果 不喜欢可自行调整 */
+.marker {
+  white-space: nowrap;
+  position: relative;
+}
+
+.marker:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 66%;
+  left: 0em;
+  right: 0em;
+  bottom: 0;
+  transition: top 200ms cubic-bezier(0, 0.8, 0.13, 1);
+  background-color: rgba(79, 192, 141, 0.5);
+}
+
+.marker:hover:after {
+  top: 0%;
+}
 ```
 
+然后在 `index.css` 中引入生效
+
+```css
+/* .vitepress/theme/style/index.css */
+@import "./marker.css";
 ```
+
+输入：
+
+```md
+<sapn class="marker">这里是尤雨溪的主页样式，鼠标放在我上面看效果</sapn>
+```
+
+输出：
+
+<sapn class="marker">这里是尤雨溪的主页样式，鼠标放在我上面看效果</sapn>
+
+---
