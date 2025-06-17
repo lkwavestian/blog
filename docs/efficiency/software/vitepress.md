@@ -317,3 +317,152 @@ function updateHomePageStyle(value: boolean) {
 <sapn class="marker">这里是尤雨溪的主页样式，鼠标放在我上面看效果</sapn>
 
 ---
+
+### 代码块
+
+将代码块改成 Mac 风格，三个小圆点
+
+在 `.vitepress/theme/style` 目录新建一个 `vp-code.css` 文件，复制下面代码，粘贴到 `vp-code.css` 保存
+
+```css
+/* .vitepress/theme/style/vp-code.css */
+
+/* 代码块：增加留空边距 增加阴影 */
+.vp-doc div[class*="language-"] {
+  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+  padding-top: 20px;
+}
+
+/* 代码块：添加macOS风格的小圆点 */
+.vp-doc div[class*="language-"]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 12px;
+  height: 12px;
+  background-color: #ff5f56;
+  border-radius: 50%;
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+  z-index: 1;
+}
+
+/* 代码块：下移行号 隐藏右侧竖线 */
+.vp-doc .line-numbers-wrapper {
+  padding-top: 40px;
+  border-right: none;
+}
+
+/* 代码块：重建行号右侧竖线 */
+.vp-doc .line-numbers-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: 0;
+  border-right: 1px solid var(--vp-code-block-divider-color);
+  height: calc(100% - 60px);
+}
+
+.vp-doc div[class*="language-"].line-numbers-mode {
+  margin-bottom: 20px;
+}
+```
+
+然后在 `index.css` 中引入生效
+
+```css
+/* .vitepress/theme/style/index.css */
+@import "./vp-code.css";
+```
+
+更改之前效果：
+
+![](./images//vpCodeBefore.png)
+
+更改之后效果:
+
+![](./images//vpCodeAfter.png)
+
+更改之后加了边框阴影和顶部左侧的小圆点，更好看了
+
+---
+
+### 代码组
+
+在更改代码块的基础上，更改代码组样式
+
+在 `.vitepress/theme/style` 目录新建一个 `vp-code-group.css` 文件，复制下面代码，粘贴到 `vp-code-group.css` 保存
+
+```css
+/* .vitepress/theme/style/vp-code-group.css */
+
+/* 代码组：tab间距 */
+.vp-code-group .tabs {
+  padding-top: 20px;
+}
+
+/* 代码组：添加样式及阴影 */
+.vp-code-group {
+  color: var(--vp-c-black-soft);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 40%);
+}
+
+/* 代码组：添加macOS风格的小圆点 */
+.vp-code-group .tabs::before {
+  content: " ";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  height: 12px;
+  width: 12px;
+  background: #fc625d;
+  border-radius: 50%;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+}
+
+/* 代码组：修正倒角、阴影、边距 */
+.vp-code-group div[class*="language-"].vp-adaptive-theme.line-numbers-mode {
+  border-radius: 8px;
+  box-shadow: none;
+  padding-top: 0px;
+}
+
+/* 代码组：隐藏小圆点 */
+.vp-code-group div[class*="language-"].vp-adaptive-theme.line-numbers-mode::before {
+  display: none;
+}
+
+/* 代码组：修正行号位置 */
+.vp-code-group .line-numbers-mode .line-numbers-wrapper {
+  padding-top: 20px;
+}
+
+/* 代码组：修正行号右侧竖线位置 */
+.vp-code-group .line-numbers-mode .line-numbers-wrapper::after {
+  top: 24px;
+  height: calc(100% - 45px);
+}
+
+/* 代码组（无行号）：修正倒角、阴影、边距 */
+.vp-code-group div[class*="language-"].vp-adaptive-theme {
+  border-radius: 8px;
+  box-shadow: none;
+  padding-top: 0px;
+}
+
+/* 代码组（无行号）：隐藏小圆点 */
+.vp-code-group div[class*="language-"].vp-adaptive-theme::before {
+  display: none;
+}
+```
+
+然后在 `index.css` 中引入生效
+
+```css
+/* .vitepress/theme/style/index.css */
+@import "./vp-code-group.css";
+```
+
+---
