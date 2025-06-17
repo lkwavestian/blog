@@ -14,6 +14,8 @@ import giscusTalk from "vitepress-plugin-comment-with-giscus";
 
 import "./styles/index.scss";
 
+import "virtual:group-icons.css";
+
 if (typeof window !== "undefined") {
   /* 注销 PWA 服务 */
   if (window.navigator && navigator.serviceWorker) {

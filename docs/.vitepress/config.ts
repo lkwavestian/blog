@@ -2,6 +2,7 @@ import { basename } from "node:path";
 import { defineConfig } from "vitepress";
 import { La51Plugin } from "vitepress-plugin-51la";
 import MarkdownPreview from "vite-plugin-markdown-preview";
+import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons";
 
 import { head, nav, sidebar, algolia } from "./configs";
 
@@ -23,6 +24,9 @@ export default defineConfig({
 
   /* markdown 配置 */
   markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin); //代码组图标
+    },
     lineNumbers: true,
     image: {
       lazyLoading: true,
@@ -85,7 +89,32 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [MarkdownPreview(), La51Plugin({ id: "3LNfUkScYzEz6k4D", ck: "3LNfUkScYzEz6k4D" })],
+    plugins: [
+      MarkdownPreview(),
+      La51Plugin({ id: "3LNfUkScYzEz6k4D", ck: "3LNfUkScYzEz6k4D" }),
+      groupIconVitePlugin({
+        customIcon: {
+          /*    mts: "vscode-icons:file-type-typescript",
+          cts: "vscode-icons:file-type-typescript",
+          ts: "vscode-icons:file-type-typescript",
+          tsx: "vscode-icons:file-type-typescript",
+          mjs: "vscode-icons:file-type-js",
+          cjs: "vscode-icons:file-type-js",
+          json: "vscode-icons:file-type-json",
+          js: "vscode-icons:file-type-js",
+          jsx: "vscode-icons:file-type-js",
+          md: "vscode-icons:file-type-markdown",
+          py: "vscode-icons:file-type-python",
+          ico: "vscode-icons:file-type-favicon",
+          html: "vscode-icons:file-type-html",
+          css: "vscode-icons:file-type-css",
+          scss: "vscode-icons:file-type-scss",
+          yml: "vscode-icons:file-type-light-yaml",
+          yaml: "vscode-icons:file-type-light-yaml",
+          php: "vscode-icons:file-type-php", */
+        },
+      }), // 代码组图标
+    ],
     css: {
       preprocessorOptions: {
         scss: {

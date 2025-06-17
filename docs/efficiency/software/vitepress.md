@@ -465,4 +465,184 @@ function updateHomePageStyle(value: boolean) {
 @import "./vp-code-group.css";
 ```
 
+## 插件
+
+### 代码组图标
+
+使用的插件是 [@yuyinws/vitepress-plugin-group-icons](https://github.com/yuyinws/vitepress-plugin-group-icons)
+
+参照教程安装：https://vpgi.vercel.app/
+
+::: code-group
+
+```sh [pnpm]
+pnpm add -D vitepress-plugin-group-icons
+```
+
+```sh [yarn]
+yarn add -D vitepress-plugin-group-icons
+```
+
+```sh [npm]
+npm install vitepress-plugin-group-icons
+```
+
+```sh [bun]
+bun add -D vitepress-plugin-group-icons
+```
+
+:::
+
+然后在 `config.mts` 中配置
+
+```ts{3,8-10,13-17}
+// .vitepress/config.mts
+import { defineConfig } from 'vitepress'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons' // [!code focus]
+
+export default defineConfig({
+
+  markdown: {
+    config(md) { // [!code focus:3]
+      md.use(groupIconMdPlugin) //代码组图标
+    },
+  },
+
+  vite: { // [!code focus:5]
+    plugins: [
+      groupIconVitePlugin() //代码组图标
+    ],
+  },
+
+})
+```
+
+最后还需要再 `index.ts` 中引入样式
+
+```ts{4}
+// .vitepress/theme/index.ts
+import DefaultTheme from 'vitepress/theme'
+
+import 'virtual:group-icons.css' //代码组样式 // [!code focus]
+
+export default {
+  extends: DefaultTheme,
+}
+```
+
+使用时，请确保代码后有对应的文字触发，如 `sh [pnpm]` 表示这一段代码块是 `pnpm` 的代码块
+
+````md{2,6,10}
+::: code-group
+```sh [pnpm]
+pnpm -v
+```
+
+```sh [yarn]
+yarn -v
+```
+
+```sh [bun]
+bun -v
+```
+:::
+````
+
+::: code-group
+
+```sh [pnpm]
+pnpm -v
+```
+
+```sh [yarn]
+yarn -v
+```
+
+```sh [bun]
+bun -v
+```
+
+:::
+
+此插件已经涵盖了所有的常用图标，但是有一个问题：如果我们想给代码为 `js` 的块添加图标，必须写文件名，如：
+
+````md{2,6,10}
+::: code-group
+```ts [a.ts]
+console.log("I'm TypeScript");
+```
+
+```js [b.js]
+console.log("I'm JavaScript");
+```
+
+```md [c.md]
+Markdown 图标演示
+```
+
+```css [d.css]
+h1 {
+  background: red;
+}
+```
+:::
+````
+
+这是因为在插件的内部逻辑中，`ts`、`js`等图标是根据文件类型去判断添加的。我理想的效果是只需要写文件类型就行了，就比如`js [js]`
+
+那么该如何自定义呢， 我们需要在`config.mts` 中配置:
+
+```ts{3,15-36}
+// .vitepress/config.mts
+import { defineConfig } from 'vitepress'
+import { groupIconMdPlugin, groupIconVitePlugin, localIconLoader } from 'vitepress-plugin-group-icons' // [!code focus]
+
+export default defineConfig({
+
+  markdown: {
+    config(md) {
+      md.use(groupIconMdPlugin) //代码组图标
+    },
+  },
+
+  vite: {
+    plugins: [
+      groupIconVitePlugin({ // [!code focus:22]
+       customIcon: {
+          mts: "vscode-icons:file-type-typescript",
+          cts: "vscode-icons:file-type-typescript",
+          ts: "vscode-icons:file-type-typescript",
+          tsx: "vscode-icons:file-type-typescript",
+          mjs: "vscode-icons:file-type-js",
+          cjs: "vscode-icons:file-type-js",
+          json: "vscode-icons:file-type-json",
+          js: "vscode-icons:file-type-js",
+          jsx: "vscode-icons:file-type-js",
+          md: "vscode-icons:file-type-markdown",
+          py: "vscode-icons:file-type-python",
+          ico: "vscode-icons:file-type-favicon",
+          html: "vscode-icons:file-type-html",
+          css: "vscode-icons:file-type-css",
+          scss: "vscode-icons:file-type-scss",
+          yml: "vscode-icons:file-type-light-yaml",
+          yaml: "vscode-icons:file-type-light-yaml",
+          php: "vscode-icons:file-type-php",
+        },
+      })
+    ],
+  },
+
+})
+```
+
+最后总体看下使用插件增加代码组图标，更改前后的效果
+
+更改前
+
+![](./images//groupIconBefore.png)
+
+更改后
+
+![](./images//groupIconAfter.png)
+
 ---

@@ -9,6 +9,7 @@
 @import url(c:\Program Files\Code\blog\docs\.vitepress\theme\styles\marker.css);
 @import url(c:\Program Files\Code\blog\docs\.vitepress\theme\styles\vp-code.css);
 @import url(c:\Program Files\Code\blog\docs\.vitepress\theme\styles\vp-code-group.css);
+@import url(c:\Program Files\Code\blog\docs\.vitepress\theme\styles\vp-code-title.css);
 @keyframes rainbow {
   0% {
     --vp-c-brand-1: #00a98e;
