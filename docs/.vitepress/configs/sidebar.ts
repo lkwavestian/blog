@@ -173,6 +173,10 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         { text: "企业微信加水印的探索与踩坑", link: "/notes/uniapp/waterMarks" },
       ],
     },
+    {
+      text: "包管理器相关",
+      items: [{ text: "修改node_modules中的依赖（打补丁）", link: "/notes/packageManagers/patch" }],
+    },
   ],
   "/translate/": [
     {
