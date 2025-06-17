@@ -18,7 +18,7 @@ hero:
     - text: 日常笔记
       link: /notes/css/flex
     - text: 踩坑记录
-      link: /pit/npm
+      link: /pit/packageManager
       theme: alt
 features:
   - icon: 📖
@@ -44,7 +44,7 @@ features:
   - icon: 🐞
     title: 踩坑记录
     details: 那些年我们一起踩过的坑<br />总有一些让我们想不到的问题 🤡
-    link: /pit/npm
+    link: /pit/packageManager
     linkText: 踩坑记录
   - icon: 🌟
     title: 翻译文章

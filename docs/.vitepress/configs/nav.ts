@@ -69,7 +69,7 @@ export const nav: DefaultTheme.Config["nav"] = [
           { text: "包管理器 ", link: "/notes/packageManagers/patch" },
         ],
       },
-      { text: "踩坑记录", link: "/pit/npm", activeMatch: "^/pit" },
+      { text: "踩坑记录", link: "/pit/packageManager", activeMatch: "^/pit" },
       { text: "翻译文章", link: "/translate/debounceAndThrotting", activeMatch: "^/translate" },
     ],
   },
