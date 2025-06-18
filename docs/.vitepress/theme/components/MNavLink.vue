@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { withBase } from 'vitepress'
-import { slugify } from '@mdit-vue/shared'
+import { computed } from "vue";
+import { withBase } from "vitepress";
+import { slugify } from "@mdit-vue/shared";
 
-import { NavLink } from '../types'
+import { NavLink } from "../types";
 
 const props = defineProps<{
-  noIcon?: boolean
-  icon?: NavLink['icon']
-  badge?: NavLink['badge']
-  title?: NavLink['title']
-  desc?: NavLink['desc']
-  link: NavLink['link']
-}>()
+  noIcon?: boolean;
+  icon?: NavLink["icon"];
+  badge?: NavLink["badge"];
+  title?: NavLink["title"];
+  desc?: NavLink["desc"];
+  link: NavLink["link"];
+}>();
 
 const formatTitle = computed(() => {
   if (!props.title) {
-    return ''
+    return "";
   }
-  return slugify(props.title)
-})
+  return slugify(props.title);
+});
 
 const svg = computed(() => {
-  if (typeof props.icon === 'object') return props.icon.svg
-  return ''
-})
+  if (typeof props.icon === "object") return props.icon.svg;
+  return "";
+});
 
 const formatBadge = computed(() => {
-  if (typeof props.badge === 'string') {
-    return { text: props.badge, type: 'info' }
+  if (typeof props.badge === "string") {
+    return { text: props.badge, type: "info" };
   }
-  return props.badge
-})
+  return props.badge;
+});
 </script>
 
 <template>
