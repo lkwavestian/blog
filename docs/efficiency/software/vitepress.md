@@ -467,6 +467,83 @@ function updateHomePageStyle(value: boolean) {
 
 ## 插件
 
+### 图片缩放
+
+主要是使用 [medium-zoom](https://github.com/francoischalifour/medium-zoom) ，参考了[vitepress 的 issues 中找到了方法#854](https://github.com/vuejs/vitepress/issues/854)
+
+::: code-group
+
+```sh [pnpm]
+pnpm add -D medium-zoom
+```
+
+```sh [yarn]
+yarn add -D medium-zoom
+```
+
+```sh [npm]
+npm install medium-zoom
+```
+
+```sh [bun]
+bun add -D medium-zoom
+```
+
+:::
+
+在 `.vitepress/theme/index.ts` 添加如下代码，并保存
+
+```ts{4-6,11-24}
+// .vitepress/theme/index.ts
+import DefaultTheme from 'vitepress/theme'
+
+import mediumZoom from 'medium-zoom';
+import { onMounted, watch, nextTick } from 'vue';
+import { useRoute } from 'vitepress';
+
+export default {
+  extends: DefaultTheme,
+
+  setup() {
+    const route = useRoute();
+    const initZoom = () => {
+      // mediumZoom('[data-zoomable]', { background: 'var(--vp-c-bg)' }); // 默认
+      mediumZoom('.main img', { background: 'var(--vp-c-bg)' }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
+    };
+    onMounted(() => {
+      initZoom();
+    });
+    watch(
+      () => route.path,
+      () => nextTick(() => initZoom())
+    );
+  },
+
+}
+```
+
+点击图片后，还是能看到导航栏，加一个遮挡样式
+
+在 `theme/style` 新建 `medium-zoom.scss` 加入如下代码:
+
+```css
+/* .vitepress/theme/style/medium-zoom.scss */
+:root {
+  --medium-zoom-z-index: 100;
+  --medium-zoom-c-bg: var(--vp-c-bg);
+}
+
+.medium-zoom-overlay {
+  /* override element style set by medium-zoom script */
+  z-index: var(--medium-zoom-z-index);
+  background-color: var(--medium-zoom-c-bg) !important;
+}
+
+.medium-zoom-overlay ~ img {
+  z-index: calc(var(--medium-zoom-z-index) + 1);
+}
+```
+
 ### 代码组图标
 
 使用的插件是 [@yuyinws/vitepress-plugin-group-icons](https://github.com/yuyinws/vitepress-plugin-group-icons)
