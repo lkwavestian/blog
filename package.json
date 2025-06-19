@@ -37,6 +37,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
     "medium-zoom": "^1.0.8",
+    "nprogress-v2": "^1.1.10",
     "pnpm": "^8.0.0",
     "postcss": "^8.4.33",
     "prettier": "^2.8.8",

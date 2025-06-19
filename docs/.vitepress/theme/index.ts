@@ -1,5 +1,5 @@
 import { h, watch } from "vue";
-import { useData, useRoute, EnhanceAppContext } from "vitepress";
+import { useData, useRoute, EnhanceAppContext, inBrowser } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
 import { createMediumZoomProvider } from "./composables/useMediumZoom";
@@ -10,7 +10,12 @@ import MDocFooter from "./components/MDocFooter.vue";
 import MAsideSponsors from "./components/MAsideSponsors.vue";
 import MNavLinks from "./components/MNavLinks.vue";
 
+// giscusTalk 评论
 import giscusTalk from "vitepress-plugin-comment-with-giscus";
+
+// 切换路由进度条
+import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
+import "nprogress-v2/dist/index.css"; // 进度条样式
 
 import "./styles/index.scss";
 
@@ -69,6 +74,18 @@ export default {
     app.component("MNavLinks", MNavLinks);
 
     app.provide("DEV", process.env.NODE_ENV === "development");
+
+    // 切换路由进度条
+    if (inBrowser) {
+      NProgress.configure({ showSpinner: false });
+
+      router.onBeforeRouteChange = () => {
+        NProgress.start(); // 开始进度条
+      };
+      router.onAfterRouteChange = () => {
+        NProgress.done(); // 停止进度条
+      };
+    }
 
     // 如果路由变化，执行 updateHomePageStyle 函数
     if (typeof window !== "undefined") {

@@ -723,3 +723,49 @@ export default defineConfig({
 ![](./images//groupIconAfter.png)
 
 ---
+
+### 切换路由进度条
+
+当切换页面，顶部会显示进度条，使用的是 [@Skyleen77/nprogress-v2](https://github.com/Skyleen77/nprogress-v2)，使用方法还是挺简单的
+
+先安装 `nprogress-v2`
+
+::: code-group
+
+```sh [pnpm]
+pnpm add -D nprogress-v2
+```
+
+```sh [yarn]
+yarn add -D nprogress-v2
+```
+
+```sh [npm]
+npm install nprogress-v2
+```
+
+```sh [bun]
+bun add -D nprogress-v2
+```
+
+:::
+
+然后再 `.vitepress/theme/index.ts` 中配置，即可生效
+
+```ts{3-4,7-10,13}
+// .vitepress/theme/index.ts
+
+import { NProgress } from 'nprogress-v2/dist/index.js' // 进度条组件
+import 'nprogress-v2/dist/index.css' // 进度条样式
+
+if (inBrowser) {
+      NProgress.configure({ showSpinner: false })
+      router.onBeforeRouteChange = () => {
+        NProgress.start() // 开始进度条
+      }
+      router.onAfterRouteChanged = () => {
+         busuanzi.fetch()
+         NProgress.done() // 停止进度条
+      }
+}
+```
