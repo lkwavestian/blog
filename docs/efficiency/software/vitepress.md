@@ -30,6 +30,158 @@ export default defineConfig({
 
 配置缺少关键 Key，我们需要先[注册 Algolia 账号](https://dashboard.algolia.com/users/sign_in)。
 
+## 评论（Giscus）
+
+### 安装 giscus
+
+Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
+
+进 Giscus App 官网：https://github.com/apps/giscus
+
+点击 `Install` 安装
+
+选择 `Only select repositories`，再指定一个你想开启讨论的仓库
+
+::: tip 注意
+仓库必须是公开的，私有的不行
+
+想单独放评论，新建一个也可
+:::
+
+::: tip 查看
+完成后可以在个人头像-设置-应用 `Applications` 中看到
+:::
+
+### 开启讨论
+
+因为 giscus 会把评论数据都放到讨论 `discussions` 中
+
+我们进入要开启讨论的仓库，点设置 - 勾选讨论 `Settings - discussions`
+
+### 生成数据
+
+进入官网：https://giscus.app/zh-CN
+
+输入自己的仓库链接，满足条件会提示可用
+
+下拉到 Discussion 分类推荐选 `General` ，懒加载评论也可以勾选下
+
+::: details 关于讨论的类型，分类如下
+查看了一下 [Github 的讨论文档](https://docs.github.com/zh/discussions/managing-discussions-for-your-community/managing-categories-for-discussions#about-categories-for-discussions)
+
+|     类别      |    中文    |          说明          |
+| :-----------: | :--------: | :--------------------: |
+| Announcements |    公告    | 每次评论都会推送所有人 |
+|    General    |    常规    |       开放式讨论       |
+|     Ideas     |    想法    |       开放式讨论       |
+|     Polls     |    投票    |      可投票与讨论      |
+|      Q&A      |    问答    |        问答形式        |
+| Show and tell | 展示和说明 |       开放式讨论       |
+
+:::
+
+下方就自动生成了你的关键数据
+
+其中 `data-repo` 、 `data-repo-id` 、 `data-category` 和 `data-category-id` 这 4 个是我们的关键数据
+
+```js{2-5}
+<script src="https://giscus.app/client.js"
+        data-repo="github repository" // [!code focus:4]
+        data-repo-id="R_******"
+        data-category="General"
+        data-category-id="DIC_******"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+```
+
+### 安装使用
+
+有能力的可以用官方给的 js 数据封装
+
+我这里用 [@T-miracle/vitepress-plugin-comment-with-giscus](https://github.com/T-miracle/vitepress-plugin-comment-with-giscus) 的插件
+
+::: code-group
+
+```sh [pnpm]
+pnpm add -D vitepress-plugin-comment-with-giscus
+```
+
+```sh [yarn]
+yarn add -D vitepress-plugin-comment-with-giscus
+```
+
+```sh [npm]
+npm install vitepress-plugin-comment-with-giscus
+```
+
+```sh [bun]
+bun add -D vitepress-plugin-comment-with-giscus
+```
+
+:::
+
+在 `.vitepress/theme/index.ts` 中填入下面代码
+
+并将我们之前获取的 4 个关键数据填入，其他保持默认保存
+
+```ts{3-4,10-31}
+// .vitepress/theme/index.ts
+import DefaultTheme from 'vitepress/theme';
+import giscusTalk from 'vitepress-plugin-comment-with-giscus';
+import { useData, useRoute } from 'vitepress';
+
+export default {
+  extends: DefaultTheme,
+
+  setup() {
+    // Get frontmatter and route
+    const { frontmatter } = useData();
+    const route = useRoute();
+
+    // giscus配置
+    giscusTalk({
+      repo: 'your github repository', //仓库
+      repoId: 'your repository id', //仓库ID
+      category: 'Announcements', // 讨论分类
+      categoryId: 'your category id', //讨论分类ID
+      mapping: 'pathname',
+      inputPosition: 'bottom',
+      lang: 'zh-CN',
+      },
+      {
+        frontmatter, route
+      },
+      //默认值为true，表示已启用，此参数可以忽略；
+      //如果为false，则表示未启用
+      //您可以使用“comment:true”序言在页面上单独启用它
+      true
+    );
+
+}
+```
+
+看下底部的效果吧
+
+::: details 如果某一页不想启用
+我们可以在当前页使用 `Frontmatter` 关闭
+
+```yaml
+---
+comment: false
+---
+```
+
+:::
+
 ## 样式美化
 
 ### 彩虹背景动画

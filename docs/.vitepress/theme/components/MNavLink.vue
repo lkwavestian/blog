@@ -75,6 +75,7 @@ const formatBadge = computed(() => {
     border-color: var(--vp-c-brand);
     text-decoration: initial;
     background-color: var(--vp-c-bg-soft-up);
+    transform: translateY(-5px);
   }
 
   .box {
