@@ -375,7 +375,7 @@ function updateHomePageStyle(value: boolean) {
   .VPFeature {
     border: none;
     box-shadow: 0 10px 30px 0 rgb(0 0 0 / 15%);
-    background-color: transparent;
+    background-color: #fbfbfc;
   }
 
   /* 文档页侧边栏顶部透明 */

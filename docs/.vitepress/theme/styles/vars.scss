@@ -6,7 +6,7 @@
 /**
  * Colors
  * -------------------------------------------------------------------------- */
- :root {
+:root {
   --vp-c-gutter: var(--vp-c-divider);
   --vp-code-block-bg: rgba(125, 125, 125, 0.04);
   --vp-code-tab-divider: var(--vp-c-divider);
@@ -78,7 +78,7 @@
 .browser-safari,
 .browser-firefox {
   --vp-home-hero-image-background-image: transparent;
-  --vp-home-hero-image-filter: '';
+  --vp-home-hero-image-filter: "";
 }
 
 /**
@@ -102,17 +102,26 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+/* 去掉横线 */
 .vp-doc a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-/* VPFeatures 页卡悬浮效果 */
-.VPFeatures .items .item {
-  transition: transform 0.3s;
+// /* VPFeatures 页卡悬浮效果 */
+// .VPFeatures .items .item {
+//   transition: transform 0.3s;
+// }
+
+// .VPFeatures .items .item:hover {
+//   border-color: var(--vp-c-brand-1) !important;
+//   transform: translateY(-5px);
+//   background-color: #fff;
+// }
+
+.VPFeature {
+  transition: transform 0.4s !important;
 }
-
-.VPFeatures .items .item:hover {
-  border-color: var(--vp-c-brand-1) !important;
-  transform: translateY(-5px);
-
+.VPFeature:hover {
+  transform: translateY(-10px);
+  background-color: #fff;
 }
