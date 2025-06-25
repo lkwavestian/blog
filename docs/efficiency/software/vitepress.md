@@ -621,7 +621,7 @@ function updateHomePageStyle(value: boolean) {
 
 ### 图片缩放
 
-主要是使用 [medium-zoom](https://github.com/francoischalifour/medium-zoom) ，参考了[vitepress 的 issues 中找到了方法#854](https://github.com/vuejs/vitepress/issues/854)
+主要是使用 [medium-zoom](https://github.com/francoischalifour/medium-zoom) ，参考了[Allow images to be zoomed in on click](https://github.com/vuejs/vitepress/issues/854)
 
 ::: code-group
 
@@ -695,6 +695,10 @@ export default {
   z-index: calc(var(--medium-zoom-z-index) + 1);
 }
 ```
+
+更改之后效果
+
+![](./images/mediumZoom.gif)
 
 ### 代码组图标
 
@@ -921,3 +925,7 @@ if (inBrowser) {
       }
 }
 ```
+
+更改后效果
+
+![](./images/nprogress.gif)

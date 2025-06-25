@@ -1,8 +1,8 @@
-import { h, watch } from "vue";
+import { h, watch, onMounted, nextTick } from "vue";
 import { useData, useRoute, EnhanceAppContext, inBrowser } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
-import { createMediumZoomProvider } from "./composables/useMediumZoom";
+// import { createMediumZoomProvider } from "./composables/useMediumZoom";
 
 import MLayout from "./components/MLayout.vue";
 import MNavVisitor from "./components/MNavVisitor.vue";
@@ -16,6 +16,9 @@ import giscusTalk from "vitepress-plugin-comment-with-giscus";
 // 切换路由进度条
 import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
 import "nprogress-v2/dist/index.css"; // 进度条样式
+
+// medium-zoom 图片缩放
+import mediumZoom from "medium-zoom";
 
 import "./styles/index.scss";
 
@@ -69,7 +72,7 @@ export default {
     });
   },
   enhanceApp({ app, router }: EnhanceAppContext) {
-    createMediumZoomProvider(app, router);
+    // createMediumZoomProvider(app, router);
 
     app.component("MNavLinks", MNavLinks);
 
@@ -121,6 +124,20 @@ export default {
       //如果为false，则表示未启用
       //您可以使用“comment:true”序言在页面上单独启用它
       true
+    );
+
+    // 缩放图片设置
+    const initZoom = () => {
+      // mediumZoom('[data-zoomable]', { background: 'var(--vp-c-bg)' }); // 默认
+      mediumZoom(".main img", { background: "var(--vp-c-bg)" }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
+    };
+
+    onMounted(() => {
+      initZoom();
+    });
+    watch(
+      () => route.path,
+      () => nextTick(() => initZoom())
     );
   },
 };
