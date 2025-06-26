@@ -25,7 +25,15 @@ export default defineConfig({
   /* markdown 配置 */
   markdown: {
     config(md) {
-      md.use(groupIconMdPlugin); //代码组图标
+      // 代码组图标
+      md.use(groupIconMdPlugin);
+
+      // 在 h1 下增加字数以及阅读时间
+      md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
+        let htmlResult = slf.renderToken(tokens, idx, options);
+        if (tokens[idx].tag === "h1") htmlResult += `<ArticleMetadata />`;
+        return htmlResult;
+      };
     },
     lineNumbers: true,
     image: {

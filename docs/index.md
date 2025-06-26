@@ -62,6 +62,12 @@ features:
     link: /mao
 ---
 
+<!-- 首页下划线 -->
+<HomeUnderline />
+
+<!-- 五彩纸屑 -->
+<confetti />
+
 <style>
 /*爱的魔力转圈圈*/
 .m-home-layout .image-src:hover {

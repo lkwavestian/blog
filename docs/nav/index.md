@@ -6,7 +6,7 @@ outline: [2, 3, 4]
 <script setup>
 import { NAV_DATA } from './data'
 </script>
-<style src="./index.scss"></style>
+<style src="/.vitepress/theme/styles/nav.scss"></style>
 
 # 前端导航
 
