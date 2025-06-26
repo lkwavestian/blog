@@ -66,7 +66,7 @@ features:
 <HomeUnderline />
 
 <!-- 五彩纸屑 -->
-<confetti />
+<Confetti />
 
 <style>
 /*爱的魔力转圈圈*/

@@ -10,7 +10,7 @@ import MDocFooter from "./components/MDocFooter.vue";
 import MAsideSponsors from "./components/MAsideSponsors.vue";
 import MNavLinks from "./components/MNavLinks.vue";
 import HomeUnderline from "./components/HomeUnderline.vue";
-import confetti from "./components/confetti.vue";
+import Confetti from "./components/Confetti.vue";
 import MouseClick from "./components/MouseClick.vue";
 import MouseFollower from "./components/MouseFollower.vue";
 import ArticleMetadata from "./components/ArticleMetadata.vue";
@@ -80,7 +80,7 @@ export default {
     // createMediumZoomProvider(app, router);
     app.component("MNavLinks", MNavLinks); // 导航链接组件
     app.component("HomeUnderline", HomeUnderline); // 首页下划线组件
-    app.component("confetti", confetti); // 五彩纸屑效果
+    app.component("Confetti", Confetti); // 五彩纸屑效果
     app.component("MouseClick", MouseClick); // 鼠标点击效果
     app.component("MouseFollower", MouseFollower); // 鼠标跟随效果
     app.component("ArticleMetadata", ArticleMetadata); // 字数以及阅读时间
