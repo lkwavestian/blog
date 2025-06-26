@@ -1,16 +1,22 @@
-# 茂茂物语
+# 千浔物语
 
-- 前端物语
-  - JavaScript
-  - HTML
+- 前端物语 📖
+
   - CSS
-  - React
+  - JavaScript
+  - TypeScript
   - Vue
+  - React
+  - Uniapp
   - ...（太多了先写这些）
-- 源码阅读
+
+- 源码阅读 📘
+
   - 了解各种库的实现原理
   - 学习各种小技巧和冷知识
-- workflow
+
+- Workflow 💡
+
   - 在工作中学到的一切
     - 常用工具/库
     - 终端命令和技巧
@@ -18,22 +24,24 @@
     - 代码片段
     - ...（太多了先写这些）
   - 配合 CV 大法来更好的摸鱼
-- 踩坑记录
+
+- 日常笔记 📝
+
+  - 根据日常工作以及学习总结而成的一系列笔记、文章（长文章预警！）
+
+- 踩坑记录 🐞
+
   - 那些年我们踩过的坑
   - 总有一些让你意想不到的问题
-- 提效工具
+
+- 翻译文章 🌟
+
+  - 翻译国外的一些好文章，个人渣翻如有错误还请理解 🌱
+
+- 提效工具 🧰
   - 记录开发和日常使用中所用到的软件、插件、扩展等
 - ...(还没写，别着急)
 
-## 访问地址
-
-- <https://notes.fe-mm.com>
-- <https://mm-notes.vercel.app>
-- <https://mm-notes.netlify.app>
-- <https://lkwavestian.github.io/mm-notes>
-
 ## 鼓励作者
 
-如果你觉得博客对你有帮助，可以帮忙点个 `star` 或者打赏犒劳一下
-
-![鼓励作者](https://cdn.jsdelivr.net/gh/lkwavestian/picture/sponsor/sponsor.jpg)
+如果你觉得博客对你有帮助，可以帮忙点个 `star`
