@@ -940,7 +940,7 @@ if (inBrowser) {
 
 ### 首页文字下划线
 
-[首页文字](./index.md) 的下划线，是利用了 [@Theo-Messi](https://github.com/Theo-Messi/tm-fe/) 的组件
+[首页文字](../../index.md) 的下划线，是利用了 [@Theo-Messi](https://github.com/Theo-Messi/tm-fe/) 的组件
 
 在 `theme/components` 文件夹，创建 `HomeUnderline.vue`，写入入如下代码：
 
