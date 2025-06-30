@@ -35,7 +35,6 @@ provide("toggle-appearance", async ({ clientX: x, clientY: y }: MouseEvent) => {
     )}px at ${x}px ${y}px)`,
   ];
 
-  // @ts-ignore
   await document.startViewTransition(async () => {
     isDark.value = !isDark.value;
     await nextTick();
@@ -102,5 +101,35 @@ provide("toggle-appearance", async ({ clientX: x, clientY: y }: MouseEvent) => {
   margin-bottom: 48px;
   border-top: 1px solid var(--vp-c-divider);
   padding-top: 24px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root),
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root),
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+/* 恢复原始开关按钮 */
+/* .VPSwitchAppearance {
+  width: 22px !important;
+} */
+
+.VPSwitchAppearance .check {
+  transform: none !important;
+}
+
+/* 修正因视图过渡导致的按钮图标偏移 */
+.VPSwitchAppearance .check .icon {
+  top: -2px;
 }
 </style>

@@ -296,6 +296,127 @@ function updateHomePageStyle(value: boolean) {
 
 :::
 
+### 深浅模式切换动画
+
+在官方的文档中，有这么一个 [深浅模式切换的动画](https://vitepress.dev/zh/guide/extending-default-theme#on-appearance-toggle)
+
+![](https://vitepress.dev/appearance-toggle-transition.webp)
+
+有点意思，~~我们直接抄过来~~
+
+::: code-group
+
+```vue{4-40,50-77} [MyLayout.vue]
+<!-- .vitepress/theme/MyLayout.vue -->
+<script setup lang="ts">
+import DefaultTheme from 'vitepress/theme'
+import { useData } from 'vitepress'
+import { nextTick, provide } from 'vue'
+
+const { isDark } = useData()
+
+const enableTransitions = () =>
+  'startViewTransition' in document &&
+  window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+
+provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
+  if (!enableTransitions()) {
+    isDark.value = !isDark.value
+    return
+  }
+
+  const clipPath = [
+    `circle(0px at ${x}px ${y}px)`,
+    `circle(${Math.hypot(
+      Math.max(x, innerWidth - x),
+      Math.max(y, innerHeight - y)
+    )}px at ${x}px ${y}px)`
+  ]
+
+  await document.startViewTransition(async () => {
+    isDark.value = !isDark.value
+    await nextTick()
+  }).ready
+
+  document.documentElement.animate(
+    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
+    {
+      duration: 300,
+      easing: 'ease-in',
+      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`
+    }
+  )
+})
+</script>
+
+<template>
+  <DefaultTheme.Layout>
+    <!-- 这里是已有的插槽组件 -->
+  </DefaultTheme.Layout>
+</template>
+
+<style>
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root),
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root),
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+/* 恢复原始开关按钮 */
+/* .VPSwitchAppearance {
+  width: 22px !important;
+} */
+
+.VPSwitchAppearance .check {
+  transform: none !important;
+}
+
+/* 修正因视图过渡导致的按钮图标偏移 */
+.VPSwitchAppearance .check .icon {
+  top: -2px;
+}
+</style>
+```
+
+:::
+
+然后还需要在`.vitepress/theme/index.ts`中配置下
+
+```ts{3-5,10}
+// .vitepress/theme/index.ts
+import DefaultTheme from 'vitepress/theme'
+import { h } from 'vue' // h函数
+// 组件1
+import MyLayout from "./components/MyLayout.vue";
+
+export default {
+  extends: DefaultTheme,
+  Layout() {
+    return h(MyLayout, null, {
+
+      // 这里是其他插槽组件
+
+    })
+  }
+}
+```
+
+看下效果：
+
+![](./images//modelChange.gif)
+
+还不赖
+
 ### 引用颜色更改
 
 在 Markdown 中，我们常用的引用符号是 `>`，关于引用的样式我们我们可以稍微改动一下

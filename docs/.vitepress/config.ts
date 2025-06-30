@@ -20,7 +20,7 @@ export default defineConfig({
 
   lastUpdated: true,
   cleanUrls: true,
-  ignoreDeadLinks: "localhostLinks",
+  ignoreDeadLinks: false,
 
   /* markdown 配置 */
   markdown: {
