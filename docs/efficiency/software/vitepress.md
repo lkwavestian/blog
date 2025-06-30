@@ -40,6 +40,8 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 
 点击 `Install` 安装
 
+![](./images//giscusInstall.png)
+
 选择 `Only select repositories`，再指定一个你想开启讨论的仓库
 
 ::: tip 注意
@@ -47,6 +49,8 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 
 想单独放评论，新建一个也可
 :::
+
+![](./images//giscusInstall2.png)
 
 ::: tip 查看
 完成后可以在个人头像-设置-应用 `Applications` 中看到
@@ -58,11 +62,15 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 
 我们进入要开启讨论的仓库，点设置 - 勾选讨论 `Settings - discussions`
 
+![](./images//giscusDiscuss.png)
+
 ### 生成数据
 
 进入官网：https://giscus.app/zh-CN
 
 输入自己的仓库链接，满足条件会提示可用
+
+![](./images//giscusSetting.png)
 
 下拉到 Discussion 分类推荐选 `General` ，懒加载评论也可以勾选下
 
@@ -80,7 +88,11 @@ Giscus 是一个基于 GitHub Discussion 的评论系统，启用简便
 
 :::
 
+![](./images//giscusGeneral.png)
+
 下方就自动生成了你的关键数据
+
+![](./images//giscusData.png)
 
 其中 `data-repo` 、 `data-repo-id` 、 `data-category` 和 `data-category-id` 这 4 个是我们的关键数据
 
@@ -169,7 +181,7 @@ export default {
 }
 ```
 
-看下底部的效果吧
+**滑动到最底部即可查看效果**
 
 ::: details 如果某一页不想启用
 我们可以在当前页使用 `Frontmatter` 关闭
