@@ -8,27 +8,7 @@ description: "千浔的 vitepress 配置，对 vitepress 的探索与扩展"
 
 `VitePress` 的内部集成有`Algolia` 的 `Algolia DocSearch` ，我们可以直接配置使用。
 
-先看下 vitePress 官方给的配置
-
-```ts{4-12}
-export default defineConfig({
-
-  themeConfig: {
-    //Algolia搜索
-    search: {
-      provider: 'algolia',
-      options: {
-        appId: '<Application ID>',
-        apiKey: '<Search-Only API Key>',
-        indexName: '<INDEX_NAME>',
-      },
-    },
-  },
-
-})
-```
-
-配置缺少关键 Key，我们需要先[注册 Algolia 账号](https://dashboard.algolia.com/users/sign_in)。
+配置略有些繁琐，这里就不详细说明了，详见[给 VitePress 添加 algolia 搜索](https://zhuanlan.zhihu.com/p/668000413)
 
 ## 评论（Giscus）
 
@@ -504,13 +484,6 @@ export default {
   .DocSearch-Button {
     background-color: rgba(255, 255, 255, 0);
     backdrop-filter: blur(10px);
-  }
-
-  /* Feature透明 */
-  .VPFeature {
-    border: none;
-    box-shadow: 0 10px 30px 0 rgb(0 0 0 / 15%);
-    background-color: #fbfbfc;
   }
 
   /* 文档页侧边栏顶部透明 */
@@ -1816,7 +1789,6 @@ onMounted(() => {
 
 .icon {
   display: inline-block;
-  transform: translate(0px, 2px);
 }
 </style>
 ```

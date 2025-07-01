@@ -107,21 +107,27 @@
   text-decoration: none;
 }
 
-// /* VPFeatures 页卡悬浮效果 */
-// .VPFeatures .items .item {
-//   transition: transform 0.3s;
-// }
-
-// .VPFeatures .items .item:hover {
-//   border-color: var(--vp-c-brand-1) !important;
-//   transform: translateY(-5px);
-//   background-color: #fff;
-// }
 
 .VPFeature {
-  transition: transform 0.4s !important;
+    display: block;
+    border: 1px solid var(--vp-c-bg-soft);
+    border-radius: 12px;
+    height: 100%;
+    background-color: var(--vp-c-bg-soft);
+    transition: border-color .25s,background-color .25s,transform 0.4s;
 }
-.VPFeature:hover {
-  transform: translateY(-10px);
-  background-color: #fff;
+
+.VPFeature.link:hover {
+    border-color: var(--vp-c-brand-1);
+
+}
+
+/* 卡片悬浮效果 */
+.VPFeatures .items .item {
+  transition: transform 0.3s;
+}
+
+.VPFeatures .items .item:hover {
+  border-color: var(--vp-c-brand-1) !important;
+  transform: translateY(-5px);
 }

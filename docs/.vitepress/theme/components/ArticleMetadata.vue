@@ -106,7 +106,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .word {
   color: var(--vp-c-text-2);
   font-size: 15px;
@@ -114,6 +114,5 @@ onMounted(() => {
 
 .icon {
   display: inline-block;
-  transform: translate(0px, 2px);
 }
 </style>

@@ -1,6 +1,7 @@
 @import './rainbow.scss'; // 彩虹背景动画
 @import './vars.scss';
-@import './overrides.scss';
+@import './overrides.scss'; // 全局覆盖样式
+@import './vitepress.scss';  // vitepress 样式覆盖
 @import './medium-zoom.scss'; // Medium Zoom 图片样式
 @import './tailwind.scss';
 @import './blockquote.scss';  // 块引用样式
