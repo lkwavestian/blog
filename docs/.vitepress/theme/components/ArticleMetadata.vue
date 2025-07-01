@@ -114,5 +114,8 @@ onMounted(() => {
 
 .icon {
   display: inline-block;
+  &:not(:first-child) {
+    margin-left: 6px;
+  }
 }
 </style>
