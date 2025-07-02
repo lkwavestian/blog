@@ -1,5 +1,7 @@
 # TypeScript 基础知识
 
+## 基本概念
+
 `TypeScript` 作为 `JavaScript` 语言的超集，它为 `JavaScript` 添加了可选择的类型标注，大大增强了代码的可读性和可维护性。同时，它提供最新和不断发展的 `JavaScript` 特性，能让我们建立更健壮的组件。
 
 引用[官网](https://www.typescriptlang.org/zh/)的定义
@@ -10,17 +12,97 @@
 
 它强调了 `TypeScript` 的两个最重要的特性——类型系统、适用于任何规模。
 
-**Typescript 的概念总结**
+### 类型系统
 
-- `TypeScript` 是添加了类型系统的 JavaScript，适用于任何规模的项目。
-- `TypeScript` 是一门静态类型、弱类型的语言。
-- `TypeScript` 是完全兼容 `JavaScript` 的，它不会修改 `JavaScript` 运行时的特性。
-- `TypeScript` 可以编译为 `JavaScript`，然后运行在浏览器、`Node.js` 等任何能运行 `JavaScript` 的环境中。
-- `TypeScript` 拥有很多编译选项，类型检查的严格程度由你决定。
-- `TypeScript` 可以和 `JavaScript` 共存，这意味着 `JavaScript` 项目能够渐进式的迁移到 `TypeScript。`
-- `TypeScript` 增强了编辑器（IDE）的功能，提供了代码补全、接口提示、跳转到定义、代码重构等能力。
-- `TypeScript` 拥有活跃的社区，大多数常用的第三方库都提供了类型声明。
-- `TypeScript` 与标准同步发展，符合最新的 `ECMAScript` 标准（stage 3）。
+从 TypeScript 的名字就可以看出来，「类型」是其最核心的特性。
+
+我们知道，`JavaScript` 是一门非常灵活的编程语言：
+
+- 它没有类型约束，一个变量可能初始化时是字符串，过一会儿又被赋值为数字。
+- 由于隐式类型转换的存在，有的变量的类型很难在运行前就确定。
+- 基于原型的面向对象编程，使得原型上的属性或方法可以在运行时被修改。
+- 函数是 `JavaScript` 中的[一等公民](https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/ch2.html#%E4%B8%BA%E4%BD%95%E9%92%9F%E7%88%B1%E4%B8%80%E7%AD%89%E5%85%AC%E6%B0%91)，可以赋值给变量，也可以当作参数或返回值。
+
+这种灵活性就像一把双刃剑，一方面使得 JavaScript 蓬勃发展，无所不能，另一方面也使得它的代码质量参差不齐，维护成本高，运行时错误多。
+
+而 TypeScript 的类型系统，在很大程度上弥补了 JavaScript 的缺点。
+
+**TypeScript 是静态类型**
+
+类型系统按照「类型检查的时机」来分类，可以分为动态类型和静态类型。
+
+动态类型是指在运行时才会进行类型检查，这种语言的类型错误往往会导致运行时错误。
+
+JavaScript 是一门[解释型语言](https://web.stanford.edu/class/cs98si/slides/overview.html)，没有编译阶段，所以它是动态类型，以下这段代码在运行时才会报错：
+
+```js
+let foo = 1;
+foo.split(" ");
+// Uncaught TypeError: foo.split is not a function
+// 运行时会报错（foo.split 不是一个函数），造成线上 bug
+```
+
+静态类型是指编译阶段就能确定每个变量的类型，这种语言的类型错误往往会导致语法错误。
+
+TypeScript 在运行前需要先编译为 JavaScript，而在编译阶段就会进行类型检查，所以 TypeScript 是静态类型，这段 TypeScript 代码在编译阶段就会报错了
+
+```ts
+let foo: number = 1;
+foo.split(" ");
+// Property 'split' does not exist on type 'number'.
+// 编译时会报错（数字没有 split 方法），无法通过编译
+```
+
+**TypeScript 是弱类型**
+
+类型系统按照「是否允许隐式类型转换」来分类，可以分为强类型和弱类型。
+
+以下这段代码不管是在 JavaScript 中还是在 TypeScript 中都是可以正常运行的，运行时数字 1 会被隐式类型转换为字符串 '1'，加号 + 被识别为字符串拼接，所以打印出结果是字符串 '11'。
+
+```ts
+console.log(1 + "1");
+// 打印出字符串 '11'
+```
+
+TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时的特性，所以它们都是弱类型。
+
+作为对比，Python 是强类型，以下代码会在运行时报错：
+
+```python
+print(1 + '1')
+# TypeError: unsupported operand type(s) for +: 'int' and 'str'
+```
+
+若要修复该错误，需要进行强制类型转换：
+
+```python
+print(str(1) + '1')
+# 打印出字符串 '11'
+```
+
+这样的类型系统体现了 TypeScript 的[核心设计理念](https://github.com/microsoft/TypeScript/wiki/TypeScript-Design-Goals)：在完整保留 JavaScript 运行时行为的基础上，通过引入静态类型系统来提高代码的可维护性，减少可能出现的 bug。
+
+### 适用于任何规模
+
+TypeScript 非常适用于大型项目——这是显而易见的，类型系统可以为大型项目带来更高的可维护性，以及更少的 bug。
+
+在中小型项目中推行 TypeScript 的最大障碍就是认为使用 TypeScript 需要写额外的代码，降低开发效率。但事实上，由于有[类型推论][]，大部分类型都不需要手动声明了。相反，TypeScript 增强了编辑器（IDE）的功能，包括代码补全、接口提示、跳转到定义、代码重构等，这在很大程度上提高了开发效率。而且 TypeScript 有近百个[编译选项][]，如果你认为类型检查过于严格，那么可以通过修改编译选项来降低类型检查的标准。
+
+一些第三方库原生支持了 TypeScript，在使用时就能获得代码补全了，比如 [Vue 3.0](https://vuejs.org/guide/typescript/overview.html)：
+
+有一些第三方库原生不支持 TypeScript，但是可以通过安装社区维护的[类型声明库](https://github.com/DefinitelyTyped/DefinitelyTyped)（比如通过运行 npm install --save-dev @types/react 来安装 React 的类型声明库）来获得代码补全能力——不管是在 JavaScript 项目中还是在 TypeScript 中项目中都是支持的。
+
+### Typescript 的概念总结
+
+- 它是添加了类型系统的 JavaScript，适用于任何规模的项目。
+- 它是一门静态类型、弱类型的语言。
+- 它是完全兼容 `JavaScript` 的，它不会修改 `JavaScript` 运行时的特性。
+- 它可以编译为 `JavaScript`，然后运行在浏览器、`Node.js` 等任何能运行 `JavaScript` 的环境中。
+- 它拥有很多编译选项，类型检查的严格程度由你决定。
+- 它可以和 `JavaScript` 共存，这意味着 `JavaScript` 项目能够渐进式的迁移到 它
+- 它增强了编辑器（IDE）的功能，提供了代码补全、接口提示、跳转到定义、代码重构等能力。
+- 它拥有活跃的社区，大多数常用的第三方库都提供了类型声明。
+- 它与标准同步发展，符合最新的 `ECMAScript` 标准（stage 3）。
 
 ## 原始类型
 
@@ -31,14 +113,14 @@
 布尔类型就是简单的 `true / false` 值
 
 ```ts
-let isFlag: boolean = true
+let isFlag: boolean = true;
 ```
 
 **string 字符串类型**
 
 ```ts
-let name: string = 'qianxun'
-name = 'Tom'
+let name: string = "qianxun";
+name = "Tom";
 ```
 
 **number 数字类型**
@@ -46,10 +128,10 @@ name = 'Tom'
 和 `JavaScript` 一样，`TypeScript` 里的所有数字都是浮点数。这些浮点数的类型是 `number`。除了支持十进制和十六进制字面量，`TypeScript` 还支持 `ES6` 中引入的二进制和八进制字面量。
 
 ```ts
-let decLiteral: number = 20
-let hexLiteral: number = 0x14
-let binaryLiteral: number = 0b10100
-let octalLiteral: number = 0o24
+let decLiteral: number = 20;
+let hexLiteral: number = 0x14;
+let binaryLiteral: number = 0b10100;
+let octalLiteral: number = 0o24;
 ```
 
 **bigint**
@@ -57,7 +139,7 @@ let octalLiteral: number = 0o24
 `bigint` 类型表示一个任意精度的整数，它可以用来处理超出 `JavaScript` `number` 类型范围的整数
 
 ```ts
-let big: bigint = 19961996n
+let big: bigint = 19961996n;
 ```
 
 **symbol**
@@ -65,99 +147,139 @@ let big: bigint = 19961996n
 `symbol` 类型表示独一无二的值，其必须通过 `Symbol` 函数生成，常用于创建对象属性的唯一标识符
 
 ```ts
-let sym: symbol = Symbol('qianxun')
-sym = Symbol('Tom') // OK
-sym = 'Tom' // Error
+let sym: symbol = Symbol("qianxun");
+sym = Symbol("Tom"); // OK
+sym = "Tom"; // Error
 ```
 
-**void**
+## 特殊类型
+
+除以上被提到的一些原始类型外，在 TypeScript 中，还存在一些特殊的类型
+
+### void
 
 `JavaScript` 没有空值（Void）的概念，在 `TypeScript` 中，可以用 `void` 表示没有任何返回值的函数
 
 ```ts
 function sayHello(): void {
-  console.log('Hello, world')
+  console.log("Hello, world");
 }
 ```
 
 也可以定义一个 `void` 类型的变量，不过这样的变量并没有什么意义，因为你只能为它赋予 `undefined` 和 `null`
 
 ```ts
-let value: void = undefined
+let value: void = undefined;
 ```
 
-**null 和 undefined**
+### null 和 undefined
 
 在 `TypeScript` 中，可以使用 `null` 和 `undefined` 来定义这两个原始数据类型
 
 ```ts
-let u: undefined = undefined
-let n: null = null
+let u: undefined = undefined;
+let n: null = null;
 ```
 
 与 `void`的区别是，默认情况下 `null` 和 `undefined` 是所有类型的子类型。就是说你可以把 `null` 和 `undefined` 赋值给 `number` 类型的变量。
 
 ```ts
 // 这样不会报错
-let num: number = undefined
+let num: number = undefined;
 ```
 
 ```ts
 // 这样也不会报错
-let u: undefined
-let num: number = u
+let u: undefined;
+let num: number = u;
 ```
 
 而 `void` 类型的变量不能赋值给 `number` 类型的变量：
 
 ```ts
-let u: void
-let num: number = u
+let u: void;
+let num: number = u;
 
 // Type 'void' is not assignable to type 'number'.
 ```
 
 当编译选项指定了 `--strictNullChecks`（开启严格空值检查模式）时，`null` 和 `undefined` 只允许赋值给自己或 `any` 类型的变量，这能避免很多常见的问题
 
-## any 任意值
+### any 任意值
 
 `any` 是一个特殊的类型，当一个值是 `any` 类型的时候，`TypeScript` 将不会对其进行类型检查。  
 也就是说即使定义之后，也可以随意改变一个值的类型。
 
 ```ts
-let myFavoriteNumber: any = 'seven'
-myFavoriteNumber = 7
+let myFavoriteNumber: any = "seven";
+myFavoriteNumber = 7;
 ```
 
 在任意值上访问任何属性都是允许的：
 
 ```ts
-let anyThing: any = 'hello'
-console.log(anyThing.myName)
-console.log(anyThing.myName.firstName)
+let anyThing: any = "hello";
+console.log(anyThing.myName);
+console.log(anyThing.myName.firstName);
 ```
 
 也允许调用任何方法：
 
 ```ts
-let anyThing: any = 'Tom'
-anyThing.setName('Jerry')
-anyThing.setName('Jerry').sayHello()
-anyThing.myName.setFirstName('Cat')
+let anyThing: any = "Tom";
+anyThing.setName("Jerry");
+anyThing.setName("Jerry").sayHello();
+anyThing.myName.setFirstName("Cat");
 ```
+
+可以认为，**声明一个变量为任意值之后，对它的任何操作，返回的内容的类型都是任意值**。
 
 事实上，变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型：
 
 ```ts
-let something // 相当于 let something: any;
-something = 'seven'
-something = 7
-something.setName('Tom')
+let something; // 相当于 let something: any;
+something = "seven";
+something = 7;
+something.setName("Tom");
 ```
 
 :::warning 注意点
 无论是开发者指定或是由 `TypeScript` 隐式推断出的 `any` 类型，都会导致 `TypeScript` 失去准确的类型推断能力，这可能会导致遗漏一些运行时错误，违背了使用 `TypeScript` 的初衷
 :::
+
+### unknown 未知类型
+
+unknown 类型用于描述一个我们还不知道其类型的变量
+
+就像所有类型都可以被归为 any，所有类型也都可以被归为 unknown。这使得 unknown 成为 TypeScript 类型系统的另一种顶级类型
+
+```ts
+let notSure: unknown = 4;
+notSure = "maybe a string instead";
+notSure = false; // 也可以是个 boolean
+```
+
+:::tip unknown 和 any
+相比于 any 类型不会对变量进行任何检查，对于 unknown 类型的变量在执行大多数操作时必须进行相应的检查，因此 unknown 类型相对更加严格
+:::
+
+### never
+
+never 类型表示的是那些永不存在的值的类型，常用于一个从来不会有返回值的函数，或者一个总是会抛出错误的函数
+
+```ts
+// 不会有返回值
+function infiniteLoop(): never {
+  while (true) {}
+}
+
+// 总是会抛出错误的函数
+function error(message: string): never {
+  throw new Error(message);
+}
+```
+
+never 类型仅能被赋值给另外一个 never 类型
 
 ## 类型推断
 
@@ -166,8 +288,8 @@ something.setName('Tom')
 以下代码虽然没有指定类型，但是会在编译的时候报错：
 
 ```ts
-let myFavoriteNumber = 'seven'
-myFavoriteNumber = 7
+let myFavoriteNumber = "seven";
+myFavoriteNumber = 7;
 
 // index.ts(2,1): error TS2322: Type 'number' is not assignable to type 'string'.
 ```
@@ -175,8 +297,8 @@ myFavoriteNumber = 7
 事实上，它等价于：
 
 ```ts
-let myFavoriteNumber: string = 'seven'
-myFavoriteNumber = 7
+let myFavoriteNumber: string = "seven";
+myFavoriteNumber = 7;
 
 // index.ts(2,1): error TS2322: Type 'number' is not assignable to type 'string'.
 ```
@@ -186,9 +308,9 @@ myFavoriteNumber = 7
 **如果定义的时候没有赋值，不管之后有没有赋值，都会被推断成 `any` 类型而完全不被类型检查:**
 
 ```ts
-let myFavoriteNumber
-myFavoriteNumber = 'seven'
-myFavoriteNumber = 7
+let myFavoriteNumber;
+myFavoriteNumber = "seven";
+myFavoriteNumber = 7;
 ```
 
 ## 联合类型
@@ -198,14 +320,14 @@ myFavoriteNumber = 7
 ### 简单的例子
 
 ```ts
-let myFavoriteNumber: string | number
-myFavoriteNumber = 'seven'
-myFavoriteNumber = 7
+let myFavoriteNumber: string | number;
+myFavoriteNumber = "seven";
+myFavoriteNumber = 7;
 ```
 
 ```ts
-let myFavoriteNumber: string | number
-myFavoriteNumber = true
+let myFavoriteNumber: string | number;
+myFavoriteNumber = true;
 
 // index.ts(2,1): error TS2322: Type 'boolean' is not assignable to type 'string | number'.
 //   Type 'boolean' is not assignable to type 'number'.
@@ -220,7 +342,7 @@ myFavoriteNumber = true
 
 ```ts
 function getLength(something: string | number): number {
-  return something.length
+  return something.length;
 }
 
 // index.ts(2,22): error TS2339: Property 'length' does not exist on type 'string | number'.
@@ -233,18 +355,18 @@ function getLength(something: string | number): number {
 
 ```ts
 function getString(something: string | number): string {
-  return something.toString()
+  return something.toString();
 }
 ```
 
 联合类型的变量在被赋值的时候，会根据类型推论的规则推断出一个类型：
 
 ```ts
-let myFavoriteNumber: string | number
-myFavoriteNumber = 'seven'
-console.log(myFavoriteNumber.length) // 5
-myFavoriteNumber = 7
-console.log(myFavoriteNumber.length) // 编译时报错
+let myFavoriteNumber: string | number;
+myFavoriteNumber = "seven";
+console.log(myFavoriteNumber.length); // 5
+myFavoriteNumber = 7;
+console.log(myFavoriteNumber.length); // 编译时报错
 
 // index.ts(5,30): error TS2339: Property 'length' does not exist on type 'number'.
 ```
@@ -253,7 +375,7 @@ console.log(myFavoriteNumber.length) // 编译时报错
 
 而第二次赋值时， `myFavoriteNumber` 被推断成了 `number`，访问它的 `length` 属性时就报错了。
 
-## Interfaces 对象的类型——接口
+## 对象的类型——接口 Interfaces
 
 在 `TypeScript` 中，我们使用接口`（Interfaces）`来定义对象的类型。
 
@@ -267,14 +389,14 @@ console.log(myFavoriteNumber.length) // 编译时报错
 
 ```ts
 interface Person {
-  name: string
-  age: number
+  name: string;
+  age: number;
 }
 
 let tom: Person = {
-  name: 'Tom',
+  name: "Tom",
   age: 25,
-}
+};
 ```
 
 上面的例子中，我们定义了一个接口 Person，接着定义了一个变量 tom，它的类型是 Person。这样，我们就约束了 tom 的形状必须和接口 Person 致。
@@ -285,13 +407,13 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age: number
+  name: string;
+  age: number;
 }
 
 let tom: Person = {
-  name: 'Tom',
-}
+  name: "Tom",
+};
 
 // index.ts(6,5): error TS2322: Type '{ name: string; }' is not assignable to type 'Person'.
 //   Property 'age' is missing in type '{ name: string; }'.
@@ -301,15 +423,15 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age: number
+  name: string;
+  age: number;
 }
 
 let tom: Person = {
-  name: 'Tom',
+  name: "Tom",
   age: 25,
-  gender: 'male',
-}
+  gender: "male",
+};
 
 // index.ts(9,5): error TS2322: Type '{ name: string; age: number; gender: string; }' is not assignable to type 'Person'.
 //   Object literal may only specify known properties, and 'gender' does not exist in type 'Person'.
@@ -323,25 +445,25 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age?: number
+  name: string;
+  age?: number;
 }
 
 let tom: Person = {
-  name: 'Tom',
-}
+  name: "Tom",
+};
 ```
 
 ```ts
 interface Person {
-  name: string
-  age?: number
+  name: string;
+  age?: number;
 }
 
 let tom: Person = {
-  name: 'Tom',
+  name: "Tom",
   age: 25,
-}
+};
 ```
 
 可选属性的含义是该属性**可以不存在**。
@@ -350,15 +472,15 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age?: number
+  name: string;
+  age?: number;
 }
 
 let tom: Person = {
-  name: 'Tom',
+  name: "Tom",
   age: 25,
-  gender: 'male',
-}
+  gender: "male",
+};
 
 // examples/playground/index.ts(9,5): error TS2322: Type '{ name: string; age: number; gender: string; }' is not assignable to type 'Person'.
 //   Object literal may only specify known properties, and 'gender' does not exist in type 'Person'.
@@ -370,15 +492,15 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age?: number
-  [propName: string]: any
+  name: string;
+  age?: number;
+  [propName: string]: any;
 }
 
 let tom: Person = {
-  name: 'Tom',
-  gender: 'male',
-}
+  name: "Tom",
+  gender: "male",
+};
 ```
 
 使用 [propName: string] 定义了任意属性取 string 类型的值。
@@ -387,16 +509,16 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age?: number
-  [propName: string]: string
+  name: string;
+  age?: number;
+  [propName: string]: string;
 }
 
 let tom: Person = {
-  name: 'Tom',
+  name: "Tom",
   age: 25,
-  gender: 'male',
-}
+  gender: "male",
+};
 
 // index.ts(3,5): error TS2411: Property 'age' of type 'number' is not assignable to string index type 'string'.
 // index.ts(7,5): error TS2322: Type '{ [x: string]: string | number; name: string; age: number; gender: string; }' is not assignable to type 'Person'.
@@ -413,16 +535,16 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  name: string
-  age?: number
-  [propName: string]: string | number
+  name: string;
+  age?: number;
+  [propName: string]: string | number;
 }
 
 let tom: Person = {
-  name: 'Tom',
+  name: "Tom",
   age: 25,
-  gender: 'male',
-}
+  gender: "male",
+};
 ```
 
 ### 只读属性
@@ -431,19 +553,19 @@ let tom: Person = {
 
 ```ts
 interface Person {
-  readonly id: number
-  name: string
-  age?: number
-  [propName: string]: any
+  readonly id: number;
+  name: string;
+  age?: number;
+  [propName: string]: any;
 }
 
 let tom: Person = {
   id: 89757,
-  name: 'Tom',
-  gender: 'male',
-}
+  name: "Tom",
+  gender: "male",
+};
 
-tom.id = 9527
+tom.id = 9527;
 
 // index.ts(14,5): error TS2540: Cannot assign to 'id' because it is a constant or a read-only property.
 ```
@@ -454,18 +576,18 @@ tom.id = 9527
 
 ```ts
 interface Person {
-  readonly id: number
-  name: string
-  age?: number
-  [propName: string]: any
+  readonly id: number;
+  name: string;
+  age?: number;
+  [propName: string]: any;
 }
 
 let tom: Person = {
-  name: 'Tom',
-  gender: 'male',
-}
+  name: "Tom",
+  gender: "male",
+};
 
-tom.id = 89757
+tom.id = 89757;
 
 // index.ts(8,5): error TS2322: Type '{ name: string; gender: string; }' is not assignable to type 'Person'.
 //   Property 'id' is missing in type '{ name: string; gender: string; }'.
@@ -485,13 +607,13 @@ tom.id = 89757
 最简单的方法是使用「类型 + 方括号」来表示数组：
 
 ```ts
-let fibonacci: number[] = [1, 1, 2, 3, 5]
+let fibonacci: number[] = [1, 1, 2, 3, 5];
 ```
 
 数组的项中**不允许**出现其他的类型：
 
 ```ts
-let fibonacci: number[] = [1, '1', 2, 3, 5]
+let fibonacci: number[] = [1, "1", 2, 3, 5];
 
 // Type 'string' is not assignable to type 'number'.
 ```
@@ -499,8 +621,8 @@ let fibonacci: number[] = [1, '1', 2, 3, 5]
 数组的一些方法的参数也会根据数组在定义时约定的类型进行限制：
 
 ```ts
-let fibonacci: number[] = [1, 1, 2, 3, 5]
-fibonacci.push('8')
+let fibonacci: number[] = [1, 1, 2, 3, 5];
+fibonacci.push("8");
 
 // Argument of type '"8"' is not assignable to parameter of type 'number'.
 ```
@@ -512,7 +634,7 @@ fibonacci.push('8')
 我们也可以使用数组泛型（Array Generic） `Array<elemType>` 来表示数组：
 
 ```ts
-let fibonacci: Array<number> = [1, 1, 2, 3, 5]
+let fibonacci: Array<number> = [1, 1, 2, 3, 5];
 ```
 
 关于泛型，可以参考泛型一章。
@@ -523,9 +645,9 @@ let fibonacci: Array<number> = [1, 1, 2, 3, 5]
 
 ```ts
 interface NumberArray {
-  [index: number]: number
+  [index: number]: number;
 }
-let fibonacci: NumberArray = [1, 1, 2, 3, 5]
+let fibonacci: NumberArray = [1, 1, 2, 3, 5];
 ```
 
 `NumberArray` 表示：只要索引的类型是数字时，那么值的类型必须是数字。
@@ -540,7 +662,7 @@ let fibonacci: NumberArray = [1, 1, 2, 3, 5]
 
 ```ts
 function sum() {
-  let args: number[] = arguments
+  let args: number[] = arguments;
 }
 
 // Type 'IArguments' is missing the following properties from type 'number[]': pop, push, concat, join, and 24 more.
@@ -551,10 +673,10 @@ function sum() {
 ```ts
 function sum() {
   let args: {
-    [index: number]: number
-    length: number
-    callee: Function
-  } = arguments
+    [index: number]: number;
+    length: number;
+    callee: Function;
+  } = arguments;
 }
 ```
 
@@ -564,7 +686,7 @@ function sum() {
 
 ```ts
 function sum() {
-  let args: IArguments = arguments
+  let args: IArguments = arguments;
 }
 ```
 
@@ -572,9 +694,9 @@ function sum() {
 
 ```ts
 interface IArguments {
-  [index: number]: any
-  length: number
-  callee: Function
+  [index: number]: any;
+  length: number;
+  callee: Function;
 }
 ```
 
@@ -585,7 +707,7 @@ interface IArguments {
 一个比较常见的做法是，用 `any` 表示数组中允许出现任意类型：
 
 ```ts
-let list: any[] = ['xcatliu', 25, { website: 'http://xcatliu.com' }]
+let list: any[] = ["xcatliu", 25, { website: "http://xcatliu.com" }];
 ```
 
 ## 函数的类型
@@ -599,20 +721,20 @@ let list: any[] = ['xcatliu', 25, { website: 'http://xcatliu.com' }]
 ```js
 // 函数声明（Function Declaration）
 function sum(x, y) {
-  return x + y
+  return x + y;
 }
 
 // 函数表达式（Function Expression）
 let mySum = function (x, y) {
-  return x + y
-}
+  return x + y;
+};
 ```
 
 一个函数有输入和输出，要在 `TypeScript` 中对其进行约束，需要把输入和输出都考虑到，其中函数声明的类型定义较简单：
 
 ```ts
 function sum(x: number, y: number): number {
-  return x + y
+  return x + y;
 }
 ```
 
@@ -620,18 +742,18 @@ function sum(x: number, y: number): number {
 
 ```ts
 function sum(x: number, y: number): number {
-  return x + y
+  return x + y;
 }
-sum(1, 2, 3)
+sum(1, 2, 3);
 
 // index.ts(4,1): error TS2346: Supplied parameters do not match any signature of call target.
 ```
 
 ```ts
 function sum(x: number, y: number): number {
-  return x + y
+  return x + y;
 }
-sum(1)
+sum(1);
 
 // index.ts(4,1): error TS2346: Supplied parameters do not match any signature of call target.
 ```
@@ -642,16 +764,16 @@ sum(1)
 
 ```ts
 let mySum = function (x: number, y: number): number {
-  return x + y
-}
+  return x + y;
+};
 ```
 
 这是可以通过编译的，不过事实上，上面的代码只对等号右侧的匿名函数进行了类型定义，而等号左边的 `mySum`，是通过赋值操作进行类型推论而推断出来的。如果需要我们手动给 `mySum` 添加类型，则应该是这样：
 
 ```ts
 let mySum: (x: number, y: number) => number = function (x: number, y: number): number {
-  return x + y
-}
+  return x + y;
+};
 ```
 
 注意不要混淆了 `TypeScript` 中的 => 和 `ES6` 中的 =>（箭头函数）。
@@ -664,13 +786,13 @@ let mySum: (x: number, y: number) => number = function (x: number, y: number): n
 
 ```ts
 interface SearchFunc {
-  (source: string, subString: string): boolean
+  (source: string, subString: string): boolean;
 }
 
-let mySearch: SearchFunc
+let mySearch: SearchFunc;
 mySearch = function (source: string, subString: string) {
-  return source.search(subString) !== -1
-}
+  return source.search(subString) !== -1;
+};
 ```
 
 采用函数表达式|接口定义函数的方式时，对等号左侧进行类型限制，可以保证以后对函数名赋值时保证参数个数、参数类型、返回值类型不变。
@@ -684,13 +806,13 @@ mySearch = function (source: string, subString: string) {
 ```ts
 function buildName(firstName: string, lastName?: string) {
   if (lastName) {
-    return firstName + ' ' + lastName
+    return firstName + " " + lastName;
   } else {
-    return firstName
+    return firstName;
   }
 }
-let tomcat = buildName('Tom', 'Cat')
-let tom = buildName('Tom')
+let tomcat = buildName("Tom", "Cat");
+let tom = buildName("Tom");
 ```
 
 需要注意的是，可选参数必须接在必需参数后面。换句话说，**可选参数后面不允许再出现必需参数了：**
@@ -698,13 +820,13 @@ let tom = buildName('Tom')
 ```ts
 function buildName(firstName?: string, lastName: string) {
   if (firstName) {
-    return firstName + ' ' + lastName
+    return firstName + " " + lastName;
   } else {
-    return lastName
+    return lastName;
   }
 }
-let tomcat = buildName('Tom', 'Cat')
-let tom = buildName(undefined, 'Tom')
+let tomcat = buildName("Tom", "Cat");
+let tom = buildName(undefined, "Tom");
 
 // index.ts(1,40): error TS1016: A required parameter cannot follow an optional parameter.
 ```
@@ -714,21 +836,21 @@ let tom = buildName(undefined, 'Tom')
 在 ES6 中，我们允许给函数的参数添加默认值，**`TypeScript` 会将添加了默认值的参数识别为可选参数：**
 
 ```ts
-function buildName(firstName: string, lastName: string = 'Cat') {
-  return firstName + ' ' + lastName
+function buildName(firstName: string, lastName: string = "Cat") {
+  return firstName + " " + lastName;
 }
-let tomcat = buildName('Tom', 'Cat')
-let tom = buildName('Tom')
+let tomcat = buildName("Tom", "Cat");
+let tom = buildName("Tom");
 ```
 
 此时就不受「可选参数必须接在必需参数后面」的限制了：
 
 ```ts
-function buildName(firstName: string = 'Tom', lastName: string) {
-  return firstName + ' ' + lastName
+function buildName(firstName: string = "Tom", lastName: string) {
+  return firstName + " " + lastName;
 }
-let tomcat = buildName('Tom', 'Cat')
-let cat = buildName(undefined, 'Cat')
+let tomcat = buildName("Tom", "Cat");
+let cat = buildName(undefined, "Cat");
 ```
 
 ### 剩余参数
@@ -738,12 +860,12 @@ ES6 中，可以使用 `...rest` 的方式获取函数中的剩余参数（rest 
 ```ts
 function push(array, ...items) {
   items.forEach(function (item) {
-    array.push(item)
-  })
+    array.push(item);
+  });
 }
 
-let a: any[] = []
-push(a, 1, 2, 3)
+let a: any[] = [];
+push(a, 1, 2, 3);
 ```
 
 事实上，`items` 是一个数组。所以我们可以用数组的类型来定义它：
@@ -751,12 +873,12 @@ push(a, 1, 2, 3)
 ```ts
 function push(array: any[], ...items: any[]) {
   items.forEach(function (item) {
-    array.push(item)
-  })
+    array.push(item);
+  });
 }
 
-let a = []
-push(a, 1, 2, 3)
+let a = [];
+push(a, 1, 2, 3);
 ```
 
 注意，`rest `参数只能是最后一个参数，关于 `rest` 参数，可以参考 [ES6 中的 rest 参数](https://es6.ruanyifeng.com/#docs/function#rest%E5%8F%82%E6%95%B0)。
@@ -771,10 +893,10 @@ push(a, 1, 2, 3)
 
 ```ts
 function reverse(x: number | string): number | string | void {
-  if (typeof x === 'number') {
-    return Number(x.toString().split('').reverse().join(''))
-  } else if (typeof x === 'string') {
-    return x.split('').reverse().join('')
+  if (typeof x === "number") {
+    return Number(x.toString().split("").reverse().join(""));
+  } else if (typeof x === "string") {
+    return x.split("").reverse().join("");
   }
 }
 ```
@@ -784,13 +906,13 @@ function reverse(x: number | string): number | string | void {
 这时，我们可以使用重载定义多个 `reverse` 的函数类型：
 
 ```ts
-function reverse(x: number): number
-function reverse(x: string): string
+function reverse(x: number): number;
+function reverse(x: string): string;
 function reverse(x: number | string): number | string | void {
-  if (typeof x === 'number') {
-    return Number(x.toString().split('').reverse().join(''))
-  } else if (typeof x === 'string') {
-    return x.split('').reverse().join('')
+  if (typeof x === "number") {
+    return Number(x.toString().split("").reverse().join(""));
+  } else if (typeof x === "string") {
+    return x.split("").reverse().join("");
   }
 }
 ```
@@ -815,11 +937,13 @@ function reverse(x: number | string): number | string | void {
 <类型>值
 ```
 
+::::tip
 在 `tsx` 语法（`React` 的 `jsx` 语法的 `ts` 版）中必须使用前者，即 值 as 类型。
 
-形如 `<Foo> `的语法在 tsx 中表示的是一个 `ReactNode`，在 `ts` 中除了表示类型断言之外，也可能是表示一个泛型。
+因为形如 `<Foo> `的语法在 tsx 中表示的是一个 `ReactNode`，在 `ts` 中除了表示类型断言之外，也可能是表示一个泛型。
 
 故建议大家在使用类型断言时，统一使用 值 `as` 类型 这样的语法，我们也会贯彻这一思想。
+::::
 
 ### 类型断言的用途
 
@@ -831,16 +955,16 @@ function reverse(x: number | string): number | string | void {
 
 ```ts
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 interface Fish {
-  name: string
-  swim(): void
+  name: string;
+  swim(): void;
 }
 
 function getName(animal: Cat | Fish) {
-  return animal.name
+  return animal.name;
 }
 ```
 
@@ -848,19 +972,19 @@ function getName(animal: Cat | Fish) {
 
 ```ts
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 interface Fish {
-  name: string
-  swim(): void
+  name: string;
+  swim(): void;
 }
 
 function isFish(animal: Cat | Fish) {
-  if (typeof animal.swim === 'function') {
-    return true
+  if (typeof animal.swim === "function") {
+    return true;
   }
-  return false
+  return false;
 }
 
 // index.ts:11:23 - error TS2339: Property 'swim' does not exist on type 'Cat | Fish'.
@@ -873,19 +997,19 @@ function isFish(animal: Cat | Fish) {
 
 ```ts
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 interface Fish {
-  name: string
-  swim(): void
+  name: string;
+  swim(): void;
 }
 
 function isFish(animal: Cat | Fish) {
-  if (typeof (animal as Fish).swim === 'function') {
-    return true
+  if (typeof (animal as Fish).swim === "function") {
+    return true;
   }
-  return false
+  return false;
 }
 ```
 
@@ -895,25 +1019,25 @@ function isFish(animal: Cat | Fish) {
 
 ```ts
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 interface Fish {
-  name: string
-  swim(): void
+  name: string;
+  swim(): void;
 }
 
 function swim(animal: Cat | Fish) {
-  ;(animal as Fish).swim()
+  (animal as Fish).swim();
 }
 
 const tom: Cat = {
-  name: 'Tom',
+  name: "Tom",
   run() {
-    console.log('run')
+    console.log("run");
   },
-}
-swim(tom)
+};
+swim(tom);
 // Uncaught TypeError: animal.swim is not a function`
 ```
 
@@ -935,17 +1059,17 @@ Uncaught TypeError: animal.swim is not a function`
 
 ```ts
 class ApiError extends Error {
-  code: number = 0
+  code: number = 0;
 }
 class HttpError extends Error {
-  statusCode: number = 200
+  statusCode: number = 200;
 }
 
 function isApiError(error: Error) {
-  if (typeof (error as ApiError).code === 'number') {
-    return true
+  if (typeof (error as ApiError).code === "number") {
+    return true;
   }
-  return false
+  return false;
 }
 ```
 
@@ -957,17 +1081,17 @@ function isApiError(error: Error) {
 
 ```ts
 class ApiError extends Error {
-  code: number = 0
+  code: number = 0;
 }
 class HttpError extends Error {
-  statusCode: number = 200
+  statusCode: number = 200;
 }
 
 function isApiError(error: Error) {
   if (error instanceof ApiError) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 ```
 
@@ -977,17 +1101,17 @@ function isApiError(error: Error) {
 
 ```ts
 interface ApiError extends Error {
-  code: number
+  code: number;
 }
 interface HttpError extends Error {
-  statusCode: number
+  statusCode: number;
 }
 
 function isApiError(error: Error) {
   if (error instanceof ApiError) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 // index.ts:9:26 - error TS2693: 'ApiError' only refers to a type, but is being used as a value here.
@@ -997,17 +1121,17 @@ function isApiError(error: Error) {
 
 ```ts
 interface ApiError extends Error {
-  code: number
+  code: number;
 }
 interface HttpError extends Error {
-  statusCode: number
+  statusCode: number;
 }
 
 function isApiError(error: Error) {
-  if (typeof (error as ApiError).code === 'number') {
-    return true
+  if (typeof (error as ApiError).code === "number") {
+    return true;
   }
-  return false
+  return false;
 }
 ```
 
@@ -1018,8 +1142,8 @@ function isApiError(error: Error) {
 当我们引用一个在此类型上不存在的属性或方法时，就会报错：
 
 ```ts
-const foo: number = 1
-foo.length = 1
+const foo: number = 1;
+foo.length = 1;
 
 // index.ts:2:5 - error TS2339: Property 'length' does not exist on type 'number'.
 ```
@@ -1031,7 +1155,7 @@ foo.length = 1
 但有的时候，我们非常确定这段代码不会出错，比如下面这个例子：
 
 ```ts
-window.foo = 1
+window.foo = 1;
 
 // index.ts:1:8 - error TS2339: Property 'foo' does not exist on type 'Window & typeof globalThis'.
 ```
@@ -1041,7 +1165,7 @@ window.foo = 1
 此时我们可以使用 `as` `any` 临时将 `window` 断言为 `any` 类型：
 
 ```ts
-;(window as any).foo = 1
+(window as any).foo = 1;
 ```
 
 在 `any` 类型的变量上，访问任何属性都是允许的。
@@ -1066,7 +1190,7 @@ window.foo = 1
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key]
+  return (window as any).cache[key];
 }
 ```
 
@@ -1074,16 +1198,16 @@ function getCacheData(key: string): any {
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key]
+  return (window as any).cache[key];
 }
 
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
-const tom = getCacheData('tom') as Cat
-tom.run()
+const tom = getCacheData("tom") as Cat;
+tom.run();
 ```
 
 上面的例子中，我们调用完 `getCacheData` 之后，立即将它断言为 `Cat` 类型。这样的话明确了 `tom` 的类型，后续对 `tom` 的访问时就有了代码补全，提高了代码的可维护性。
@@ -1107,20 +1231,20 @@ tom.run()
 
 ```ts
 interface Animal {
-  name: string
+  name: string;
 }
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
 let tom: Cat = {
-  name: 'Tom',
+  name: "Tom",
   run: () => {
-    console.log('run')
+    console.log("run");
   },
-}
-let animal: Animal = tom
+};
+let animal: Animal = tom;
 ```
 
 我们知道，`TypeScript` 是结构类型系统，类型之间的对比只会比较它们最终的结构，而会忽略它们定义时的关系。
@@ -1129,10 +1253,10 @@ let animal: Animal = tom
 
 ```ts
 interface Animal {
-  name: string
+  name: string;
 }
 interface Cat extends Animal {
-  run(): void
+  run(): void;
 }
 ```
 
@@ -1144,18 +1268,18 @@ interface Cat extends Animal {
 
 ```ts
 interface Animal {
-  name: string
+  name: string;
 }
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
 function testAnimal(animal: Animal) {
-  return animal as Cat
+  return animal as Cat;
 }
 function testCat(cat: Cat) {
-  return cat as Animal
+  return cat as Animal;
 }
 ```
 
@@ -1194,14 +1318,14 @@ function testCat(cat: Cat) {
 
 ```ts
 interface Cat {
-  run(): void
+  run(): void;
 }
 interface Fish {
-  swim(): void
+  swim(): void;
 }
 
 function testCat(cat: Cat) {
-  return cat as any as Fish
+  return cat as any as Fish;
 }
 ```
 
@@ -1219,10 +1343,10 @@ function testCat(cat: Cat) {
 
 ```ts
 function toBoolean(something: any): boolean {
-  return something as boolean
+  return something as boolean;
 }
 
-toBoolean(1)
+toBoolean(1);
 // 返回值为 1
 ```
 
@@ -1230,10 +1354,10 @@ toBoolean(1)
 
 ```ts
 function toBoolean(something) {
-  return something
+  return something;
 }
 
-toBoolean(1)
+toBoolean(1);
 // 返回值为 1
 ```
 
@@ -1243,29 +1367,29 @@ toBoolean(1)
 
 ```ts
 function toBoolean(something: any): boolean {
-  return Boolean(something)
+  return Boolean(something);
 }
 
-toBoolean(1)
+toBoolean(1);
 // 返回值为 true
 ```
 
-### 类型断言 vs 类型声明§
+### 类型断言 vs 类型声明
 
 在这个例子中：
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key]
+  return (window as any).cache[key];
 }
 
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
-const tom = getCacheData('tom') as Cat
-tom.run()
+const tom = getCacheData("tom") as Cat;
+tom.run();
 ```
 
 我们使用 `as Cat` 将 `getCacheData` 函数的返回值由 `any` 类型断言为了 `Cat` 类型。
@@ -1274,16 +1398,16 @@ tom.run()
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key]
+  return (window as any).cache[key];
 }
 
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
-const tom: Cat = getCacheData('tom')
-tom.run()
+const tom: Cat = getCacheData("tom");
+tom.run();
 ```
 
 上面的例子中，我们通过类型声明的方式，将 `tom` 声明为 `Cat`，然后再将 `any` 类型的 `getCacheData('tom')` 赋值给 `Cat` 类型的 `tom`。
@@ -1294,17 +1418,17 @@ tom.run()
 
 ```ts
 interface Animal {
-  name: string
+  name: string;
 }
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
 const animal: Animal = {
-  name: 'tom',
-}
-let tom = animal as Cat
+  name: "tom",
+};
+let tom = animal as Cat;
 ```
 
 在上面的例子中，由于 `Animal` 兼容 `Cat`，故可以将 `animal` 断言为 `Cat` 赋值给 `tom`。
@@ -1313,17 +1437,17 @@ let tom = animal as Cat
 
 ```ts
 interface Animal {
-  name: string
+  name: string;
 }
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
 const animal: Animal = {
-  name: 'tom',
-}
-let tom: Cat = animal
+  name: "tom",
+};
+let tom: Cat = animal;
 
 // index.ts:12:5 - error TS2741: Property 'run' is missing in type 'Animal' but required in type 'Cat'.
 ```
@@ -1342,13 +1466,13 @@ let tom: Cat = animal
 而在前一个例子中，由于 `getCacheData('tom')` 是 `any` 类型，`any` 兼容 `Cat`，`Cat` 也兼容 `any`，故
 
 ```ts
-const tom = getCacheData('tom') as Cat
+const tom = getCacheData("tom") as Cat;
 ```
 
 等价于
 
 ```ts
-const tom: Cat = getCacheData('tom')
+const tom: Cat = getCacheData("tom");
 ```
 
 知道了它们的核心区别，就知道了类型声明是比类型断言更加严格的。
@@ -1361,32 +1485,32 @@ const tom: Cat = getCacheData('tom')
 
 ```ts
 function getCacheData(key: string): any {
-  return (window as any).cache[key]
+  return (window as any).cache[key];
 }
 
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
-const tom = getCacheData('tom') as Cat
-tom.run()
+const tom = getCacheData("tom") as Cat;
+tom.run();
 ```
 
 我们还有第三种方式可以解决这个问题，那就是泛型：
 
 ```ts
 function getCacheData<T>(key: string): T {
-  return (window as any).cache[key]
+  return (window as any).cache[key];
 }
 
 interface Cat {
-  name: string
-  run(): void
+  name: string;
+  run(): void;
 }
 
-const tom = getCacheData<Cat>('tom')
-tom.run()
+const tom = getCacheData<Cat>("tom");
+tom.run();
 ```
 
 通过给 `getCacheData` 函数添加了一个泛型 `<T>`，我们可以更加规范的实现对 `getCacheData` 返回值的约束，这也同时去除掉了代码中的 `any`，是最优的一个解决方案。
