@@ -8,7 +8,7 @@ outline: 2
 
 ## npm 安装 `node-sass` 经常失败
 
-> 虽说 `node-sass` 已经被淘汰，现在都用 [dart-sass](https://github.com/sass/dart-sass)，但你总会遇到一些老古董项目的
+> 虽说 `node-sass` 已经被淘汰，现在都用 [dart-sass](https://github.com/sass/dart-sass)，但一些`vue2`的老古董项目还在使用着`node-sass`
 
 ### 问题描述
 
