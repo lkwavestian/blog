@@ -1123,7 +1123,7 @@ copyFields(x, { b: 10, d: 20 });
 
 ### 泛型接口
 
-[之前学习过](../basics/type-of-function.md#接口中函数的定义)，可以使用接口的方式来定义一个函数需要符合的形状：
+之前学习过接口中函数的定义，可以使用接口的方式来定义一个函数需要符合的形状：
 
 ```ts
 interface SearchFunc {
@@ -1222,7 +1222,7 @@ function createArray<T = string>(length: number, value: T): Array<T> {
 
 ### 函数的合并
 
-[之前学习过](../basics/type-of-function.md#重载)，我们可以使用重载定义多个函数类型：
+之前学习过重载，我们可以使用重载定义多个函数类型：
 
 ```ts
 function reverse(x: number): number;

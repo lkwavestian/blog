@@ -32,6 +32,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       items: [
         { text: "基础知识", link: "/fe/typescript/base" },
         { text: "进阶知识", link: "/fe/typescript/advanced" },
+        { text: "扩展阅读", link: "/fe/typescript/expand" },
         { text: "工具类型", link: "/fe/typescript/utility-types" },
         { text: "编译配置", link: "/fe/typescript/tsconfig" },
         { text: "类型体操", link: "/fe/typescript/challenges" },
