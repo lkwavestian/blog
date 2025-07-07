@@ -103,7 +103,7 @@ export default {
     if (typeof window !== "undefined") {
       watch(
         () => router.route.data.relativePath,
-        () => updateHomePageStyle(location.pathname === "/"),
+        () => updateHomePageStyle(location.pathname === "/"), // 需要注意：这里 === 右侧是自己的首页路径
         { immediate: true }
       );
     }

@@ -419,3 +419,12 @@ flex: 2 30px; => 2 1 30px
 ```css
 flex: 2 2 10%;
 ```
+
+:::
+
+## 相关链接
+
+[我的博客](https://docs.fe-qianxun.com/)<br/>
+[阮一峰：Flex 布局教程](https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)<br/>
+[Basic concepts of flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox)<br/>
+[CSS Flexbox Layout Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)

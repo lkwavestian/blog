@@ -190,7 +190,7 @@ comment: false
 
 我们同样可以实现这种效果
 
-在 `theme/style` 新建 `rainbow.css` 文件，在 `rainbow.css` 中 写一个名为 `rainbow` 关键帧
+在 `theme/style` 新建 `rainbow.scss` 文件，在 `rainbow.scss` 中 写一个名为 `rainbow` 关键帧
 
 ::: details 点我查看代码
 <<< @/.vitepress/theme/styles/rainbow.scss
@@ -286,6 +286,61 @@ function updateHomePageStyle(value: boolean) {
 - 某些页面独有的交互动画
 - `A/B` 测试中的特定样式注入
 
+:::
+
+然后在`index.scss`中引入`rainbow.scss`
+
+```css
+/* .vitepress/theme/style/index.scss */
+@import "./rainbow.scss";
+```
+
+`rainbow.scss`文件只是定义了一个动画关键帧，接下来还需要写一点样式去应用这个关键帧，去覆盖掉首页的背景图，实现线性渐变的彩虹动画效果
+
+在 `theme/style` 新建 `var.scss` 文件，在 `var.scss` 中写入以下代码：
+
+```scss
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    var(--vp-c-brand-1) 30%,
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    var(--vp-c-brand-1) 30%,
+    var(--vp-c-brand-next)
+  );
+  --vp-home-hero-image-filter: blur(80px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(120px);
+  }
+}
+```
+
+最后在`index.scss`中引入这个文件
+
+```css
+/* .vitepress/theme/style/index.scss */
+@import "./var.scss";
+```
+
+::: tip
+
+以下所有的样式美化都是在`.vitepress/theme/style/index.scss`中引入的，为了让所写的样式美化生效，在`docs\.vitepress\theme\index.ts`中需要引入这个`index.scss`文件
 :::
 
 ### 深浅模式切换动画
@@ -426,10 +481,10 @@ export default {
 }
 ```
 
-然后在 `index.css` 中引入生效
+然后在 `index.scss` 中引入生效
 
 ```css
-/* .vitepress/theme/style/index.css */
+/* .vitepress/theme/style/index.scss */
 @import "./blockquote.css";
 ```
 
@@ -508,10 +563,10 @@ export default {
 }
 ```
 
-最后引入 `index.css` 中 即可看到效果
+最后引入 `index.scss` 中 即可看到效果
 
 ```css
-/* style/index.css */
+/* style/index.scss */
 @import "./blur.css";
 ```
 
@@ -559,10 +614,10 @@ export default {
 }
 ```
 
-然后在 `index.css` 中引入生效
+然后在 `index.scss` 中引入生效
 
 ```css
-/* .vitepress/theme/style/index.css */
+/* .vitepress/theme/style/index.scss */
 @import "./marker.css";
 ```
 
@@ -629,10 +684,10 @@ export default {
 }
 ```
 
-然后在 `index.css` 中引入生效
+然后在 `index.scss` 中引入生效
 
 ```css
-/* .vitepress/theme/style/index.css */
+/* .vitepress/theme/style/index.scss */
 @import "./vp-code.css";
 ```
 
@@ -718,10 +773,10 @@ export default {
 }
 ```
 
-然后在 `index.css` 中引入生效
+然后在 `index.scss` 中引入生效
 
 ```css
-/* .vitepress/theme/style/index.css */
+/* .vitepress/theme/style/index.scss */
 @import "./vp-code-group.css";
 ```
 
@@ -804,6 +859,13 @@ export default {
 .medium-zoom-overlay ~ img {
   z-index: calc(var(--medium-zoom-z-index) + 1);
 }
+```
+
+然后在 `index.scss` 中引入生效
+
+```css
+/* .vitepress/theme/style/index.scss */
+@import "./medium-zoom.scss";
 ```
 
 更改之后效果
@@ -1018,22 +1080,28 @@ bun add -D nprogress-v2
 
 然后再 `.vitepress/theme/index.ts` 中配置，即可生效
 
-```ts{3-4,7-10,13}
+```ts
 // .vitepress/theme/index.ts
 
-import { NProgress } from 'nprogress-v2/dist/index.js' // 进度条组件
-import 'nprogress-v2/dist/index.css' // 进度条样式
+import { inBrowser } from "vitepress";
+import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
+import "nprogress-v2/dist/index.css"; // 进度条样式
+export default {
+  extends: DefaultTheme,
+  enhanceApp({ app, router }) {
+    // 切换路由进度条
+    if (inBrowser) {
+      NProgress.configure({ showSpinner: false });
 
-if (inBrowser) {
-      NProgress.configure({ showSpinner: false })
       router.onBeforeRouteChange = () => {
-        NProgress.start() // 开始进度条
-      }
-      router.onAfterRouteChanged = () => {
-         busuanzi.fetch()
-         NProgress.done() // 停止进度条
-      }
-}
+        NProgress.start(); // 开始进度条
+      };
+      router.onAfterRouteChange = () => {
+        NProgress.done(); // 停止进度条
+      };
+    }
+  },
+};
 ```
 
 更改后效果

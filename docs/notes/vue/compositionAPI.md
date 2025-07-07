@@ -65,18 +65,18 @@
 
 ```vue
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
-const x = ref(0)
-const y = ref(0)
+const x = ref(0);
+const y = ref(0);
 
 function update(event) {
-  x.value = event.pageX
-  y.value = event.pageY
+  x.value = event.pageX;
+  y.value = event.pageY;
 }
 
-onMounted(() => window.addEventListener('mousemove', update))
-onUnmounted(() => window.removeEventListener('mousemove', update))
+onMounted(() => window.addEventListener("mousemove", update));
+onUnmounted(() => window.removeEventListener("mousemove", update));
 </script>
 
 <template>Mouse position is at: {{ x }}, {{ y }}</template>
@@ -86,27 +86,27 @@ onUnmounted(() => window.removeEventListener('mousemove', update))
 
 ```js
 // mouse.js
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
 // 按照惯例，组合式函数名以“use”开头
 export function useMouse() {
   // 被组合式函数封装和管理的状态
-  const x = ref(0)
-  const y = ref(0)
+  const x = ref(0);
+  const y = ref(0);
 
   // 组合式函数可以随时更改其状态。
   function update(event) {
-    x.value = event.pageX
-    y.value = event.pageY
+    x.value = event.pageX;
+    y.value = event.pageY;
   }
 
   // 一个组合式函数也可以挂靠在所属组件的生命周期上
   // 来启动和卸载副作用
-  onMounted(() => window.addEventListener('mousemove', update))
-  onUnmounted(() => window.removeEventListener('mousemove', update))
+  onMounted(() => window.addEventListener("mousemove", update));
+  onUnmounted(() => window.removeEventListener("mousemove", update));
 
   // 通过返回值暴露所管理的状态
-  return { x, y }
+  return { x, y };
 }
 ```
 
@@ -114,9 +114,9 @@ export function useMouse() {
 
 ```vue
 <script setup>
-import { useMouse } from './mouse.js'
+import { useMouse } from "./mouse.js";
 
-const { x, y } = useMouse()
+const { x, y } = useMouse();
 </script>
 
 <template>Mouse position is at: {{ x }}, {{ y }}</template>
@@ -130,13 +130,13 @@ const { x, y } = useMouse()
 
 ```js
 // event.js
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from "vue";
 
 export function useEventListener(target, event, callback) {
   // 如果我们想的话，
   // 也可以用字符串形式的 CSS 选择器来寻找目标 DOM 元素
-  onMounted(() => target.addEventListener(event, callback))
-  onUnmounted(() => target.removeEventListener(event, callback))
+  onMounted(() => target.addEventListener(event, callback));
+  onUnmounted(() => target.removeEventListener(event, callback));
 }
 ```
 
@@ -144,19 +144,19 @@ export function useEventListener(target, event, callback) {
 
 ```js
 // mouse.js
-import { ref } from 'vue'
-import { useEventListener } from './event'
+import { ref } from "vue";
+import { useEventListener } from "./event";
 
 export function useMouse() {
-  const x = ref(0)
-  const y = ref(0)
+  const x = ref(0);
+  const y = ref(0);
 
-  useEventListener(window, 'mousemove', (event) => {
-    x.value = event.pageX
-    y.value = event.pageY
-  })
+  useEventListener(window, "mousemove", (event) => {
+    x.value = event.pageX;
+    y.value = event.pageY;
+  });
 
-  return { x, y }
+  return { x, y };
 }
 ```
 
@@ -170,15 +170,15 @@ export function useMouse() {
 
 ```vue
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const data = ref(null)
-const error = ref(null)
+const data = ref(null);
+const error = ref(null);
 
-fetch('...')
+fetch("...")
   .then((res) => res.json())
   .then((json) => (data.value = json))
-  .catch((err) => (error.value = err))
+  .catch((err) => (error.value = err));
 </script>
 
 <template>
@@ -195,18 +195,18 @@ fetch('...')
 
 ```js
 // fetch.js
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export function useFetch(url) {
-  const data = ref(null)
-  const error = ref(null)
+  const data = ref(null);
+  const error = ref(null);
 
   fetch(url)
     .then((res) => res.json())
     .then((json) => (data.value = json))
-    .catch((err) => (error.value = err))
+    .catch((err) => (error.value = err));
 
-  return { data, error }
+  return { data, error };
 }
 ```
 
@@ -214,9 +214,9 @@ export function useFetch(url) {
 
 ```vue
 <script setup>
-import { useFetch } from './fetch.js'
+import { useFetch } from "./fetch.js";
 
-const { data, error } = useFetch('...')
+const { data, error } = useFetch("...");
 </script>
 ```
 
@@ -227,47 +227,47 @@ const { data, error } = useFetch('...')
 举例来说，`useFetch`() 应该能够接收一个 `ref`：
 
 ```js
-const url = ref('/initial-url')
+const url = ref("/initial-url");
 
-const { data, error } = useFetch(url)
+const { data, error } = useFetch(url);
 
 // 这将会重新触发 fetch
-url.value = '/new-url'
+url.value = "/new-url";
 ```
 
 或者接收一个 `getter` 函数：
 
 ```js
 // 当 props.id 改变时重新 fetch
-const { data, error } = useFetch(() => `/posts/${props.id}`)
+const { data, error } = useFetch(() => `/posts/${props.id}`);
 ```
 
 我们可以用 `watchEffect()` 和 `toValue() API` 来重构我们现有的实现：
 
 ```js
 // fetch.js
-import { ref, watchEffect, toValue } from 'vue'
+import { ref, watchEffect, toValue } from "vue";
 
 export function useFetch(url) {
-  const data = ref(null)
-  const error = ref(null)
+  const data = ref(null);
+  const error = ref(null);
 
   const fetchData = () => {
     // reset state before fetching..
-    data.value = null
-    error.value = null
+    data.value = null;
+    error.value = null;
 
     fetch(toValue(url))
       .then((res) => res.json())
       .then((json) => (data.value = json))
-      .catch((err) => (error.value = err))
-  }
+      .catch((err) => (error.value = err));
+  };
 
   watchEffect(() => {
-    fetchData()
-  })
+    fetchData();
+  });
 
-  return { data, error }
+  return { data, error };
 }
 ```
 
@@ -310,30 +310,30 @@ export function useFetch(url) {
 ```js
 // 用户相关逻辑
 function useUser() {
-  const user = ref(null)
+  const user = ref(null);
   const fetchUser = async () => {
     /* ... */
-  }
-  return { user, fetchUser }
+  };
+  return { user, fetchUser };
 }
 
 // 订单相关逻辑
 function useOrders() {
-  const orders = ref([])
+  const orders = ref([]);
   const loadOrders = async () => {
     /* ... */
-  }
-  return { orders, loadOrders }
+  };
+  return { orders, loadOrders };
 }
 
 export default {
   setup() {
-    const { user, fetchUser } = useUser()
-    const { orders, loadOrders } = useOrders()
+    const { user, fetchUser } = useUser();
+    const { orders, loadOrders } = useOrders();
 
-    return { user, orders, fetchUser, loadOrders }
+    return { user, orders, fetchUser, loadOrders };
   },
-}
+};
 ```
 
 ### 逻辑拆分原则
@@ -362,13 +362,13 @@ components/
 即便不依赖于 `ref` 或 `getter` 的响应性，组合式函数也可以接收它们作为参数。如果我们正在编写一个可能被其他开发者使用的组合式函数，最好处理一下输入参数是 `ref` 或 `getter` 而非原始值的情况。可以利用 `toValue()` 工具函数来实现
 
 ```js
-import { toValue } from 'vue'
+import { toValue } from "vue";
 
 function useFeature(maybeRefOrGetter) {
   // 如果 maybeRefOrGetter 是一个 ref 或 getter，
   // 将返回它的规范化值。
   // 否则原样返回。
-  const value = toValue(maybeRefOrGetter)
+  const value = toValue(maybeRefOrGetter);
 }
 ```
 
@@ -380,7 +380,7 @@ function useFeature(maybeRefOrGetter) {
 
 ```js
 // x 和 y 是两个 ref
-const { x, y } = useMouse()
+const { x, y } = useMouse();
 ```
 
 从组合式函数返回一个响应式对象会导致在对象解构过程中丢失与组合式函数内状态的响应性连接。与之相反，`ref` 则可以维持这一响应性连接。
@@ -388,9 +388,9 @@ const { x, y } = useMouse()
 如果我们更希望以对象属性的形式来使用组合式函数中返回的状态，我们可以将返回的对象用 `reactive()` 包装一次，这样其中的 `ref` 会被自动解包，例如：
 
 ```js
-const mouse = reactive(useMouse())
+const mouse = reactive(useMouse());
 // mouse.x 链接到了原来的 x ref
-console.log(mouse.x)
+console.log(mouse.x);
 ```
 
 ### 副作用
@@ -434,13 +434,13 @@ onMounted(() => {
 
 ```vue
 <script setup>
-import { useFeatureA } from './featureA.js'
-import { useFeatureB } from './featureB.js'
-import { useFeatureC } from './featureC.js'
+import { useFeatureA } from "./featureA.js";
+import { useFeatureB } from "./featureB.js";
+import { useFeatureC } from "./featureC.js";
 
-const { foo, bar } = useFeatureA()
-const { baz } = useFeatureB(foo)
-const { qux } = useFeatureC(baz)
+const { foo, bar } = useFeatureA();
+const { baz } = useFeatureB(foo);
+const { qux } = useFeatureC(baz);
 </script>
 ```
 
@@ -471,3 +471,12 @@ const { qux } = useFeatureC(baz)
 - 无需手动缓存回调函数来避免不必要的组件更新。`Vue` 细粒度的响应性系统能够确保在绝大部分情况下组件仅执行必要的更新。对 `Vue` 开发者来说几乎不怎么需要对子组件更新进行手动优化。
 
 综合来说，`Vue` 的组合式函数是基于 `Vue` 细粒度的响应性系统，这和 `React hooks` 的执行模型有本质上的不同。
+
+## 相关链接
+
+[我的博客](https://docs.fe-qianxun.com/)<br/>
+[Vue 官网-组合式 API 常见问答](https://cn.vuejs.org/guide/extras/composition-api-faq)<br/>
+[Vue 3 新特性大解密：Options API vs. Composition API，谁才是实力派？](https://juejin.cn/post/7218837933359857719)<br/>
+[Composition API 与 Options API 的区别](https://www.cnblogs.com/linxmouse/p/18671011)<br/>
+[浅析 vue2 中 Options API 和 vue3 中 Composition API 的对比](https://blog.51cto.com/u_15049782/4295368)<br/>
+[Composition API 簡介](https://book.vue.tw/CH6/6-1-composition-intro.html)
