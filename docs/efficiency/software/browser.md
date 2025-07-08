@@ -1,5 +1,5 @@
 ---
-description: '收录一些能提升使用体验的浏览器扩展、油猴脚本、实用小技巧'
+description: "收录一些能提升使用体验的浏览器扩展、油猴脚本、实用小技巧"
 ---
 
 # 浏览器设置与扩展
@@ -93,6 +93,20 @@ description: '收录一些能提升使用体验的浏览器扩展、油猴脚本
   - [imooc-tools](https://greasyfork.org/zh-CN/scripts/396378) 慕课网问答区快速查看问答详情、自动播放下一节视频
 
   - [115 转存助手 ui 优化版](https://gist.github.com/Nerver4Ever/953447c9ecd330ffc0861d4cbb839369) 115 网盘重要资源的备份复制转移
+
+  - [CSDN Focus](https://greasyfork.org/zh-CN/scripts/420352-csdn-focus) CSDN 页面重置, 支持黑暗模式, 无弹窗无广告无任何干扰, 自动展开文章和评论, 自由复制, 外链直达! 同步支持脚本之家, 简书
+
+  - [网页限制解除(改)](https://greasyfork.org/zh-CN/scripts/28497-%E7%BD%91%E9%A1%B5%E9%99%90%E5%88%B6%E8%A7%A3%E9%99%A4-%E6%94%B9) 可以解除禁止复制、剪切、选择文本、右键菜单的限制
+
+  - [AC-baidu-重定向优化百度搜狗谷歌必应搜索*favicon*双列](https://greasyfork.org/zh-CN/scripts/14178-ac-baidu-%E9%87%8D%E5%AE%9A%E5%90%91%E4%BC%98%E5%8C%96%E7%99%BE%E5%BA%A6%E6%90%9C%E7%8B%97%E8%B0%B7%E6%AD%8C%E5%BF%85%E5%BA%94%E6%90%9C%E7%B4%A2-favicon-%E5%8F%8C%E5%88%97) 优化谷歌的搜索页面
+
+  - [LinkSwift](https://greasyfork.org/zh-CN/scripts/449291-linkswift) 一个基于 JavaScript 的网盘文件下载地址获取工具
+
+  - [知乎增强](https://greasyfork.org/zh-CN/scripts/419081-zhihu-enhancement) 知乎增强
+
+  - [知乎美化](https://greasyfork.org/zh-CN/scripts/412212-%E7%9F%A5%E4%B9%8E%E7%BE%8E%E5%8C%96) 知乎美化
+
+  - [解除网站不允许复制的限制（优化版](https://greasyfork.org/zh-CN/scripts/497009-%E8%A7%A3%E9%99%A4%E7%BD%91%E7%AB%99%E4%B8%8D%E5%85%81%E8%AE%B8%E5%A4%8D%E5%88%B6%E7%9A%84%E9%99%90%E5%88%B6-%E4%BC%98%E5%8C%96%E7%89%88) 解除部分网站不允许复制的限制，文本选中后点击复制按钮即可复制，
 
 ## 其他工具
 
