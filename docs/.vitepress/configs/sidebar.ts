@@ -4,6 +4,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
   "/fe/": [
     {
       text: "HTML / CSS",
+      link: "/fe/html/",
       collapsed: false,
       items: [
         { text: "HTML 理论知识点", link: "/fe/html/" },
@@ -12,6 +13,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "JavaScript 基础知识",
+      link: "/fe/javascript/types",
       collapsed: false,
       items: [
         { text: "数据类型", link: "/fe/javascript/types" },
@@ -46,6 +48,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
 
     {
       text: "浏览器与网络",
+      link: "/fe/browser/",
       collapsed: false,
       items: [
         { text: "浏览器相关知识点", link: "/fe/browser/" },
@@ -56,6 +59,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     {
       text: "概念知识点",
       collapsed: false,
+      link: "/fe/concept/module",
       items: [
         { text: "模块化", link: "/fe/concept/module" },
         { text: "前端页面渲染方式", link: "/fe/concept/page-rendering" },
@@ -79,6 +83,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
   "/workflow/": [
     {
       text: "常用工具/方法",
+      link: "/workflow/specification/code-specification",
       collapsed: false,
       items: [
         { text: "规范相关", link: "/workflow/specification/code-specification" },
@@ -89,6 +94,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "CSS 相关",
+      link: "/workflow/css/spec",
       collapsed: false,
       items: [
         { text: "CSS 语法", link: "/workflow/css/spec" },
@@ -102,11 +108,13 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "Node 相关",
-      // collapsed: false,
+      link: "/workflow/node/npm",
+      collapsed: false,
       items: [{ text: "npm 常用命令", link: "/workflow/node/npm" }],
     },
     {
       text: "终端相关",
+      link: "/workflow/terminal/zsh",
       collapsed: false,
       items: [
         { text: "Zsh 配置", link: "/workflow/terminal/zsh" },
@@ -116,6 +124,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "Git 相关",
+      link: "/workflow/git/",
       collapsed: false,
       items: [
         { text: "Git 相关技巧", link: "/workflow/git/" },
