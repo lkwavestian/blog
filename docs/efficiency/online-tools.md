@@ -1,5 +1,5 @@
 ---
-description: '收录一些实用的在线工具，免去下载软件的烦恼'
+description: "收录一些实用的在线工具，免去下载软件的烦恼"
 ---
 
 # 在线工具
@@ -11,6 +11,7 @@ description: '收录一些实用的在线工具，免去下载软件的烦恼'
 - [npm trends](https://www.npmtrends.com/) 比较 npm package 的下载情况
 - [Bundlephobia](https://bundlephobia.com/) 分析 npm package 的依赖、bundle 后的大小、下载速度预估
 - [Package Phobia](https://packagephobia.com/) 查询 npm package 的安装体积（磁盘大小）
+- [text-compare-diff](https://my-search.github.io/text-compare-diff/) 在线代码对比
 
 ### 沙箱
 
