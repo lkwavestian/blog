@@ -1,5 +1,5 @@
 ---
-description: '收录 Windows 平台下的实用软件，提升使用体验'
+description: "收录 Windows 平台下的实用软件，提升使用体验"
 ---
 
 # Windows 平台
@@ -73,6 +73,14 @@ description: '收录 Windows 平台下的实用软件，提升使用体验'
 3. 可以显示包括 GPS 信息在内的 JPEG 格式的 EXIF 信息
 
 [软件官网](https://www.bandisoft.com/honeyview)
+
+## 看图神器 ImageGlass
+
+1. 支持 70 多种格式
+2. 轻量级设计
+3. 界面直观、体验流畅
+
+[软件官网](https://imageglass.org/)
 
 ## 壁纸神器 Wallpaper Engine
 
@@ -218,7 +226,16 @@ description: '收录 Windows 平台下的实用软件，提升使用体验'
 4. 空文件夹删除
 5. 系统更新补丁管理
 
-[软件官网](https://www.hibitsoft.ir/Uninstaller.html)
+## 卸载神器 Geek Uninstaller
+
+1. 深度清理
+2. 简易的操作界面
+3. 智能且快速
+4. 强制卸载
+5. 卸载 Windows 应用商店 APP
+6. 便携式
+
+[软件官网](https://geekuninstaller.com)
 
 ## 硬盘分析工具 WizTree
 
