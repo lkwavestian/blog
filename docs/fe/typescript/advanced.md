@@ -1309,3 +1309,97 @@ interface Alarm {
 ### 类的合并
 
 类的合并与接口的合并规则一致。
+
+## 类型运算符
+
+### `extends`
+
+`extends` 关键词一般有两种用法：**条件类型**和**类型约束**
+
+#### 条件类型
+
+**条件类型**类似于 `JavaScript` 中的三元表达式，可以根据当前类型是否符合某种条件，返回不同的类型
+
+```ts
+T extends U ? X : Y
+```
+
+上面式子中的`extends`用来判断，类型`T`是否可以赋值给类型`U`，即`T`是否为`U`的子类型，这里的`T`和`U`可以是任意类型。
+
+举个例子：
+
+```ts{1,2}
+type IsBoolean<T> = T extends boolean ? true : false
+type IsArray<T> = T extends { length: number } ? true : false
+
+type Res1 = IsBoolean<string>   // false
+type Res2 = IsBoolean<true>     // true
+type Res3 = IsBoolean<true>     // false
+type Res4 = IsArray<[1, 2]>     // true
+```
+
+#### 分布式条件类型
+
+在条件类型中有一个特别需要注意的东西就是：**分布式条件类型**（对联合类型应用 `extends` 时，会遍历联合类型成员并一一应用该条件类型）
+
+```ts
+// 内置工具：交集
+type Extract<T, U> = T extends U ? T : never;
+type type1 = "name" | "age";
+type type2 = "name" | "address" | "sex";
+
+type test = Extract<type1, type2>;
+// 结果为 'name'
+```
+
+**代码详解**：
+
+- `T extends U ? T : never`：因为 `T` 是一个联合类型，所以这里适用于分布式条件类型的概念。根据其概念，在实际的过程中会把 `T` 类型中的每一个子类型进行迭代
+
+```ts
+// 初始状态
+'name' | 'age' extends 'name' | 'address' | 'sex' ? T : never
+
+// 第一次迭代使用'name'，得到 'name'
+'name' extends 'name' | 'address' | 'sex' ? 'name' : never
+// 第二次迭代使用`age`，得到 never
+'age' extends 'name' | 'address' | 'sex' : never
+```
+
+- 在迭代完成之后，会把每次迭代的结果组合成一个新的联合类型（根据 `never` 类型的特点，最后的结果会剔除掉 `never`）
+
+```ts
+type result = "name" | never;
+// 实际为 type result = 'name'
+```
+
+### `infer`
+
+`infer` 关键词的作用是延时推导，它会在类型未推导时进行占位，等到真正推导成功后再返回正确的类型，详细可参考[精读《Typescript infer 关键字](https://github.com/ascoders/weekly/blob/master/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/207.%E7%B2%BE%E8%AF%BB%E3%80%8ATypescript%20infer%20%E5%85%B3%E9%94%AE%E5%AD%97%E3%80%8B.md)
+
+以 `ReturnType<T>` 为例来获取函数返回类型
+
+```ts
+type ReturnType<T> = T extends (...args: any) => infer R ? R : any;
+
+const add = (a: number, b: number): number => a + b;
+
+type Result = ReturnType<typeof add>;
+// Result: number
+```
+
+- 声明泛型变量 `T` 表示一个函数类型
+- 声明占位变量 `R`，此时并不确定函数具体返回类型
+- 若 `T` 类型为函数类型，则根据函数类型上下文推导出 `R` 具体类型并返回，否则则返回 `any` 类型
+- 在上述例子中，`add` 即为返回 `number` 类型的函数，由此推断出 `R` 为 `number`
+-
+
+::: tps 相关资料
+
+- [TypeScript 中文文档](https://www.typescriptlang.org/zh/docs/)
+- [TypeScript 演练场 —— 一个用于 TypeScript 和 JavaScript 的在线编辑器](https://www.typescriptlang.org/zh/play)
+- [TypeScript 入门教程 | GitHub](https://github.com/xcatliu/typescript-tutorial)
+- [深入理解 TypeScript | GitHub](https://github.com/jkchao/typescript-book-chinese)
+- [TypeScript | 汪图南](https://wangtunan.github.io/blog/typescript/base.html)
+
+:::

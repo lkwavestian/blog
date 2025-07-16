@@ -386,3 +386,42 @@ type cases = [
 ```
 
 **解题思路**
+
+这题主要是使用了条件类型中的[分布式条件类型概念](./advanced.md#分布式条件类型)
+
+了解了这个概念，答案就呼之欲出了。这里我们需要反向思考，比如`MyExclude<"a" | "b" | "c", "a">, "b" | "c">`这个测试用例，我们需要将`"a"`从`"a" | "b" | "c"`中排除掉，也就是将`"a"`作为条件类型，如果匹配，则返回`never`，否则返回原类型
+
+**题解**
+
+```ts
+type MyExclude<T, U> = T extends U ? never : T;
+```
+
+### 189-实现`Awaited`
+
+**题目描述**
+
+假如我们有一个 `Promise` 对象，这个 `Promise` 对象会返回一个类型。在 `TS` 中，我们用 `Promise` 中的 `T` 来描述这个 `Promise` 返回的类型。请你实现一个类型，可以获取这个类型。
+
+**测试用例**
+
+```ts
+// ============= Test Cases =============
+import type { Equal, Expect } from "./test-utils";
+
+type X = Promise<string>;
+type Y = Promise<{ field: number }>;
+type Z = Promise<Promise<string | number>>;
+type Z1 = Promise<Promise<Promise<string | boolean>>>;
+type T = { then: (onfulfilled: (arg: number) => any) => any };
+
+type cases = [
+  Expect<Equal<MyAwaited<X>, string>>,
+  Expect<Equal<MyAwaited<Y>, { field: number }>>,
+  Expect<Equal<MyAwaited<Z>, string | number>>,
+  Expect<Equal<MyAwaited<Z1>, string | boolean>>,
+  Expect<Equal<MyAwaited<T>, number>>
+];
+```
+
+**解题思路**
