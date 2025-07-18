@@ -166,7 +166,10 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
   "/notes/": [
     {
       text: "Css 日常笔记",
-      items: [{ text: "Flex相关概念与理解", link: "/notes/css/flex" }],
+      items: [
+        { text: "Flex相关概念与理解", link: "/notes/css/flex" },
+        { text: "line-height属性详解", link: "/notes/css/line-height" },
+      ],
     },
     {
       text: "Vue 日常笔记",
