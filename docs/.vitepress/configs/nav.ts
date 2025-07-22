@@ -86,6 +86,7 @@ export const nav: DefaultTheme.Config["nav"] = [
           { text: "Visual Studio Code 配置", link: "/efficiency/software/vscode" },
           { text: "WebStorm 配置", link: "/efficiency/software/webstorm" },
           { text: "VitePress 配置", link: "/efficiency/software/vitepress" },
+          { text: "Cursor 相关", link: "/efficiency/software/cursor" },
         ],
       },
       { text: "在线工具", link: "/efficiency/online-tools" },
