@@ -1312,6 +1312,195 @@ interface Alarm {
 
 ## 类型运算符
 
+### `keyof`
+
+`keyof` 操作符接受一个对象类型作为参数，返回该对象属性名组成的字面量联合类型
+
+```ts
+type MyObj = {
+  foo: number;
+  bar: string;
+};
+
+type Keys = keyof MyObj; // 'foo'|'bar'
+```
+
+由于 `JavaScript` 对象的键名只有三种类型，所以对于`any`的键名的联合类型就是 `string|number|symbol`
+
+```ts
+// string | number | symbol
+type KeyT = keyof any;
+```
+
+对于没有自定义键名的类型使用 keyof 运算符，返回 never 类型，表示不可能有这样类型的键名
+
+```ts
+type KeyT = keyof object; // never
+```
+
+对于联合类型，keyof 返回成员共有的键名
+
+```ts
+type A = { a: string; z: boolean };
+type B = { b: string; z: boolean };
+
+// 返回 'z'
+type KeyT = keyof (A | B);
+```
+
+对于交叉类型，keyof 返回所有键名
+
+```ts
+type A = { a: string; x: boolean };
+type B = { b: string; y: number };
+
+// 返回 'a' | 'x' | 'b' | 'y'
+type KeyT = keyof (A & B);
+
+// 相当于
+keyof (A & B) ≡ keyof A | keyof B
+```
+
+它的用法主要有两个：
+
+#### 用法一：与`extends`一起使用，对对象属性的类型做限定
+
+比如：
+
+```ts
+function prop<Obj, K extends keyof Obj>(obj: Obj, key: K): Obj[K] {
+  return obj[key];
+}
+```
+
+上面代码对函数`prop`的参数做了规定：需要传两个参数，并且第二个参数`key`必须是第一个参数`obj`的属性值
+
+这样使用不会报错：
+
+```ts
+prop({ a: 1 }, "a");
+```
+
+但是这样使用就会报错了：
+
+```ts
+prop({ a: 1 }, "b"); //Argument of type '"b"' is not assignable to parameter of type '"a"'.(2345)
+```
+
+#### 用法二：与`in`搭配进行属性映射，将一个类型的所有属性逐一映射成其他值
+
+比如：
+
+```ts
+type NewProps<Obj> = {
+  [Prop in keyof Obj]: boolean;
+};
+
+// 用法
+type MyObj = { foo: number; bar: string };
+
+// 等于 { foo: boolean; bar: boolean }
+type NewObj = NewProps<MyObj>;
+```
+
+`NewProps` 类型可以将传入类型对象`Obj`的所有属性值类型都转化为`boolean`
+
+### `in`
+
+`in`的右侧一般会跟一个联合类型，使用 `in` 操作符可以对该联合类型进行迭代。 其作用类似 `JS` 中的 `for...in` 或者 `for...of`
+
+```ts
+type Animals = "pig" | "cat" | "dog";
+type animals = {
+  [key in Animals]: string;
+};
+// type animals = {
+//     pig: string; //第一次迭代
+//     cat: string; //第二次迭代
+//     dog: string; //第三次迭代
+// }
+```
+
+### `typeof`
+
+`typeof` 操作符用于获取一个 JavaScript 变量的类型，常用于获取一个普通对象或者一个函数的类型
+
+#### 基本使用
+
+假如我们在定义类型之前已经有了对象 obj，就可以用 typeof 来定义一个类型
+
+```ts
+const p = {
+  name: "CJ",
+  age: 18,
+};
+
+type Person = typeof p;
+
+// 等同于
+type Person = {
+  name: string;
+  age: number;
+};
+```
+
+#### 获取嵌套对象类型
+
+如果对象是一个嵌套的对象，typeof 也能够正确获取到它们的类型。
+
+```ts
+const p = {
+  name: "CJ",
+  age: 18,
+  address: {
+    city: "SH",
+  },
+};
+
+type Person = typeof p;
+
+// 相当于
+type Person = {
+  name: string;
+  age: number;
+  address: {
+    city: string;
+  };
+};
+```
+
+#### 获取数组类型
+
+假如我们有一个字符串数组，可以把数组的所有元素组合成一个新的类型：
+
+```ts
+const data = ["hello", "world"] as const;
+type Greeting = (typeof data)[number];
+
+// type Greeting = "hello" | "world"
+```
+
+#### 获取函数类型
+
+函数也是一个特殊的对象，`typeof`当然也能获取函数类型
+
+```ts
+function add(a: number, b: number): number {
+  return a + b;
+}
+type AddFn = typeof add;
+// AddFn: (a: number, b: number) => number
+```
+
+:::tip typeof 和 keyof 的区别
+
+| 关键字   | 作用                 | 用法          | 结果类型         |
+| -------- | -------------------- | ------------- | ---------------- |
+| `typeof` | 获取“值”的类型       | typeof 变量名 | 一个类型         |
+| `keyof`  | 获取“类型”的所有键名 | keyof 类型名  | 联合类型（键名） |
+
+:::
+
 ### `extends`
 
 `extends` 关键词一般有两种用法：**条件类型**和**类型约束**
@@ -1337,6 +1526,20 @@ type Res2 = IsBoolean<true>     // true
 type Res3 = IsBoolean<true>     // false
 type Res4 = IsArray<[1, 2]>     // true
 ```
+
+条件类型还有一种用法：当只有`extends` 右侧有联合类型，左侧没有联合类型时，虽然确实会进行多次判断，但是其多次判断的结果会以或的方式合并后交由`extends`的逻辑处理
+
+举个例子：
+
+```ts
+'a' extends 'a' | 'b' ? 1 : 2
+```
+
+具体的流程
+
+1. `a extends a` 返回为 `true`
+2. `a extends b` 返回为 `false`
+3. 两个结果进行或判断即`true | false`为`true`，所以最终结果返回`1`
 
 #### 分布式条件类型
 
@@ -1373,33 +1576,62 @@ type result = "name" | never;
 // 实际为 type result = 'name'
 ```
 
+### typeof
+
 ### `infer`
 
-`infer` 关键词的作用是延时推导，它会在类型未推导时进行占位，等到真正推导成功后再返回正确的类型，详细可参考[精读《Typescript infer 关键字](https://github.com/ascoders/weekly/blob/master/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/207.%E7%B2%BE%E8%AF%BB%E3%80%8ATypescript%20infer%20%E5%85%B3%E9%94%AE%E5%AD%97%E3%80%8B.md)
+`infer` 关键词的作用是延时推导，它会在类型未推导时进行占位，等到真正推导成功后再返回正确的类型，它用来定义泛型里面推断出的类型参数，它通常跟条件运算符一起使用，用在`extends`关键字后面的父类型之中
 
-以 `ReturnType<T>` 为例来获取函数返回类型
+这里举几个例子来说明下：
+
+第一个例子我们看`infer`在数组上的应用
 
 ```ts
-type ReturnType<T> = T extends (...args: any) => infer R ? R : any;
-
-const add = (a: number, b: number): number => a + b;
-
-type Result = ReturnType<typeof add>;
-// Result: number
+type Flatten<Type> = Type extends Array<infer Item> ? Item : Type;
 ```
 
-- 声明泛型变量 `T` 表示一个函数类型
-- 声明占位变量 `R`，此时并不确定函数具体返回类型
-- 若 `T` 类型为函数类型，则根据函数类型上下文推导出 `R` 具体类型并返回，否则则返回 `any` 类型
-- 在上述例子中，`add` 即为返回 `number` 类型的函数，由此推断出 `R` 为 `number`
--
+上面示例中，`infer Item`表示`Item`这个参数是 `TypeScript` 自己推断出来的，不用显式传入，而`Flatten<Type>`则表示`Type`这个类型参数是外部传入的。`Type extends Array<infer Item>`则表示，如果参数`Type`是一个数组，那么就将该数组的成员类型推断为`Item`并返回`Item`，即`Item`是从`Type`推断出来的
 
-::: tps 相关资料
+一旦使用`Infer Item`定义了`Item`，后面的代码就可以直接调用`Item`了。下面是上例的泛型`Flatten<Type>`的用法
 
-- [TypeScript 中文文档](https://www.typescriptlang.org/zh/docs/)
-- [TypeScript 演练场 —— 一个用于 TypeScript 和 JavaScript 的在线编辑器](https://www.typescriptlang.org/zh/play)
-- [TypeScript 入门教程 | GitHub](https://github.com/xcatliu/typescript-tutorial)
-- [深入理解 TypeScript | GitHub](https://github.com/jkchao/typescript-book-chinese)
-- [TypeScript | 汪图南](https://wangtunan.github.io/blog/typescript/base.html)
+```typescript
+// string
+type Str = Flatten<string[]>;
+
+// number
+type Num = Flatten<number>;
+```
+
+上面示例中，第一个例子`Flatten<string[]>`传入的类型参数是`string[]`，可以推断出`Item`的类型是`string`，所以返回的是`string`。第二个例子`Flatten<number>`传入的类型参数是`number`，它不是数组，所以直接返回自身
+
+第二个例子我们看 `infer` 在函数上面的应用
+
+```typescript
+type ReturnPromise<T> = T extends (...args: infer A) => infer R ? (...args: A) => Promise<R> : T;
+```
+
+上面示例中，如果`T`是函数，就返回这个函数的 `Promise` 版本，否则原样返回。`infer A`表示推断该函数的参数类型为`A`，`infer R`表示推断该函数的返回值类型为`R`
+
+第三个例子我们看 `infer` 在对象上面的应用
+
+```typescript
+type MyType<T> = T extends {
+  a: infer M;
+  b: infer N;
+}
+  ? [M, N]
+  : never;
+
+// 用法示例
+type T = MyType<{ a: string; b: number }>;
+// [string, number]
+```
+
+上面实例中，表示如果`T`有`a`和`b`两个属性，就把他们的类型`M`、`N`提取出来
+
+::: tip 相关资料
+
+- [精读《Typescript infer 关键字》](https://github.com/ascoders/weekly/blob/master/%E5%89%8D%E6%B2%BF%E6%8A%80%E6%9C%AF/207.%E7%B2%BE%E8%AF%BB%E3%80%8ATypescript%20infer%20%E5%85%B3%E9%94%AE%E5%AD%97%E3%80%8B.md)<br/>
+- [阮一峰-infer 关键字](https://wangdoc.com/typescript/operator#infer-%E5%85%B3%E9%94%AE%E5%AD%97)<br/>
 
 :::
