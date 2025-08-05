@@ -1212,6 +1212,7 @@ tom.run();
 
 上面的例子中，我们调用完 `getCacheData` 之后，立即将它断言为 `Cat` 类型。这样的话明确了 `tom` 的类型，后续对 `tom` 的访问时就有了代码补全，提高了代码的可维护性。
 
+
 ### 断言类型的限制
 
 从上面的例子中，我们可以总结出：
@@ -1308,6 +1309,37 @@ function testCat(cat: Cat) {
 
 其实前四种情况都是最后一个的特例。
 
+### as const
+
+`as const`是一种特殊的类型断言，它告诉`Typescript`编译器：
+
+1. 将这个值视为常量（const），禁止重新赋值
+2. 推导出**最精准的字面量类型**
+
+第一个特性还比较容易理解：
+
+```ts
+let arr = [1, 2, 3, 4] as const;
+arr = [1]; //Type '[1]' is not assignable to type 'readonly [1, 2, 3, 4]'.
+```
+
+被`as const`断言过的变量是不能被更改的
+
+第二个特性有点难理解，它的意思是`as const`会自动推导出最精准的字面量类型，而不是泛化的类型（如`string`、`number[]`）,看下面这个例子：
+
+```ts
+let tuple = ["tesla", "model 3", "model X", "model Y"] as const;
+let tuple2 = ["tesla", "model 3", "model X", "model Y"];
+type tupleType = typeof tuple; // type tupleType = readonly ["tesla", "model 3", "model X", "model Y"]
+type tuple2Type = typeof tuple2; // type tuple2Type = string[]
+let arr: tupleType = ["tesla", 2, 3, 4];// error: Type 'number' is not assignable to type '"model 3"'.(2322)
+let arr1: tupleType = ["tesla", "model 3", "model X", "model Y"];
+let arr2: tuple2Type = ['str'];
+```
+
+我们定义了`tuple`和`tuple2`两个变量，其中`tuple` 加了 `as const`修饰符，使用`typeof`修饰符可以看到二者的不同：`tuple`的类型为`readonly ["tesla", "model 3", "model X", "model Y"]`，`tuple2`的类型为`string[]`。所以使用`tupleType`时，必须为准确的字面量，而使用`tuple2Type`只要是字符串数组就可以。
+
+
 ### 双重断言
 
 既然：
@@ -1373,6 +1405,8 @@ function toBoolean(something: any): boolean {
 toBoolean(1);
 // 返回值为 true
 ```
+
+
 
 ### 类型断言 vs 类型声明
 
