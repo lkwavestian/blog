@@ -59,7 +59,7 @@ features:
   - icon: 🍺
     title: Keep Reading, Keep Coding, Keep Learning! 🎉
     details: '<small class="bottom-small">一个想躺平的小开发</small>'
-    link: /mao
+    link: https://github.com/lkwavestian
 ---
 
 <!-- 首页下划线 -->
