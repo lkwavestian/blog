@@ -2,7 +2,7 @@
 
 ## 类型别名
 
-类型别名用来给一个类型起个新名字。它使用 type 关键字定义，其主要用于定义一些复杂的类型：如联合类型、交叉类型等
+类型别名用来给一个类型起个新名字。它使用 type 关键字定义，其主要用于定义一些复杂的类型：如联合类型
 
 ```ts
 type Name = string;
@@ -17,7 +17,39 @@ function getName(n: NameOrResolver): Name {
 }
 ```
 
-上例中，我们使用 `type` 创建类型别名。
+同时也可以定义交叉类型（Intersection Types），将多个类型合并为一个更具体的类型：
+
+```ts
+type WithTimestamps = { createdAt: Date; updatedAt: Date };
+type UserBase = { id: number; name: string };
+
+// 交叉类型：同时拥有 UserBase 与 WithTimestamps 的全部属性
+type User = UserBase & WithTimestamps;
+
+// 使用示例
+const user: User = {
+  id: 1,
+  name: "张三",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+```
+
+此外类型别名也可以使用泛型：
+
+```ts
+type Container<T> = { value: T };
+```
+
+也可以使⽤类型别名来在属性⾥引⽤⾃⼰：
+
+```ts
+type Tree<T> = {
+  value: T;
+  left: Tree<T>;
+  right: Tree<T>;
+};
+```
 
 ## 字面量类型
 
@@ -407,22 +439,60 @@ var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
 
   :::
 
+### 实际应用
+
+```typescript
+// 用户状态枚举
+enum UserStatus {
+  PENDING = "pending", // 待审核
+  ACTIVE = "active", // 活跃
+  SUSPENDED = "suspended", // 已暂停
+  DELETED = "deleted", // 已删除
+}
+
+// 用户类型枚举
+enum UserType {
+  INDIVIDUAL = "individual", // 个人用户
+  ENTERPRISE = "enterprise", // 企业用户
+  ADMIN = "admin", // 管理员
+}
+
+// 实际使用场景
+class UserService {
+  async updateUserStatus(userId: string, status: UserStatus): Promise<void> {
+    // 状态验证
+    if (!Object.values(UserStatus).includes(status)) {
+      throw new Error("Invalid user status");
+    }
+
+    // 状态转换逻辑
+    switch (status) {
+      case UserStatus.ACTIVE:
+        await this.activateUser(userId);
+        break;
+      case UserStatus.SUSPENDED:
+        await this.suspendUser(userId);
+        break;
+      case UserStatus.DELETED:
+        await this.deleteUser(userId);
+        break;
+    }
+  }
+}
+```
+
 ## 类
 
-传统方法中，`JavaScript` 通过构造函数实现类的概念，通过原型链实现继承，这种写法跟传统的面向对象语言（比如 `C++` 和 `Java`）差异很大，很容易让新学习这门语言的程序员感到困惑，所以 `ES6` 提供了更接近传统语言的写法，引入了 `Class`（类）这个概念。
+在`ES6`之前，`JavaScript` 通过构造函数实现类的概念，通过原型链实现继承，这种写法跟传统的面向对象语言（比如 `C++` 和 `Java`）差异很大，很容易让新学习这门语言的程序员感到困惑。
 
-TypeScript 除了实现了所有 ES6 中的类的功能以外，还添加了一些新的用法。
+在 `ES6` 之后，`JavaScript` 引入了 `Class`（类）这个概念。虽然本质依然是构造函数，使⽤起来已
+经⽅便了许多，但是 `JavaScript` 的 `class` 依然有⼀些特性还没有加⼊，⽐如修饰符和抽象类
+
+`TypeScript` 的 `class `实现了所有 `ES6` 中的类的功能，并且⽀持⾯向对象的所有特性，⽐如修饰符、类、接⼝等
 
 ### 访问修饰符
 
 TypeScript 可以使用三种访问修饰符（Access Modifiers）用于描述类中的各种属性，分别是 `public`、`private` 和 `protected`。
-
-::: tip 三种访问修饰符
-
-- `public` 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 `public` 的
-- `private` 修饰的属性或方法是私有的，不能在声明它的类的外部访问
-- `protected` 修饰的属性或方法是受保护的，它和 `private` 类似，区别是它在子类中也是允许被访问的
-  :::
 
 下面举一些例子：
 
@@ -460,7 +530,7 @@ a.name = "Tom";
 // index.ts(10,1): error TS2341: Property 'name' is private and only accessible within class 'Animal'.
 ```
 
-需要注意的是，TypeScript 编译之后的代码中，并没有限制 `private` 属性在外部的可访问性。
+需要注意的是，`TypeScript` 编译之后的代码中，并没有限制 `private` 属性在外部的可访问性。
 
 上面的例子编译后的代码是：
 
@@ -555,9 +625,17 @@ let a = new Animal("Jack");
 // index.ts(13,9): TS2674: Constructor of class 'Animal' is protected and only accessible within the class declaration.
 ```
 
+::: tip 三种访问修饰符总结
+
+- `public` 修饰的属性或方法是公有的，可以在任何地方被访问到，默认所有的属性和方法都是 `public` 的
+- `private` 修饰的属性或方法是私有的，不能被存取，也不能被其子类访问，当使用`private`修饰构造函数时，该类不允许被继承或者实例化
+- `protected` 修饰的属性或方法是受保护的，它和 `private` 类似，区别是它在子类中也是允许被访问的，使用`private`修饰构造函数时，改类只允许被继承
+
+:::
+
 ### readonly
 
-只读属性关键字，只允许出现在属性声明或索引签名或构造函数中。
+只读属性关键字，只允许在声明时或构造函数⾥被初始化，不允许重新赋值。
 
 ```ts
 class Animal {
@@ -601,6 +679,8 @@ class Animal {
 ### 抽象类
 
 `abstract` 用于定义抽象类和其中的抽象方法。
+
+抽象类做为其它派⽣类的基类使⽤，它们⼀般不会直接被实例化，不同于接⼝，抽象类可以包含成员的实现细节
 
 什么是抽象类？
 

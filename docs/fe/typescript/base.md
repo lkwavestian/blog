@@ -381,9 +381,7 @@ console.log(myFavoriteNumber.length); // 编译时报错
 
 ### 什么是接口
 
-在面向对象语言中，接口`Interfaces`是一个很重要的概念，它是对行为的抽象，而具体如何行动需要由类`（classes）`去实现`（implement）`。
-
-`TypeScript` 中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象以外，也常用于对「对象的形状`（Shape）`」进行描述。
+简单来讲，⼀个接口`Interfaces`所描述的是⼀个对象相关的属性和⽅法，
 
 ### 简单的例子
 
@@ -597,6 +595,36 @@ tom.id = 89757;
 上例中，报错信息有两处，第一处是在对 tom 进行赋值的时候，没有给 id 赋值。
 
 第二处是在给 tom.id 赋值的时候，由于它是只读属性，所以报错了。
+
+### 接口的继承
+
+接口还可以实现继承：
+
+```ts
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Contact {
+  email: string;
+  phone: string;
+}
+
+interface Student extends Person, Contact {
+  grade: number;
+  school: string;
+}
+
+const student: Student = {
+  name: "李四",
+  age: 18,
+  grade: 12,
+  school: "清华大学",
+  email: "lisa@example.com",
+  phone: "13800000000",
+};
+```
 
 ## 数组的类型
 
@@ -1212,7 +1240,6 @@ tom.run();
 
 上面的例子中，我们调用完 `getCacheData` 之后，立即将它断言为 `Cat` 类型。这样的话明确了 `tom` 的类型，后续对 `tom` 的访问时就有了代码补全，提高了代码的可维护性。
 
-
 ### 断言类型的限制
 
 从上面的例子中，我们可以总结出：
@@ -1332,13 +1359,12 @@ let tuple = ["tesla", "model 3", "model X", "model Y"] as const;
 let tuple2 = ["tesla", "model 3", "model X", "model Y"];
 type tupleType = typeof tuple; // type tupleType = readonly ["tesla", "model 3", "model X", "model Y"]
 type tuple2Type = typeof tuple2; // type tuple2Type = string[]
-let arr: tupleType = ["tesla", 2, 3, 4];// error: Type 'number' is not assignable to type '"model 3"'.(2322)
+let arr: tupleType = ["tesla", 2, 3, 4]; // error: Type 'number' is not assignable to type '"model 3"'.(2322)
 let arr1: tupleType = ["tesla", "model 3", "model X", "model Y"];
-let arr2: tuple2Type = ['str'];
+let arr2: tuple2Type = ["str"];
 ```
 
 我们定义了`tuple`和`tuple2`两个变量，其中`tuple` 加了 `as const`修饰符，使用`typeof`修饰符可以看到二者的不同：`tuple`的类型为`readonly ["tesla", "model 3", "model X", "model Y"]`，`tuple2`的类型为`string[]`。所以使用`tupleType`时，必须为准确的字面量，而使用`tuple2Type`只要是字符串数组就可以。
-
 
 ### 双重断言
 
@@ -1405,8 +1431,6 @@ function toBoolean(something: any): boolean {
 toBoolean(1);
 // 返回值为 true
 ```
-
-
 
 ### 类型断言 vs 类型声明
 
