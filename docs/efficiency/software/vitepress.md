@@ -297,7 +297,7 @@ function updateHomePageStyle(value: boolean) {
 
 `rainbow.scss`文件只是定义了一个动画关键帧，接下来还需要写一点样式去应用这个关键帧，去覆盖掉首页的背景图，实现线性渐变的彩虹动画效果
 
-在 `theme/style` 新建 `var.scss` 文件，在 `var.scss` 中写入以下代码：
+在 `theme/style` 新建 `vars.scss` 文件，在 `vars.scss` 中写入以下代码：
 
 ```scss
 /**
@@ -335,7 +335,7 @@ function updateHomePageStyle(value: boolean) {
 
 ```css
 /* .vitepress/theme/style/index.scss */
-@import "./var.scss";
+@import "./vars.scss";
 ```
 
 ::: tip
