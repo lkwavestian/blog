@@ -72,6 +72,10 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
   ],
   "/analysis/": [
     {
+      text: "框架",
+      items: [{ text: "vue2", link: "/analysis/framework/vue2" }],
+    },
+    {
       text: "工具库",
       // collapsed: false,
       items: [

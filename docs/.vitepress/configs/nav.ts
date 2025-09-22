@@ -18,7 +18,20 @@ export const nav: DefaultTheme.Config["nav"] = [
     ],
     activeMatch: "^/fe",
   },
-  { text: "源码阅读", link: "/analysis/utils/only-allow", activeMatch: "^/analysis" },
+  {
+    text: "源码阅读",
+    items: [
+      { text: "框架", items: [{ text: "vue2", link: "/analysis/framework/vue2" }] },
+      {
+        text: "工具库",
+        items: [
+          { text: "only-allow", link: "/analysis/utils/only-allow" },
+          { text: "clsx", link: "/analysis/utils/clsx" },
+        ],
+      },
+    ],
+  },
+
   {
     text: "Workflow",
     items: [
