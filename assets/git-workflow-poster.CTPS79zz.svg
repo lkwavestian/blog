@@ -1,0 +1,103 @@
+<svg viewBox="0 0 2400 1160" xmlns="http://www.w3.org/2000/svg">
+  <!-- 定义样式 -->
+  <defs>
+    <!-- 阴影滤镜 -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+
+    <!-- 箭头标记 -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#4f46e5"/>
+    </marker>
+
+    <!-- 渐变背景 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="2400" height="1160" fill="url(#bgGradient)"/>
+
+  <!-- 主流程区域 -->
+  <rect x="80" y="80" width="2240" height="880" rx="24" fill="#e0f2fe" stroke="#0284c7" stroke-width="4" filter="url(#shadow)"/>
+  <text x="120" y="140" fill="#0c4a6e" font-family="Arial, sans-serif" font-size="40" font-weight="bold">Git 提交工作流程</text>
+
+  <!-- 步骤1: 代码修改 -->
+  <rect x="160" y="200" width="400" height="160" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+  <text x="360" y="250" text-anchor="middle" fill="#1e293b" font-family="Arial, sans-serif" font-size="28" font-weight="bold">代码修改</text>
+  <text x="360" y="290" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">开发者编写代码</text>
+  <text x="360" y="320" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">修改 .js/.ts/.vue 文件</text>
+  <text x="360" y="350" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">📝 编辑源码</text>
+
+  <!-- 箭头1 -->
+  <path d="M 580 280 L 660 280" stroke="#4f46e5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- 步骤2: Git Add -->
+  <rect x="700" y="200" width="400" height="160" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+  <text x="900" y="250" text-anchor="middle" fill="#1e293b" font-family="Arial, sans-serif" font-size="28" font-weight="bold">Git Add</text>
+  <text x="900" y="290" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">暂存文件到缓存区</text>
+  <text x="900" y="320" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">git add .</text>
+  <text x="900" y="350" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">💾 文件暂存</text>
+
+  <!-- 箭头2 -->
+  <path d="M 1120 280 L 1200 280" stroke="#4f46e5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- 步骤3: Git Commit -->
+  <rect x="1240" y="200" width="400" height="160" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1440" y="250" text-anchor="middle" fill="#1e293b" font-family="Arial, sans-serif" font-size="28" font-weight="bold">Git Commit</text>
+  <text x="1440" y="290" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">触发 Husky Hook</text>
+  <text x="1440" y="320" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">git commit -m "msg"</text>
+  <text x="1440" y="350" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="22">🔧 触发检查</text>
+
+  <!-- 分支箭头 -->
+  <path d="M 1440 380 L 1440 440 L 1160 440 L 1160 500" stroke="#4f46e5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1440 440 L 1720 440 L 1720 500" stroke="#4f46e5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- 步骤4: Commitlint -->
+  <rect x="960" y="520" width="400" height="160" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1160" y="570" text-anchor="middle" fill="#ea580c" font-family="Arial, sans-serif" font-size="28" font-weight="bold">Commitlint</text>
+  <text x="1160" y="610" text-anchor="middle" fill="#9a3412" font-family="Arial, sans-serif" font-size="22">验证提交信息格式</text>
+  <text x="1160" y="640" text-anchor="middle" fill="#9a3412" font-family="Arial, sans-serif" font-size="22">检查 commit message</text>
+  <text x="1160" y="670" text-anchor="middle" fill="#9a3412" font-family="Arial, sans-serif" font-size="22">✅ feat: 新功能</text>
+
+  <!-- 步骤5: Lint-staged -->
+  <rect x="1520" y="520" width="400" height="160" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1720" y="570" text-anchor="middle" fill="#ea580c" font-family="Arial, sans-serif" font-size="28" font-weight="bold">Lint-staged</text>
+  <text x="1720" y="610" text-anchor="middle" fill="#9a3412" font-family="Arial, sans-serif" font-size="22">检查暂存文件</text>
+  <text x="1720" y="640" text-anchor="middle" fill="#9a3412" font-family="Arial, sans-serif" font-size="22">ESLint + Prettier</text>
+  <text x="1720" y="670" text-anchor="middle" fill="#9a3412" font-family="Arial, sans-serif" font-size="22">🔍 代码质量检查</text>
+
+  <!-- 合并箭头 -->
+  <path d="M 1160 700 L 1160 760" stroke="#4f46e5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1720 700 L 1720 760 L 1440 760 L 1440 800" stroke="#4f46e5" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1160 760 L 1440 760" stroke="#4f46e5" stroke-width="4" fill="none"/>
+
+  <!-- 决策点 -->
+  <rect x="1340" y="820" width="200" height="100" rx="50" fill="#ffffff" stroke="#6366f1" stroke-width="4" filter="url(#shadow)"/>
+  <text x="1440" y="860" text-anchor="middle" fill="#4338ca" font-family="Arial, sans-serif" font-size="24" font-weight="bold">检查结果</text>
+  <text x="1440" y="890" text-anchor="middle" fill="#6366f1" font-family="Arial, sans-serif" font-size="20">是否通过？</text>
+
+  <!-- 成功路径 -->
+  <path d="M 1440 940 L 1240 940 L 1240 1000" stroke="#22c55e" stroke-width="6" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="1260" y="970" fill="#22c55e" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✅ 通过</text>
+
+  <!-- 失败路径 -->
+  <path d="M 1440 940 L 1640 940 L 1640 1000" stroke="#ef4444" stroke-width="6" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="1560" y="970" fill="#ef4444" font-family="Arial, sans-serif" font-size="24" font-weight="bold">❌ 失败</text>
+
+  <!-- 成功状态 -->
+  <rect x="1040" y="1020" width="400" height="100" rx="16" fill="#dcfce7" stroke="#22c55e" stroke-width="4" filter="url(#shadow)"/>
+  <text x="1240" y="1060" text-anchor="middle" fill="#166534" font-family="Arial, sans-serif" font-size="28" font-weight="bold">🎉 提交成功</text>
+  <text x="1240" y="1090" text-anchor="middle" fill="#166534" font-family="Arial, sans-serif" font-size="22">代码已推送到仓库</text>
+  <text x="1240" y="1110" text-anchor="middle" fill="#166534" font-family="Arial, sans-serif" font-size="22">质量检查通过</text>
+
+  <!-- 失败状态 -->
+  <rect x="1440" y="1020" width="400" height="100" rx="16" fill="#fecaca" stroke="#ef4444" stroke-width="4" filter="url(#shadow)"/>
+  <text x="1640" y="1060" text-anchor="middle" fill="#dc2626" font-family="Arial, sans-serif" font-size="28" font-weight="bold">🚫 提交失败</text>
+  <text x="1640" y="1090" text-anchor="middle" fill="#dc2626" font-family="Arial, sans-serif" font-size="22">请修复错误后重试</text>
+  <text x="1640" y="1110" text-anchor="middle" fill="#dc2626" font-family="Arial, sans-serif" font-size="22">检查错误信息</text>
+
+</svg>
