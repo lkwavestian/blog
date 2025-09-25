@@ -29,7 +29,7 @@
 
 防抖`（Debouncing）`是一种将多个连续的回调合并为一次回调的技术。
 
-![alt text](image.png)
+![alt text](./images/image.png)
 
 想象你在电梯里。电梯门刚开始关闭时，突然有一个人试图闯进来，由于电梯门还没有完全关闭，它就会重新打开。这时又有一个人试图进来，电梯门又重新打开了。电梯推迟了它的操作（指关闭电梯门并移动到指定楼层），但是最大化了它的承载能力。
 
@@ -56,7 +56,7 @@
 
 以下是个带`leading`标记的例子：
 
-![alt text](image-1.png)
+![alt text](./images/image-1.png)
 
 在 `underscore.js` 中，选项叫 `immediate` ，而不是 `leading`
 

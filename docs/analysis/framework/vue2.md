@@ -91,6 +91,8 @@ vue2.6.13
 关于源码的学习，边学习边调试肯定是不错的方法，但是自己写实例对于新人来说一个是不知道如何下手，一个是写的不完美，索性直接从官网 example 入手
 可以更改相关文件
 
+服务端、wxxee 端
+
 <!-- Delete ".min" for console warnings in development -->
 
 ```js

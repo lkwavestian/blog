@@ -205,6 +205,10 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
           text: "Debouncing and Throttling Explained Through Examples",
           link: "/translate/debounceAndThrotting",
         },
+        {
+          text: "20 Things I’ve Learned in my 20 Years as a Software Engineer",
+          link: "/translate/softwareDevelopmentAdvice",
+        },
       ],
     },
   ],
