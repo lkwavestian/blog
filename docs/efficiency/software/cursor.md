@@ -1,28 +1,28 @@
 # Cursor 相关
 
-在重度使用 Cursor 几个月后，我也算有了几点心得，下面就来详细说下
+在重度使用 `Cursor` 几个月后，我也算有了几点心得，下面就来详细说下
 
 ## 一些使用心得
 
 ### 缩小变更范围，不要试图一次做太多
 
-在使用 AI 编辑器 coding 过程中，我的建议是一个功能点一个功能点的去做，尽量让更改范围小些。这样不至于让 AI 写的代码变得越来越不可控，更小的更改范围也有助于我们更好的阅读、理解 AI 写的代码，毕竟，人才是写代码的主体。
+在使用 `AI` 编辑器 coding 过程中，我的建议是一个功能点一个功能点的去做，尽量让更改范围小些。这样不至于让 `AI` 写的代码变得越来越不可控，更小的更改范围也有助于我们更好的阅读、理解 `AI` 写的代码，毕竟，人才是写代码的主体。
 
 ### 让 cursor 复述你的要求
 
-我们陈述的语言是有模糊性的，加上 ai 理解特定信息的局限性，以及 ai 生成内容的随机性，有些时候我们可能会遇到 ai”答非所问“的情况，这个时候别怪 ai，应该先看下自己的提问或描述是否清晰易懂，最好的方法就是让 ai 复述一遍你的需求，看 ai 是否充分理解了。
+我们陈述的语言是有模糊性的，加上 `ai` 理解特定信息的局限性，以及 `ai` 生成内容的随机性，有些时候我们可能会遇到 `ai`”答非所问“的情况，这个时候别怪 `ai`，应该先看下自己的提问或描述是否清晰易懂，最好的方法就是让 `ai` 复述一遍你的需求，看 `ai` 是否充分理解了。
 
 ### 善用图示提问
 
-如果你的需求是否很难用文字完全描述清楚，可以适当增加一些图示，这样能更好地帮助 cursor 去理解你的意图
+如果你的需求是否很难用文字完全描述清楚，可以适当增加一些图示，这样能更好地帮助 `cursor` 去理解你的意图
 
 ### 先 save 再 accept
 
-Cursor 写完代码后。可以不用那么着急着去点 accept all，因为你也不知道 cursor 每次生成的代码是不是正确的。更好的方法是先去验证下 Cusor 写的代码是否正确，让后再点击 accept all，当然如果你不小心点到了 accept all，也可以 ctrl + z 撤回。
+`Cursor` 写完代码后。可以不用那么着急着去点 accept all，因为你也不知道 `cursor` 每次生成的代码是不是正确的。更好的方法是先去验证下 Cusor 写的代码是否正确，让后再点击 accept all，当然如果你不小心点到了 accept all，也可以 `ctrl` + z 撤回。
 
 ### 使用 Ask 模式制定计划，使用 Agent 模式实施计划
 
-当前版本 cursor 有 Ask 、Agent 和 Plan 三种模式，我的方法是一般就是先用 Ask 模式与 cursor 沟通好需求的背景、目的、技术方案等，或者直接上传 prd，让它结合项目本身技术栈自己生成技术方案，等到形成相对成熟的方案后再放到 Agent 模式去执行，这样效率更高。Plan 模式我可能只会在大型功能开发、复杂重构和项目初始化时使用。
+当前版本 `cursor` 有 `Ask` 、`Agent` 和 `Plan` 三种模式，我的方法是一般就是先用 `Ask` 模式与 `cursor` 沟通好需求的背景、目的、技术方案等，或者直接上传 `prd`，让它结合项目本身技术栈自己生成技术方案，等到形成相对成熟的方案后再放到 `Agent` 模式去执行，这样效率更高。`Plan` 模式我可能只会在大型功能开发、复杂重构和项目初始化时使用。
 
 ### 经常创建新的对话
 
@@ -36,7 +36,7 @@ Cursor 写完代码后。可以不用那么着急着去点 accept all，因为�
 
 1. 初始规划
 
-在一次对话中询问 AI：
+在一次对话中询问 `AI`：
 
 “实现/解决 [问题] 的最佳方法是什么，分步骤详细说明？”
 
@@ -70,7 +70,7 @@ Cursor 写完代码后。可以不用那么着急着去点 accept all，因为�
 
 ....
 
-为每个步骤重复此过程。这可以发挥每个任务不同上下文的优势，避免一次性向 LLM 提供过多信息而造成混乱。
+为每个步骤重复此过程。这可以发挥每个任务不同上下文的优势，避免一次性向 `LLM` 提供过多信息而造成混乱。
 
 ### 处理大型代码库
 
@@ -78,63 +78,63 @@ https://cursor.com/cn/docs/cookbook/large-codebases
 
 缩小每次修改的范围，不要一次尝试做太多
 尽量提供相关上下文
-针对各自擅长的场景使用 Chat、Inline Edit 和 Tab
+针对各自擅长的场景使用 `Chat`、`Inline Edit` 和 `Tab`
 经常新建对话
-用 Ask mode 做规划，用 Agent mode 来实现
+用 `Ask` mode 做规划，用 `Agent` mode 来实现
 
 ## Cursor 锁区问题
 
-在 2025 年 的 7 月份，Cursor 中断了中国大陆用户的多个模型使用权。我们常使用几个模型比如 Claude 系列、Gemini 系列，在国内都无法使用。
+在 2025 年 的 7 月份，`Cursor` 中断了中国大陆用户的多个模型使用权。我们常使用几个模型比如 `Claude` 系列、`Gemini` 系列，在国内都无法使用。
 
 [](./images//cursorError.png)
 
 ### 为什么会这样
 
-老实说，这次的锁区事件其实跟 Cursor 关系并不大，Cursor 作为一个 AI+IDE 编辑器，他自身其实并不开发模型，它是基于 VSCode​ 开源代码进行开发，再通过他的网络去调用如：Claude、ChatGPT、Gemini 等等这些模型，去使用的模型的能力。
+老实说，这次的锁区事件其实跟 `Cursor` 关系并不大，`Cursor` 作为一个 `AI`+`IDE` 编辑器，他自身其实并不开发模型，它是基于 `VSCode`​ 开源代码进行开发，再通过他的网络去调用如：`Claude`、`ChatGPT`、`Gemini` 等等这些模型，去使用的模型的能力。
 
-Cursor 也在他的公告里为自己喊冤：
+`Cursor` 也在他的公告里为自己喊冤：
 
-Some models in Cursor may be unavailable in certain regions based on the terms and policies set by the model providers. We plan to re‑enable all models in any regions where they are supported. If our model partners allow access to your region, we plan to restore the affected models and update this page.
+Some models in `Cursor` may be unavailable in certain regions based on the terms and policies set by the model providers. We plan to re‑enable all models in any regions where they are supported. If our model partners allow access to your region, we plan to restore the affected models and update this page.
 
-大概意思就是，这种限制并非 Cursor 故意为之，而是受到上游模型提供商政策变化的影响。类似的情况在 AI 行业并不罕见， [Anthropic（Claude）](https://docs.anthropic.com/en/api/supported-regions)、[OpenAI（GPT / o‑series）](https://help.openai.com/zh-hans-cn/articles/5347006-openai-api-supported-countries-and-territories)、[Google（Gemini）](https://ai.google.dev/gemini-api/docs/available-regions?hl=zh-cn)等公司都有自己的不支持国家和地区。遗憾的是，中国大陆地区都在这三家公司的封禁名单中...即使是翻墙也不行
+大概意思就是，这种限制并非 `Cursor` 故意为之，而是受到上游模型提供商政策变化的影响。类似的情况在 `AI` 行业并不罕见， [`Anthropic`（`Claude`）](https://docs.anthropic.com/en/api/supported-regions)、[`OpenAI`（`GPT` / `o-series`）](https://help.openai.com/zh-hans-cn/articles/5347006-openai-api-supported-countries-and-territories)、[Google（`Gemini`）](https://ai.google.dev/gemini-api/docs/available-regions?hl=zh-cn)等公司都有自己的不支持国家和地区。遗憾的是，中国大陆地区都在这三家公司的封禁名单中...即使是翻墙也不行
 
 ### 怎么办？
 
-Cursor 官方给了几个方案
+`Cursor` 官方给了几个方案
 
-1. 勾选 Auto 选项，每次请求时自动选择可用模型。
-2. 如果你有能在当地正常使用的 API key，可以在 Cursor 中配置他，这样就可以绕过去限制。
+1. 勾选 `Auto` 选项，每次请求时自动选择可用模型。
+2. 如果你有能在当地正常使用的 `API` key，可以在 `Cursor` 中配置他，这样就可以绕过去限制。
 3. 申请按比例退款
 
 这三种方案其实都没有真正解决问题。官方相当于直接摆烂了，直接告诉国内用户：我也没办法了，您要不勉强用，要不直接退款吧。
 
-真实情况也是如此——在 Cursor 的锁区事件后，大批量的中国用户放弃使用 Cursor，转而使用 Trae、Windsurf 等替代品。那段时间我也放弃 Cursor 去试用了下 Trae，但是使用了一段时间后，它着实令我有点失望，生成的代码常常驴头不对马嘴，智能型这方面还是不如 Cursor，于是我又回到了 Cursor 的怀抱...
+真实情况也是如此——在 `Cursor` 的锁区事件后，大批量的中国用户放弃使用 `Cursor`，转而使用 `Trae`、`Windsurf` 等替代品。那段时间我也放弃 `Cursor` 去试用了下 `Trae`，但是使用了一段时间后，它着实令我有点失望，生成的代码常常驴头不对马嘴，智能型这方面还是不如 `Cursor`，于是我又回到了 `Cursor` 的怀抱...
 
 锁区的问题还是得解决，民间社区中也有人逐渐摸索出了解决方案：
 
-1. 修改网络类型：ctrl + shift + j 打开控制面板后，点击 Network，修改 http 模式，把默认的 HTTP/2 修改为 HTTP/1.1
+1. 修改网络类型：`ctrl` + shift + j 打开控制面板后，点击 Network，修改 `http` 模式，把默认的 `HTTP`/2 修改为 `HTTP`/1.1
    [](./images/cursor-network.png)
 2. 在你的代理工具中，将 Tun Mode 打开 [](./images/clash-tun-mode.png)
 
 我实际测试了下，效果还行，常用的几个模型都能使用，就是链接有时候会中断，应该是我的代理不太稳定的问题。
 
-社区中也有人使用 Proxifier 转发 api2.cursor.sh:443​ 来实现，这样既可以使用 http2 享受低延迟，也可以用上 claude 等模型，感兴趣的朋友可以去尝试下。
+社区中也有人使用 `Proxifier` 转发 api2.cursor.sh:443​ 来实现，这样既可以使用 http2 享受低延迟，也可以用上 `claude` 等模型，感兴趣的朋友可以去尝试下。
 
-一顿操作下来也是够麻烦，使用体验还没有以前好。这此的锁区事件本质上还是受美国 AI 出口管制以及国家安全相关政策的影响，受中美技术竞争的影响，也不知道什么技术开发化才能真正到来，让锁区不再成为开发者的一个门槛。同时也望国内的相关公司支棱起来，能够开发出质量更好些、更好用的 AI 编辑器。
+一顿操作下来也是够麻烦，使用体验还没有以前好。这此的锁区事件本质上还是受美国 `AI` 出口管制以及国家安全相关政策的影响，受中美技术竞争的影响，也不知道什么技术开发化才能真正到来，让锁区不再成为开发者的一个门槛。同时也望国内的相关公司支棱起来，能够开发出质量更好些、更好用的 `AI` 编辑器。
 
 ## Rules
 
-想要用好 AI 编辑器，rules 肯定是不能绕过去的，合理的 rules 能够提供明确的结构化指导来约束 AI 的行为，并且有效对抗“AI”幻觉，确保生成的代码符合项目标准。
+想要用好 `AI` 编辑器，rules 肯定是不能绕过去的，合理的 rules 能够提供明确的结构化指导来约束 `AI` 的行为，并且有效对抗“`AI`”幻觉，确保生成的代码符合项目标准。
 
-当前 Cursor 有三种类型规则
+当前 `Cursor` 有三种类型规则
 
-1. 项目规则：存储在 .cursor/rules 中，受版本控制，作用范围限定在你的代码库内
-2. 用户规则：在整个 Cursor 环境中全局生效，由 Agent（Chat）使用
-3. AGENTS.md：以 Markdown 格式编写的 Agent 指令，是 .cursor/rules 的简洁替代方案（一般来说很少使用）。
+1. 项目规则：存储在 .`cursor`/rules 中，受版本控制，作用范围限定在你的代码库内
+2. 用户规则：在整个 `Cursor` 环境中全局生效，由 `Agent`（`Chat`）使用
+3. AGENTS.md：以 `Markdown` 格式编写的 `Agent` 指令，是 .`cursor`/rules 的简洁替代方案（一般来说很少使用）。
 
-旧版本的.cursorrules 规则文件已经被废弃，当前我还是更推荐写在 .cursor/rules 中的项目规则。
+旧版本的.cursorrules 规则文件已经被废弃，当前我还是更推荐写在 .`cursor`/rules 中的项目规则。
 
-不同于面向全部项目生效的用户规则配置这么简单，项目规则需要根据不同类型的开发项目进行针对性撰写，尤其是其中的角色定位、技术栈选择、代码规范等要求，rules 要想写全写好，还真不是个简单事。为此，我的想法是——先找到一个通用的 rules 模板，然后 AI 编辑器中让 AI 分析当前项目的同事，结合我们之前给定的 rules 模板，生成一个符合我们当前项目要求的 rules。我当前使用 rules 模板如下：
+不同于面向全部项目生效的用户规则配置这么简单，项目规则需要根据不同类型的开发项目进行针对性撰写，尤其是其中的角色定位、技术栈选择、代码规范等要求，rules 要想写全写好，还真不是个简单事。为此，我的想法是——先找到一个通用的 rules 模板，然后 `AI` 编辑器中让 `AI` 分析当前项目的同事，结合我们之前给定的 rules 模板，生成一个符合我们当前项目要求的 rules。我当前使用 rules 模板如下：
 
 ```
 角色
@@ -197,9 +197,9 @@ UI和样式设计
 
 应该是根据不同场景使用不同的模型。当然，每个人的编码体验可能有所差别
 
-使用 Claude sonnet 3.5 进行编码（是的，对于执行代码来说，它比 3.7 更好。）
-使用 GPT o1/o3-mini-high 调试复杂错误。
-使用 Gemini Flash 2.0 扫描整个代码库并更新文档
+使用 `Claude` sonnet 3.5 进行编码（是的，对于执行代码来说，它比 3.7 更好。）
+使用 `GPT` o1/o3-mini-high 调试复杂错误。
+使用 `Gemini` Flash 2.0 扫描整个代码库并更新文档
 
 ## 经常使用的功能
 
@@ -207,9 +207,9 @@ UI和样式设计
 
 ### 截图生成组件
 
-除了一句话描述自己的需求，让 Cursor 生成组件代码之外，有时候我们可能会看到某个网站的某个组件设计的不错，想把这个组件的样式和逻辑复制到自己的项目中。
+除了一句话描述自己的需求，让 `Cursor` 生成组件代码之外，有时候我们可能会看到某个网站的某个组件设计的不错，想把这个组件的样式和逻辑复制到自己的项目中。
 
-在 Cursor 中，只需要截图参考的组件，让它仿照着写出来就行了。
+在 `Cursor` 中，只需要截图参考的组件，让它仿照着写出来就行了。
 
 这比起以前去 Copy 别人网站的样式，通过审查元素查看 HTML 结构和 CSS 样式，效率高的不止一点半点。
 
@@ -217,37 +217,37 @@ UI和样式设计
 
 ### 多语言翻译
 
-我们做出海 AI 应用，面向全球用户，往往需要支持多语言。
+我们做出海 `AI` 应用，面向全球用户，往往需要支持多语言。
 
-使用 NextJS 框架做全栈开发，多语言方案用的是 next-intl，只需要在项目的 messages 目录下放置语言的 json 文件即可。
+使用 `NextJS` 框架做全栈开发，多语言方案用的是 `next-intl`，只需要在项目的 messages 目录下放置语言的 `json` 文件即可。
 
-在使用 Cursor 之前，要支持多语言，我一般会先写好 en.json 的内容，再把 en.json 的内容复制到 ChatGPT，让它翻译成其他语言的 json 文件，比如 zh.json / ja.json 等，然后把翻译好的 json 文件都放置到 messages 目录下。
+在使用 `Cursor` 之前，要支持多语言，我一般会先写好 en.json 的内容，再把 en.json 的内容复制到 `ChatGPT`，让它翻译成其他语言的 `json` 文件，比如 zh.json / ja.json 等，然后把翻译好的 `json` 文件都放置到 messages 目录下。
 
 每次新增 / 修改 / 删除要支持多语言的内容，我需要先更新 en.json 的内容，再按照上面的流程更新其他语言文件的内容。效率非常的低！！！
 
-现在使用 Cursor，我还是会先更新 en.json 的内容，然后去到其他语言文件中，按下 Tab 键，快速补全，Cursor 会自动填充翻译好的内容。
+现在使用 `Cursor`，我还是会先更新 en.json 的内容，然后去到其他语言文件中，按下 `Tab` 键，快速补全，`Cursor` 会自动填充翻译好的内容。
 
-使用 Cursor 做多语言文件的翻译简直太友好了，效率有了十倍以上的提升
+使用 `Cursor` 做多语言文件的翻译简直太友好了，效率有了十倍以上的提升
 
 ## MCP
 
 ### 是什么
 
-MCP 是一种开放协议，它标准化了应用程序向 LLM 提供上下文的方式。可以将 MCP 视为 AI 应用程序的 USB-C 端口。正如 USB-C 提供了一种将设备连接到各种外围设备和配件的标准化方式一样，MCP 提供了一种将 AI 模型连接到不同数据源和工具的标准化方式。（MCP 的全称是 Model Context Protocol，是一个开放协议，它使  LLM  应用与外部数据源和工具之间的无缝集成成为可能。无论你是构建 AI 驱动的  IDE、改善  chat 交互，还是构建自定义的  AI 工作流，MCP 提供了一种标准化的方式，将 LLM 与它们所需的上下文连接起来。
+`MCP` 是一种开放协议，它标准化了应用程序向 `LLM` 提供上下文的方式。可以将 `MCP` 视为 `AI` 应用程序的 USB-C 端口。正如 USB-C 提供了一种将设备连接到各种外围设备和配件的标准化方式一样，`MCP` 提供了一种将 `AI` 模型连接到不同数据源和工具的标准化方式。（`MCP` 的全称是 Model Context Protocol，是一个开放协议，它使  `LLM`  应用与外部数据源和工具之间的无缝集成成为可能。无论你是构建 `AI` 驱动的  `IDE`、改善  `chat` 交互，还是构建自定义的  `AI` 工作流，`MCP` 提供了一种标准化的方式，将 `LLM` 与它们所需的上下文连接起来。
 
-我经常使用的只有三个 MCP
+我经常使用的只有三个 `MCP`
 
 ### deepwiki MCP
 
-**deepwiki 简介**
+**`deepwiki` 简介**
 
-deepwiki MCP 我们先放一边，先来了解下 deepwiki。
+`deepwiki` `MCP` 我们先放一边，先来了解下 `deepwiki`。
 
-deepwiki 是一个 GitHub 代码仓库智能 AI 阅读助手，这个工具可以自动将任何 GitHub 仓库转换为详细且易于阅读的知识库文档，并提供交互式图表和对话式 AI 助手，允许用户轻松理解仓库的技术细节、架构设计和使用方法。
+`deepwiki` 是一个 `GitHub` 代码仓库智能 `AI` 阅读助手，这个工具可以自动将任何 `GitHub` 仓库转换为详细且易于阅读的知识库文档，并提供交互式图表和对话式 `AI` 助手，允许用户轻松理解仓库的技术细节、架构设计和使用方法。
 
 它的网站为是https://deepwiki.com/
 
-使用方法也很简单，直接在搜索栏搜索一个我们想要查找的 github 项目，比如我们想要查找 vxe-table 的文档：
+使用方法也很简单，直接在搜索栏搜索一个我们想要查找的 `github` 项目，比如我们想要查找 `vxe-table` 的文档：
 
 [](./images//deepwiki-search.png)
 
@@ -255,9 +255,9 @@ deepwiki 是一个 GitHub 代码仓库智能 AI 阅读助手，这个工具可�
 
 [](./images//deepwiki-detail.png)
 
-可以看到，deepwiki 对 vxe-table 这个 github 项目进行了重新整理归纳，形成了一个包含简介、架构、构建与脚本、单文件组件、服务端渲染、集成与兼容的一个综合性知识库文档。文档中除了文字还包含大量的图表信息，如架构图、流程图等，我们可以清晰的了解项目的整体结构和状态流转。
+可以看到，`deepwiki` 对 `vxe-table` 这个 `github` 项目进行了重新整理归纳，形成了一个包含简介、架构、构建与脚本、单文件组件、服务端渲染、集成与兼容的一个综合性知识库文档。文档中除了文字还包含大量的图表信息，如架构图、流程图等，我们可以清晰的了解项目的整体结构和状态流转。
 
-到这里还没完，deepwiki 的一个很重要功能是，它可以通过内置的对话型 AI 助手，让用户可以自己与 AI 交互，去理解仓库的仓库的技术细节、架构设计或使用方法。比如，如果我想深入了解一下 vex-table 中，分页功能的具体实现细节，我们可以直接在网页下面的搜索工具里面输入：
+到这里还没完，`deepwiki` 的一个很重要功能是，它可以通过内置的对话型 `AI` 助手，让用户可以自己与 `AI` 交互，去理解仓库的仓库的技术细节、架构设计或使用方法。比如，如果我想深入了解一下 vex-table 中，分页功能的具体实现细节，我们可以直接在网页下面的搜索工具里面输入：
 
 [](./images//deepwiki-AI-search.png)
 
@@ -267,19 +267,19 @@ deepwiki 是一个 GitHub 代码仓库智能 AI 阅读助手，这个工具可�
 
 如果我们想继续提问，可以在底部对话框中继续输入问题，属实厉害！
 
-**deepwiki MCP 简介**
+**`deepwiki` `MCP` 简介**
 
-Devin 官方后来也推出了 deepwiki MCP 服务，这对某些开源项目的开发者来说可谓是一个重大利好，相当于免费拥有一个比官方文档更只能，更详细的项目文档。它可以从 GitHub 仓库或 Deepwiki 网站（deepwiki.com）获取最新的文档或代码库内容，通过 MCP 协议将爬取的内容转换为 Markdown 格式，供 Cursor 使用，特别适合需要查看 GitHub 仓库文档的场景。
+Devin 官方后来也推出了 `deepwiki` `MCP` 服务，这对某些开源项目的开发者来说可谓是一个重大利好，相当于免费拥有一个比官方文档更只能，更详细的项目文档。它可以从 `GitHub` 仓库或 `Deepwiki` 网站（deepwiki.com）获取最新的文档或代码库内容，通过 `MCP` 协议将爬取的内容转换为 `Markdown` 格式，供 `Cursor` 使用，特别适合需要查看 `GitHub` 仓库文档的场景。
 
-DeepWiki MCP 提供三种主要工具：
+`DeepWiki` `MCP` 提供三种主要工具：
 
 - read_wiki_structure：获取仓库文档的结构和主题
 - read_wiki_contents：获取仓库文档的详细内容
-- ask_question：对指定仓库提出问题，获取基于仓库文档和代码的 AI 回复
+- ask_question：对指定仓库提出问题，获取基于仓库文档和代码的 `AI` 回复
 
 **接入**
 
-点开 cursor AI setting => Tools & MCP => Add a Custom MCP Server ，添加如下：
+点开 `cursor` `AI` setting => Tools & `MCP` => Add a Custom `MCP` Server ，添加如下：
 
 ```json
 {
@@ -293,26 +293,26 @@ DeepWiki MCP 提供三种主要工具：
 
 **如何使用**
 
-使用方法也很简单，直接在 chat 里加上 use deepwiki 和 你想查找的代码库这俩关键字就可以了
+使用方法也很简单，直接在 `chat` 里加上 use `deepwiki` 和 你想查找的代码库这俩关键字就可以了
 比如:
 
 [](./images//deepwiki-cursor-search.png)
 
-它能够直接分析 vex-table 的官方文档中相关的文档和源码，对你的代码做出相应的更改，不用来回切换线上文档和编辑器，大幅度提高编码的准确性和效率。而且由于官方文档一直是最新的，能够有效避免 AI 幻觉问题（还是不能完全避免）。与之前我们通过@Docs 引入官方文档的做法，Deepwiki MCP 显然更方便和全面。
+它能够直接分析 vex-table 的官方文档中相关的文档和源码，对你的代码做出相应的更改，不用来回切换线上文档和编辑器，大幅度提高编码的准确性和效率。而且由于官方文档一直是最新的，能够有效避免 `AI` 幻觉问题（还是不能完全避免）。与之前我们通过@Docs 引入官方文档的做法，`Deepwiki` `MCP` 显然更方便和全面。
 
 **使用场景**
 
 我通常会在这几个方面使用它
 
-- 快速查询使用代码库文档/API。
-- 针对解决开发过程中遇到的代码库/npm 包相关问题。
+- 快速查询使用代码库文档/`API`。
+- 针对解决开发过程中遇到的代码库/`npm` 包相关问题。
 - 快速了解代码库的文档结构
 
 ### context7
 
 **简介**
 
-Context7 MCP 是 upstash 开发的 MCP 工具，它解决了 AI 知识过时的问题，这个工具能让 AI 获取最新、版本特定的文档和代码示例，从而让 AI 辅助编程时减少错误信息（幻觉）并提高效率。
+`Context7` `MCP` 是 upstash 开发的 `MCP` 工具，它解决了 `AI` 知识过时的问题，这个工具能让 `AI` 获取最新、版本特定的文档和代码示例，从而让 `AI` 辅助编程时减少错误信息（幻觉）并提高效率。
 
 官方网址：https://context7.com/。
 
@@ -323,7 +323,7 @@ Context7 MCP 是 upstash 开发的 MCP 工具，它解决了 AI 知识过时的�
 
 **接入**
 
-点开 cursor AI setting => Tools & MCP => Add a Custom MCP Server ，添加如下：
+点开 `cursor` `AI` setting => Tools & `MCP` => Add a Custom `MCP` Server ，添加如下：
 
 ```json
 {
@@ -337,73 +337,73 @@ Context7 MCP 是 upstash 开发的 MCP 工具，它解决了 AI 知识过时的�
 
 **如何使用**
 
-使用方法与 deepwiki 类似，直接在 chat 提示词中加上 `use context7` 关键字即可。Context7 会自动识别你提到的库或框架，并获取最新的文档和代码示例。
+使用方法与 `deepwiki` 类似，直接在 `chat` 提示词中加上 `use context7` 关键字即可。`Context7` 会自动识别你提到的库或框架，并获取最新的文档和代码示例。
 
-例如，当你想使用最新的 React 18 特性时，可以这样提问：
+例如，当你想使用最新的 `React` 18 特性时，可以这样提问：
 
-"使用 React 18 的新特性创建一个组件，use context7"
+"使用 `React` 18 的新特性创建一个组件，use `context7`"
 
-或者想了解某个库的最新 API：
+或者想了解某个库的最新 `API`：
 
-"如何使用 Next.js 15 的服务器组件？use context7"
+"如何使用 Next.js 15 的服务器组件？use `context7`"
 
-Context7 会自动解析你的需求，查找相关的库文档，并获取最新版本的文档内容，确保生成的代码符合最新的 API 和最佳实践。
+`Context7` 会自动解析你的需求，查找相关的库文档，并获取最新版本的文档内容，确保生成的代码符合最新的 `API` 和最佳实践。
 
 **使用场景**
 
-我通常会在以下场景使用 Context7：
+我通常会在以下场景使用 `Context7`：
 
-- **学习新框架或库**：当需要学习新的框架、库或工具时，Context7 可以提供最新的官方文档和代码示例，帮助快速上手
-- **使用新版本特性**：当框架或库发布了新版本，想使用新 API 或特性时，Context7 可以确保获取的是最新版本的文档，避免使用已废弃的 API
-- **调试和问题排查**：遇到问题时，Context7 可以获取最新的文档和示例，帮助理解正确的用法和最佳实践
-- **代码重构和优化**：需要重构代码或优化实现时，Context7 可以提供当前版本的最佳实践和推荐模式
+- **学习新框架或库**：当需要学习新的框架、库或工具时，`Context7` 可以提供最新的官方文档和代码示例，帮助快速上手
+- **使用新版本特性**：当框架或库发布了新版本，想使用新 `API` 或特性时，`Context7` 可以确保获取的是最新版本的文档，避免使用已废弃的 `API`
+- **调试和问题排查**：遇到问题时，`Context7` 可以获取最新的文档和示例，帮助理解正确的用法和最佳实践
+- **代码重构和优化**：需要重构代码或优化实现时，`Context7` 可以提供当前版本的最佳实践和推荐模式
 
-**Deepwiki 和 Context7 有什么区别**
+**`Deepwiki` 和 `Context7` 有什么区别**
 
-Context7 与 Deepwiki 很像 ，不过还是有点区别
+`Context7` 与 `Deepwiki` 很像 ，不过还是有点区别
 
 1. 核心定位与目标
-   Deepwiki MCP：专注解析 GitHub 开源项目，生成结构化技术文档， 帮助快速理解项目架构与代码逻辑
-   Context7 MCP：提供实时版本特定的文档和代码示例，解决 AI 知识过时和“幻觉”问题，确保代码符合最新版本的 API 规范
+   `Deepwiki` `MCP`：专注解析 `GitHub` 开源项目，生成结构化技术文档， 帮助快速理解项目架构与代码逻辑
+   `Context7` `MCP`：提供实时版本特定的文档和代码示例，解决 `AI` 知识过时和“幻觉”问题，确保代码符合最新版本的 `API` 规范
 2. 数据来源
-   Deepwiki MCP：主要从 GitHub 仓库获取信息，可能受仓库文档更新延迟影响，覆盖项目整体结构与代码逻辑
-   Context7 MCP：直接从官方文档源获取数据，确保文档实时性与准确性，重点关注 npm 包和库的官方文档
+   `Deepwiki` `MCP`：主要从 `GitHub` 仓库获取信息，可能受仓库文档更新延迟影响，覆盖项目整体结构与代码逻辑
+   `Context7` `MCP`：直接从官方文档源获取数据，确保文档实时性与准确性，重点关注 `npm` 包和库的官方文档
 3. 功能特点
-   Deepwiki MCP：提供交互式架构图和流程图，支持对话式 AI 问答（针对项目），生成功能描述和技术栈分析，三种主要工具：read_wiki_structure（获取仓库文档结构和主题）、read_wiki_contents（获取文档详细内容）、ask_question（对指定仓库提问）
-   Context7 MCP：提供版本特定的文档，注入最新代码示例到 AI 上下文，两种主要工具：resolve_library_id（根据提示词查找库名 ID）、get_library_docs（根据库 ID 获取对应文档内容）
+   `Deepwiki` `MCP`：提供交互式架构图和流程图，支持对话式 `AI` 问答（针对项目），生成功能描述和技术栈分析，三种主要工具：read_wiki_structure（获取仓库文档结构和主题）、read_wiki_contents（获取文档详细内容）、ask_question（对指定仓库提问）
+   `Context7` `MCP`：提供版本特定的文档，注入最新代码示例到 `AI` 上下文，两种主要工具：resolve_library_id（根据提示词查找库名 ID）、get_library_docs（根据库 ID 获取对应文档内容）
 4. 应用场景
-   Deepwiki MCP：快速理解新开源项目的整体结构，学习项目架构设计和技术栈选择，深入了解代码实现逻辑，评估和对比不同开源项目，查询 GitHub 仓库文档和 API
-   Context7 MCP：学习新框架或库的最新用法，使用新版本特性和 API，获取最新的官方文档和最佳实践，调试时查找正确的 API 用法，确保代码与当前版本兼容
+   `Deepwiki` `MCP`：快速理解新开源项目的整体结构，学习项目架构设计和技术栈选择，深入了解代码实现逻辑，评估和对比不同开源项目，查询 `GitHub` 仓库文档和 `API`
+   `Context7` `MCP`：学习新框架或库的最新用法，使用新版本特性和 `API`，获取最新的官方文档和最佳实践，调试时查找正确的 `API` 用法，确保代码与当前版本兼容
 5. 覆盖范围
-   Deepwiki MCP：覆盖整个 GitHub 项目（代码、文档、结构），适合需要全面了解项目的场景，支持大型项目的整体分析
-   Context7 MCP：专注于库和框架的官方文档，更适合查询特定 API 和使用方法，主要关注文档文件，而非代码文件
+   `Deepwiki` `MCP`：覆盖整个 `GitHub` 项目（代码、文档、结构），适合需要全面了解项目的场景，支持大型项目的整体分析
+   `Context7` `MCP`：专注于库和框架的官方文档，更适合查询特定 `API` 和使用方法，主要关注文档文件，而非代码文件
 6. 时效性
-   Deepwiki MCP：依赖 GitHub 仓库的更新频率，可能存在信息滞后
-   Context7 MCP：实时获取官方文档源数据，时效性更高
+   `Deepwiki` `MCP`：依赖 `GitHub` 仓库的更新频率，可能存在信息滞后
+   `Context7` `MCP`：实时获取官方文档源数据，时效性更高
 
-根据我对这两个 MCP 的使用过程来看，如果单论防止 AI 幻觉，Context7 要比 Deepwiki 好点，而且 Context7 可以从不同版本解析代码库，但是如果要论项目的理解深度来说， Deepwiki 要比 Context7 好的多，因为 Deepwiki 是从代码 + 文档角度分析项目的，而 Context7 是从文档角度分析项目的。但是这俩 MCP 都有同一个缺点：搜索的库要么不全，要么特定版本没有。在 Deepwiki 中，一些冷门的库搜索不到， context7 中搜索库，版本可能又不全，比如搜索 VXE-Table，查到的版本只有两个：
+根据我对这两个 `MCP` 的使用过程来看，如果单论防止 `AI` 幻觉，`Context7` 要比 `Deepwiki` 好点，而且 `Context7` 可以从不同版本解析代码库，但是如果要论项目的理解深度来说， `Deepwiki` 要比 `Context7` 好的多，因为 `Deepwiki` 是从代码 + 文档角度分析项目的，而 `Context7` 是从文档角度分析项目的。但是这俩 `MCP` 都有同一个缺点：搜索的库要么不全，要么特定版本没有。在 `Deepwiki` 中，一些冷门的库搜索不到， `context7` 中搜索库，版本可能又不全，比如搜索 `VXE-Table`，查到的版本只有两个：
 [](./images//context7-vexTable.png)
-遇见这种情况，要么等有人将库传到 Deepwiki 或者 context7 中，要么自己手动去传，我尝试了一下自己去传，速度还挺快的。
+遇见这种情况，要么等有人将库传到 `Deepwiki` 或者 `context7` 中，要么自己手动去传，我尝试了一下自己去传，速度还挺快的。
 
 ### MCP-Feedback-Enhanced
 
 **简介**
 
-MCP-feedback-enhanced 是一个面向开发者的反馈驱动型工作流工具，核心目标是通过用户反馈优化 AI 操作，减少平台成本并提升开发效率。
+`MCP`-feedback-enhanced 是一个面向开发者的反馈驱动型工作流工具，核心目标是通过用户反馈优化 `AI` 操作，减少平台成本并提升开发效率。
 
 地址：https://github.com/Minidoracat/mcp-feedback-enhanced
 
-直观的说就是，这个工具会让 AI 在完成阶段性任务后，不直接退出，而是先征求开发者意见，根据开发者的反馈，再决定退出还是继续一下步操作。当这个 mcp 被触发时，它会唤起一个基于 Qt GUI 开发的新界面，并提供更为丰富的反馈选项，具体有：
+直观的说就是，这个工具会让 `AI` 在完成阶段性任务后，不直接退出，而是先征求开发者意见，根据开发者的反馈，再决定退出还是继续一下步操作。当这个 `mcp` 被触发时，它会唤起一个基于 `Qt` `GUI` 开发的新界面，并提供更为丰富的反馈选项，具体有：
 
-- AI summary：先让 AI 梳理总结一下已经完成的工作，然后用户可以基于此给出反馈。
-- 图像上传：支持 PNG/JPG 等多种格式，并且自动压缩至 1MB 以内，支持拖放和粘贴（Ctrl+V）。
+- `AI` summary：先让 `AI` 梳理总结一下已经完成的工作，然后用户可以基于此给出反馈。
+- 图像上传：支持 `PNG`/`JPG` 等多种格式，并且自动压缩至 1MB 以内，支持拖放和粘贴（`Ctrl`+V）。
 - 多语言切换：英语、繁简中文，根据系统语言自动切换，支持界面内实时切换。
 
 他可以有效减少 token 的使用量
 
 **接入**
 
-点开 cursor AI setting => Tools & MCP => Add a Custom MCP Server ，添加如下：
+点开 `cursor` `AI` setting => Tools & `MCP` => Add a Custom `MCP` Server ，添加如下：
 
 ```json
 {
@@ -418,11 +418,11 @@ MCP-feedback-enhanced 是一个面向开发者的反馈驱动型工作流工具�
 
 **如何使用**
 
-与前几个 mcp 一样，直接在 chat 里你的语句加入 use mcp-feedback-enhanced 就行了
+与前几个 `mcp` 一样，直接在 `chat` 里你的语句加入 use `mcp`-feedback-enhanced 就行了
 比如：
 [](./images//mcpFeedBackEnhancedSearch.png)
 
-允许 mcp 调用后，会打开一个 GUI 窗口，可以输入文字。
+允许 `mcp` 调用后，会打开一个 `GUI` 窗口，可以输入文字。
 
 [](./images//feedback.png)
 
@@ -434,12 +434,12 @@ MCP-feedback-enhanced 是一个面向开发者的反馈驱动型工作流工具�
 
 https://cursor.com/cn/docs/account/pricing
 
-注： [Cursor 的收费方式发生了更改](https://cursor.com/cn/docs/account/pricing)。如果按照之前的依据请求次数收费，我们可以通过调用 mcp-feedback-enhanced 压缩请求次数，通过不断询问用户是否问题已经解决，尽可能将所有更改压缩到一次请求中以减少请求次数。但是由于 Cursor 的收费方式变为现在请求额度收费（其实就是按照输入、输出总的 token 量收费），我们通过延长会话来减少计费次数的想法已经失效。
-在新计费模式下，mcp-feedback-enhanced 的主要价值（节省费用）已失效，它现在最大的价值我认为应该是：通过交互反馈提高任务完成质量，减少返工，也可以通过这种方式确保 AI 理解需求后再继续，避免方向性错误。
+注： [Cursor 的收费方式发生了更改](https://cursor.com/cn/docs/account/pricing)。如果按照之前的依据请求次数收费，我们可以通过调用 `mcp`-feedback-enhanced 压缩请求次数，通过不断询问用户是否问题已经解决，尽可能将所有更改压缩到一次请求中以减少请求次数。但是由于 `Cursor` 的收费方式变为现在请求额度收费（其实就是按照输入、输出总的 token 量收费），我们通过延长会话来减少计费次数的想法已经失效。
+在新计费模式下，`mcp`-feedback-enhanced 的主要价值（节省费用）已失效，它现在最大的价值我认为应该是：通过交互反馈提高任务完成质量，减少返工，也可以通过这种方式确保 `AI` 理解需求后再继续，避免方向性错误。
 
 **使用场景**
 
-我通常会在以下场景中使用 MCP-Feedback-Enhanced
+我通常会在以下场景中使用 `MCP`-Feedback-Enhanced
 
 1. 复杂任务的分步确认
 2. 需求不明确时的迭代澄清
